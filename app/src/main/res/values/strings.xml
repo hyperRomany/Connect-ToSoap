@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">هايبروان</string>
+    <string name="info">تحذير</string>
+    <string name="text">هل أنت متاكد من أنك تريد حذف هذا العنصر</string>
+    <string name="delete_all_items">هل أنت متاكد من أنك تريد حذف كل العناصر</string>
+
+    <string name="delete_all_items_cyclecount">تم التصدير بنجاح</string>
+
+    <string name="text_for_serial">هل أنت متاكد من أنك تريد حذف هذا السيريال</string>
+    <string name="textforpurchaseorder">هل أنت متاكد من أنك تريد حذف أخر أمرتحويل</string>
+    <string name="textforpurchaseorderReciev">هل أنت متاكد من أنك تريد حذف أخر أمرأستلام</string>
+
+    <string name="textforupdateQTY">هذا الباركود تم أضافته من قبل..هل تريد</string>
+
+    <string name="ok">موافق</string>
+    <string name="text_not_same_cop_cod">ليس لديك صلاحيه لتحميل هذا الأمر</string>
+    <string name="textfordeletelastsearch">لقد قمت بأختيار مخازن مختلفه عن أخر مره.. أضغط موافق لأنشاء أمر تحويل جديد</string>
+    <string name="textfornewsearch">لايوجد أمر تحويل .. أضغط موافق لأنشاء أمر جديد</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="textcheckinternet">من فضلك افحص الشبكه</string>
+    <string name="numberofitemstoupload">هل أنت متاكد من أنك تريد رفع</string>
+    <string name="user_not_found">المستخدم غير موجود</string>
+</resources>

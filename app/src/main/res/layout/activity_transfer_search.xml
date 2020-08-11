@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransfereModule.TransferSearchActivity"
+    android:layoutDirection="rtl"
+    android:background="@color/main_background_color"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:background="@color/main_background_color"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/liner_btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical">
+
+
+        <!-- <android.support.design.widget.TextInputLayout
+             android:id="@+id/usernameWrapper"
+             android:layout_width="0dp"
+             android:layout_weight="3.5"
+             android:layout_height="wrap_content"
+             android:textColorHint="@color/first_blue"
+             >-->
+
+        <EditText
+            android:inputType="numberDecimal"
+            android:textColor="@color/third_white"
+            android:textColorHint="@color/third_white"
+            android:id="@+id/edit_barcode_for_saop"
+            android:layout_width="0dp"
+            android:layout_weight="3.5"
+            android:layout_height="wrap_content"
+            android:hint="أدخل الباركود"
+            android:textDirection="rtl"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:backgroundTint="@color/colorAccent"
+            android:maxLength="13"
+            />
+
+        <Button
+            android:id="@+id/btn_search_barcode"
+            android:layout_width="0dp"
+            android:layout_weight="1.3"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/secod_red"
+            android:onClick="SearchBarCodeFromSoap"
+            android:text="بحث"
+            android:textColor="@color/third_white"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/background_layout"
+        android:padding="5dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="وصف الصنف"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_descripation_search"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="وصف الصنف"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="كود الصنف"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_code_item_search"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="كود الصنف"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="حاله الصنف"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_state_item_search"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="حاله الصنف"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="من مخزن"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_from_site_search"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="من مخزن"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+            <Spinner
+                android:id="@+id/spiner_storage_location_from"
+                android:layout_width="0dp"
+                android:layout_weight="1.6"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:backgroundTint="@color/third_white"
+                android:textColor="@color/third_white"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="المتاح بالمخزن"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_available_to_site_search"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="المتاح بالمخزن"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+            <TextView
+                android:id="@+id/txt_available_meinh_to_site_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="الى مخزن"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_to_site_search"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="الى مخزن"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+            <Spinner
+                android:id="@+id/spiner_storage_location_to"
+                android:layout_width="0dp"
+                android:layout_weight="1.6"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:backgroundTint="@color/third_white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.6"
+                android:layout_height="wrap_content"
+                android:text="الكميه المطلوبه"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+
+            <EditText
+                android:inputType="numberDecimal"
+                android:id="@+id/edit_asked_from_site_search"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:hint="المطلوب تحويله"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:backgroundTint="@color/colorAccent"
+                android:textColorHint="@color/third_white"
+                android:textColor="@color/third_white"
+                android:enabled="false"/>
+
+            <TextView
+                android:id="@+id/txt_asked_meinh_from_site_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/liner_btn_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_weight="1.25"
+            android:layout_height="45dp"
+            android:text="حفظ"
+            android:textColor="@color/third_white"
+            android:background="@color/secod_red"
+            android:onClick="SaveDelivered"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <Button
+            android:id="@+id/btn_show_buy_data"
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="45dp"
+            android:text="عرض بيانات الشراء"
+            android:textColor="@color/third_white"
+            android:background="@color/secod_red"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:onClick="Show_Buy_Data"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_height="40dp"
+        android:layout_weight="1.25"
+        android:background="@color/secod_red"
+        android:onClick="Go_To_Upload_Form"
+        android:text="إرسال"
+        android:textColor="@color/third_white"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        />
+
+</LinearLayout>
+</ScrollView>

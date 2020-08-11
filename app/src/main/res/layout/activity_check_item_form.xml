@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceivingModule.CheckItemFormActivity"
+    android:padding="9dp"
+    android:background="@color/main_background_color"
+    >
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+        android:background="@color/main_background_color"
+        >
+
+    <HorizontalScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:orientation="horizontal"
+
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:background="@drawable/module_bg_items"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="6dp">
+
+    <include layout="@layout/recycle_item_for_po_item"
+        android:visibility="visible"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_items_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+   >
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="حذف"
+        android:background="@drawable/logn_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/third_white"
+        android:onClick="Delete_PDNEWQTY"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        />
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="تعديل"
+        android:background="@drawable/logn_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/third_white"
+        android:onClick="Edit_PDNEWQTY"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        />
+
+    </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanBarcode.ScanBarcodActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ScanBarcode.ScanBarcodActivity"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:gravity="center">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:orientation="horizontal"
+          android:weightSum="2">
+
+        <RadioButton
+            android:id="@+id/radio_salah"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="مخزن صالة"
+            android:checked="true"
+            />
+        <RadioButton
+            android:id="@+id/radio_aome"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="مخزن عمومى"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <RadioButton
+            android:id="@+id/radio_karagea"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="مخزن خارجية"
+            />
+        <RadioButton
+            android:id="@+id/radio_gamla"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="مخزن جملة"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+        <RadioButton
+            android:id="@+id/radio_mortagahat"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="مخزن مرتجعات"
+            />
+        <RadioButton
+            android:id="@+id/radio_kamat"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="مخزن خامات"
+            />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ed_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="الباركود"
+        android:layout_marginTop="15dp"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/ed_qty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="الكمية"
+        android:layout_marginTop="15dp"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/ed_zone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="المنطقة"
+        android:layout_marginTop="15dp"
+        />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/third_white"
+        android:text="حفظ"
+        android:background="@drawable/logn_btn"
+
+        android:layout_marginTop="20dp"/>
+
+    <EditText
+        android:id="@+id/edit_csv_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="أسم الملف"
+        />
+
+    <Button
+        android:id="@+id/btn_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/third_white"
+        android:text="تصدير"
+        android:background="@drawable/logn_btn"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        />
+</LinearLayout>
+</ScrollView>

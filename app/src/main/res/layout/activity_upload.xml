@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceivingModule.UploadActivity"
+    android:padding="10dp"
+    android:background="@color/main_background_color"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layoutDirection="rtl">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_height="wrap_content"
+                android:text="أمر الشراء"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+
+            <TextView
+                android:id="@+id/txt_po_number"
+                android:layout_width="0dp"
+                android:layout_weight="1.8"
+                android:layout_height="wrap_content"
+                android:text="Po_Number"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/font_size_for_text_of_app"
+               android:textColor="@color/third_white" />
+
+        </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        >
+        <RadioButton
+            android:id="@+id/radio_ftp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FTP"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            />
+        <RadioButton
+            android:id="@+id/radio_sap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAP"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            android:checked="true"
+            />
+
+    </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_export"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logn_btn"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:text="تصدير"
+            android:textColor="@color/third_white"
+            android:onClick="Upload"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+
+        <Button
+            android:id="@+id/btn_Get_Document"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logn_btn"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            android:text="رقم التصدير"
+            android:textColor="@color/third_white"
+            android:onClick="Get_Document"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/txt_response"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Response"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            android:layout_gravity="right"/>
+
+    </LinearLayout>
+</ScrollView>

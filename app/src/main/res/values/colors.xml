@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#3766B4</color>
+    <color name="colorPrimary">#547AB9</color>
+    <color name="colorAccent">#4F5252</color>
+
+    <color name="first_blue">#204FA3</color>
+    <color name="secod_red">#547AB9</color>
+    <color name="third_white">#fff</color>
+    <color name="red">#F60303</color>
+
+
+    <color name="third">#BEC8E1</color>
+    <color name="four">#DCE2F0</color>
+    2B2B2B
+    <color name="main_background_color">#4A8EFF</color>
+
+    <color name="main_color">#0C630E</color>
+    <color name="bg_sales_avsilable">#D89B18</color>
+
+</resources>

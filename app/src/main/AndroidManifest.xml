@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.connecttosoapapiapp">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.DELETE_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+
+        android:windowSoftInputMode="stateHidden">
+        <activity android:name=".Promotion.ReviewActivity"></activity>
+        <activity android:name=".Promotion.PromItemDetailsActivity" />
+        <activity android:name=".Promotion.ShowItemsPromotionActivity" />
+        <activity android:name=".Promotion.SearchForGetPromotionActivity" />
+        <activity android:name=".Promotion.MainPromotionActivity" />
+        <activity android:name=".ItemAvailability.ScanItemAvailabilityActivity" />
+        <activity android:name=".ItemReturn.UploadItemReturnActivity" />
+        <activity android:name=".ItemReturn.EditItemReturnActivity" />
+        <activity android:name=".ItemReturn.ShowItemsReturnItemActivity" />
+        <activity android:name=".ItemReturn.ScanItemsReturnActivity" />
+        <activity android:name=".ItemReturn.MainItemReturnActivity" />
+        <activity android:name=".ScanBarcode.ScanBarcodActivity" />
+        <activity android:name=".GIModule.UploadGiActivity" />
+        <activity
+            android:name=".GIModule.EditGIItemActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".GIModule.ShowItemsForGIActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".GIModule.ScanGIActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".GIModule.MainFormOfGIActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".CycleCount.CycleCountActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".MainActivity"
+            android:label="MainModules"
+             />
+        <activity
+            android:name=".CycleCount.ScanActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".ReceivingModule.ScanRecievingActivity"
+            android:label="ScanRecievingActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+
+        <activity
+            android:name=".ReceivingModule.UploadActivity"
+            android:label="UploadActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CycleCount.EditItemForCycleCountActivity" />
+        <activity android:name=".CycleCount.ShowItemscycleCountActivity" />
+        <activity
+            android:name=".TransfereModule.Edit_Order_DataActivity"
+            android:label="Edit_Order_DataActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".TransfereModule.ShowOrderDataActivity"
+            android:label="ShowOrderDataActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".TransfereModule.TransferSearchActivity"
+            android:label="TransferSearchActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".TransfereModule.FormTransferActivity"
+            android:label="FormTransferActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".TransfereModule.UploadForTransferActivity" />
+
+        <activity
+            android:name=".ReceivingModule.EditSerialActivity"
+            android:label="EditSerialActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ReceivingModule.SerialViewFormActivity"
+            android:label="SerialViewFormActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ReceivingModule.ReceivingActivity"
+            android:label="ReceivingActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ReceivingModule.NewSerialFormActivity"
+            android:label="NewSerialFormActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ReceivingModule.ShowBuyDataActivity"
+            android:label="ShowBuyDataActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ReceivingModule.EditItemActivity"
+            android:label="EditItemActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ReceivingModule.CheckItemFormActivity"
+            android:label="CheckItemFormActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".CycleCount.UploadCycleCountActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.connecttosoapapiapp.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CycleCount.ScanActivity"
+    android:layoutDirection="rtl"
+    android:background="@color/main_background_color"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="عدد الباركود"
+                android:textColor="@color/third_white"/>
+
+            <TextView
+                android:id="@+id/txt_num_of_barcodes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="عدد الباركود"
+                android:textColor="@color/third_white"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginTop="10dp">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2.2"
+                >
+
+                <LinearLayout
+                    android:id="@+id/linear_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="دورة جرد من "
+                        android:textColor="@color/third_white"
+                        />
+                    <EditText
+                        android:id="@+id/edit_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/third_white"
+                        android:inputType="number"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="دورة جرد الى"
+                        android:textColor="@color/third_white"
+                        />
+                    <EditText
+                        android:id="@+id/edit_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/third_white"
+                        android:inputType="number"
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_get_info"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".9"
+                android:text=" تحميل دورة الجرد" />
+
+            <ProgressBar
+                android:id="@+id/progress_get_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight=".9"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="الباركود"
+                android:textColor="@color/third_white"/>
+            <EditText
+                android:id="@+id/edit_Barcode"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:textColor="@color/third_white"
+                android:inputType="number"/>
+            <Button
+                android:id="@+id/btn_search_barcode"
+                android:onClick="Search_BarCodeOfCycleCount"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="بحث"/>
+
+
+        </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           >
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="وصف الصنف"
+               android:textColor="@color/third_white"/>
+           <TextView
+               android:id="@+id/txt_describtion"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/third_white"
+               android:text="الوصف"
+               android:gravity="center_horizontal"/>
+
+       </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="wrap_content"
+                android:text="الكميه"
+                android:textColor="@color/third_white"/>
+            <EditText
+                android:id="@+id/edit_qty"
+                android:layout_width="0dp"
+                android:layout_weight="1.8"
+                android:layout_height="wrap_content"
+                android:textColor="@color/third_white"
+                android:hint="الكميه"
+                android:gravity="center_horizontal"
+                android:inputType="numberDecimal"/>
+
+            <TextView
+                android:id="@+id/txt_unite"
+                android:layout_width="0dp"
+                android:layout_weight=".9"
+                android:layout_height="wrap_content"
+                android:text="وحدة القياس"
+                android:textColor="@color/third_white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight=".55"
+                android:layout_height="wrap_content"
+                android:text="السيريال"
+                android:textColor="@color/third_white"/>
+            <TextView
+                android:id="@+id/txt_Serial"
+                android:layout_width="0dp"
+                android:layout_weight="1.7"
+                android:layout_height="wrap_content"
+                android:textColor="@color/third_white"
+                android:text="السيريال"
+                android:gravity="center_horizontal"/>
+
+            <Button
+                android:id="@+id/save_Qty"
+                android:layout_width="0dp"
+                android:layout_weight=".9"
+                android:layout_height="wrap_content"
+                android:text="حفظ"
+                android:onClick="save_Qty"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_show_Saved_Data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
+                android:text="عرض البيانات"
+                android:onClick="show_Saved_Data"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="تصدير دورة الجرد"
+                android:layout_marginStart="10dp"
+                android:onClick="Upload_saved_Data"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

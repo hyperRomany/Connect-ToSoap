@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/main_background_color"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal|center_vertical"
+    android:background="@color/main_background_color"
+    >
+    <!-- android:visibility="gone" -->
+
+
+    <TextView
+        android:id="@+id/txt_module_recieving"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_to_receiving_module"
+        android:padding="15dp"
+        android:text="Module Reciving"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone"  />
+
+    <TextView
+        android:id="@+id/txt_module_transafer"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_to_transfer_module"
+        android:padding="15dp"
+        android:text="Module Transfer"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/txt_module_cyclecount"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_to_cyclecount_module"
+        android:padding="15dp"
+        android:text="Module CycleCount"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone"  />
+
+    <TextView
+        android:id="@+id/txt_module_GI"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_to_GI_module"
+        android:padding="15dp"
+        android:text="GI to cc"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone"  />
+
+    <TextView
+        android:id="@+id/txt_ScanBarCode"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_Scan_Barcode_module"
+        android:padding="15dp"
+        android:text="Scan Barcode"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txt_ReturnItem"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_Return_Ite_module"
+        android:padding="15dp"
+        android:text="Return Item"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone"  />
+
+
+    <TextView
+        android:id="@+id/txt_item_availabilty"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_Item_Availability"
+        android:padding="15dp"
+        android:text="Item Availability"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txt_promotion"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_promotion"
+        android:padding="15dp"
+        android:text="Promotion"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</LinearLayout>
+</ScrollView>

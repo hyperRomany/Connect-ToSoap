@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    android:background="@color/main_background_color"
+    android:layoutDirection="rtl"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_background_color"
+    android:padding="15dp"
+    android:gravity="center_vertical|center_horizontal"
+    >
+
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:src="@drawable/logo"
+        android:backgroundTintMode="src_over"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background_layout_for_edittext_in_login"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/usernameWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/first_blue"
+            android:textStyle="bold"
+            app:hintTextAppearance="@dimen/font_size_for_text_of_app_for_login_up"
+           >
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="أسم المستخدم"
+                android:textColor="@color/third_white"
+                android:textColorHint="@color/first_blue"
+                android:textDirection="rtl"
+                android:textSize="@dimen/font_size_for_text_of_app_for_login_ed"
+                android:textStyle="bold"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/person12"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/first_blue"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            app:hintTextAppearance="@dimen/font_size_for_text_of_app_for_login_up">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="كلمه السر"
+                android:inputType="textPassword"
+                android:textColor="@color/third_white"
+                android:textColorHint="@color/first_blue"
+                android:textDirection="rtl"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app_for_login_ed"
+                android:backgroundTint="@color/colorAccent"
+                android:drawableStart="@drawable/key_icon12"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="الدخول"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/third_white"
+        android:background="@drawable/logn_btn"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:drawableEnd="@drawable/loginhogo"
+        android:drawableTint="@color/third_white"
+        android:padding="5dp"
+        android:layout_marginBottom="5dp"
+        />
+    <TextView
+        android:id="@+id/txt_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="V"
+        android:textColor="@color/third_white"
+        />
+
+</LinearLayout>
+</ScrollView>

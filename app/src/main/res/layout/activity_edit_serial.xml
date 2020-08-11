@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceivingModule.EditSerialActivity"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layoutDirection="rtl"
+    android:background="@color/main_background_color"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:background="@color/main_background_color"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="الباركود"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <TextView
+            android:id="@+id/txt_barcode_edit"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.8"
+            android:layout_height="wrap_content"
+            android:text="الوصف"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <TextView
+            android:id="@+id/txt_descripation_for_serial_form"
+            android:layout_width="0dp"
+            android:layout_weight="3.2"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.8"
+            android:layout_height="wrap_content"
+            android:text="السيريال القديم"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <TextView
+            android:id="@+id/txt_old_serial"
+            android:layout_width="0dp"
+            android:layout_weight="3.2"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:layout_marginTop="15dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.8"
+            android:layout_height="wrap_content"
+            android:text="السيريال الجديد"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+
+        <EditText
+            android:id="@+id/edit_current_serials_form"
+            android:layout_width="0dp"
+            android:layout_weight="3.2"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:hint="Edit Your Serial"
+            android:inputType="number"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/third_white"
+            android:textColorHint="@color/third_white"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="تعديل"
+        android:background="@drawable/logn_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/third_white"
+        android:onClick="UpdateSerial"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        />
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceivingModule.ReceivingActivity"
+    android:background="@color/main_background_color"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@color/main_background_color"
+        >
+
+        <EditText
+            android:id="@+id/edit_purchaseorder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:hint="أدخل أمر الشراء"
+            android:inputType="number"
+            android:textColor="@color/third_white"
+            android:textColorHint="@color/third_white"
+            android:textSize="@dimen/font_size_for_text_of_app" />
+
+        <Button
+            android:id="@+id/btn_loading_last_purchase_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تحميل أخر امر شراء"
+            android:background="@color/first_blue"
+            android:textColor="@color/third_white"
+            android:layout_marginTop="50dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <Button
+            android:id="@+id/btn_loading_new_purchase_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تحميل امر شراء جديد"
+            android:background="@color/first_blue"
+            android:textColor="@color/third_white"
+            android:layout_marginTop="50dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <ProgressBar
+            android:id="@+id/prog_loading_purchesorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+</ScrollView>

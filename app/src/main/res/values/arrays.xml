@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="IT_GOODSMVT">
+        <!--Zero or more repetitions:-->
+        <item>
+            <PSTNG_DATE>2019-04-23</PSTNG_DATE>
+            <DOC_DATE>2019-04-23</DOC_DATE>
+            <PO_NUMBER>1000048785</PO_NUMBER>
+            <PO_ITEM>00030</PO_ITEM>
+            <NO_MORE_GR>X</NO_MORE_GR>
+            <SPEC_STOCK>0</SPEC_STOCK>
+            <MATERIAL>000000110000054423</MATERIAL>
+            <PLANT>01SA</PLANT>
+            <STGE_LOC>SELL</STGE_LOC>
+            <ENTRY_QNT>1</ENTRY_QNT>
+            <ENTRY_UOM>EA</ENTRY_UOM>
+            <EAN_UPC>18208925070</EAN_UPC>
+            <SERNP></SERNP>
+        </item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReceivingModule.SerialViewFormActivity"
+    android:padding="9dp"
+    android:layoutDirection="rtl"
+    android:background="@color/main_background_color"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/main_background_color"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="الباركود"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_barcode"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.8"
+                android:layout_height="wrap_content"
+                android:text="الوصف"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_descripation_for_serial"
+                android:layout_width="0dp"
+                android:layout_weight="3.2"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                android:text="dffffffffffdfd"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="15dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:text="عدد السيريال"
+                android:textStyle="bold"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+            <TextView
+                android:id="@+id/txt_quantity_for_serial"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textColor="@color/third_white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            >
+<TextView
+    android:layout_width="0dp"
+    android:layout_weight="1.2"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:text="أدخل السيريال"
+    android:textSize="@dimen/font_size_for_text_of_app"
+    />
+                <EditText
+                    android:id="@+id/edit_current_serials"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:hint="أدخل السيريال"
+                    android:textDirection="rtl"
+                    android:layout_marginStart="5dp"
+                    android:inputType="number"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textColorHint="@color/third_white"
+                    android:textColor="@color/third_white"
+                    />
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:text="أضافه"
+                android:background="@color/first_blue"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/third_white"
+                android:onClick="ADDSerialForm"
+                android:layout_marginStart="20dp"
+                android:textSize="@dimen/font_size_for_text_of_app"
+
+                />
+        </LinearLayout>
+
+        <HorizontalScrollView xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/module_bg_items"
+            android:orientation="horizontal"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <include
+                    layout="@layout/recycle_item_for_po_serial"
+                    android:visibility="visible" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_serials_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            >
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="حذف"
+                android:background="@drawable/logn_btn"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/third_white"
+                android:onClick="Delete_serial"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="تعديل"
+                android:background="@drawable/logn_btn"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/third_white"
+                android:onClick="Edit_serial"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

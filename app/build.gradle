@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.connecttosoapapiapp"
+
+        //TODO upgrate Api from 21 to 24 for this Calendar.getInstance();
+        //TODO downgrate Api from 21 to 16 for test on my old phone
+
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 8
+        versionName "1.8"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        useLibrary 'org.apache.http.legacy'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            multiDexEnabled true
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.2'
+    /*
+                                                        implementation files('libs/ksoap2.jar')
+                                                        implementation files('libs/axis2-transport-http-1.7.9.jar')
+                                                        implementation files('libs/httpclient-4.5.3.jar')
+                                                        implementation files('libs/apache-mime4j-core-0.7.2.jar')
+                                                        */
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    // implementation 'com.github.andyxialm:ColorDialog:1.0.0'
+    implementation 'net.gotev:uploadservice:3.5.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
+    // implementation 'net.gotev:uploadservice:3.5.2'
+    //you need only ksoap not all of this
+    //implementation files('libs/ksoap2-base-3.4.0.jar')
+    // implementation files('libs/ksoap2-base-2.6.0.jar')
+    /* implementation files('libs/axis2-transport-http-1.7.9.jar')
+                implementation files('libs/axis2-transport-local-1.7.9.jar')
+                implementation files('libs/apache-mime4j-core-0.7.2.jar')
+                implementation files('libs/axis2-adb-1.7.9.jar')
+                implementation files('libs/axis2-kernel-1.7.9.jar')
+                implementation files('libs/commons-httpclient-3.1.jar')
+                implementation files('libs/httpclient-4.5.3.jar')
+                implementation files('libs/httpcore-4.4.6.jar')*/
+    //implementation files('libs/ksoap2.jar')
+    // implementation files('libs/ksoap2-android-assembly-3.6.4-jar-with-dependencies.jar')
+    //implementation files('libs/ksoap2-android-assembly-2.6.0-jar-with-dependencies.jar')
+    //implementation files('libs/ksoap2-android-assembly-2.4-jar-with-dependencies_patchCimoli.jar')
+    implementation files('libs/commons-net-3.6.jar')
+}
