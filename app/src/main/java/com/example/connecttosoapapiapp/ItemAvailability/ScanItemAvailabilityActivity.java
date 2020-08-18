@@ -169,7 +169,7 @@ Button btn_export;
         }else if (site_list.size() ==0){
             Toast.makeText(this, "أختر الموقع أولا", Toast.LENGTH_SHORT).show();
         }else {
-
+            ReturnSearchList.clear();
             getLoaderManager().initLoader(LOADER_ID, null, ScanItemAvailabilityActivity.this);
 
 
