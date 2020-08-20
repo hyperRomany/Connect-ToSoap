@@ -27,6 +27,7 @@ import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Header;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
+import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
 import com.example.connecttosoapapiapp.TransfereModule.FormTransferActivity;
 
 import org.json.JSONException;
@@ -44,11 +45,14 @@ public class MainItemReturnActivity extends AppCompatActivity {
     public StringRequest request=null;
     List<String> pur_org_list ,pur_grp_list;
     List<Item_Return_Header> headerList;
+    List<Users> userdataList;
+    String check_of_UserCode;
 
 EditText edt_vendor;
 TextView txt_user_code;
     Spinner spiner_pur_org,spiner_pur_grp;
     DatabaseHelperForItemReturn databaseHelperForItemReturn;
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +70,15 @@ TextView txt_user_code;
         getlistfromsqlserver();
 databaseHelperForItemReturn=new DatabaseHelperForItemReturn(this);
         // To get user code
-//        databaseHelper=new DatabaseHelper(this);
-//        userdataList=new ArrayList<>();
-//
-//        userdataList = databaseHelper.getUserData();
+        databaseHelper=new DatabaseHelper(this);
+        userdataList=new ArrayList<>();
+
+        userdataList = databaseHelper.getUserData();
 //        txt_user_code.setText(userdataList.get(0).getCompany1());
-//        check_of_UserCode=txt_user_code.getText().toString().substring(1,3);
-//        Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
-        txt_user_code.setText("01RT");
+        check_of_UserCode=userdataList.get(0).getCompany1().toString().substring(1,3);
+        Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
+//        txt_user_code.setText("01RT");
+        txt_user_code.setText(check_of_UserCode+"RT");
 
         headerList = databaseHelperForItemReturn.selectReturn_Header();
         if (headerList.size() !=0){

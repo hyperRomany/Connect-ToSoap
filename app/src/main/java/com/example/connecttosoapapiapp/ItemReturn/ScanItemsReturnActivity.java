@@ -23,6 +23,8 @@ import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Header;
 import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Search;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
+import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
+import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
 import com.example.connecttosoapapiapp.TransfereModule.ShowOrderDataActivity;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STo_Search;
 
@@ -50,6 +52,9 @@ public class ScanItemsReturnActivity extends AppCompatActivity
     List<Item_Return_Search> item_return_searcheslist;
     List<Item_Return_Header> headerList;
     List<Item_Return_Search> STo_searchlist;
+    DatabaseHelper databaseHelper;
+    List<Users> userdataList;
+    String check_of_UserCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +72,16 @@ public class ScanItemsReturnActivity extends AppCompatActivity
         btn_generate_item_return=findViewById(R.id.btn_generate_item_return);
         btn_search_barcode=findViewById(R.id.btn_search_barcode);
 
+        // To get user code
+        databaseHelper=new DatabaseHelper(this);
+        userdataList=new ArrayList<>();
+
+        userdataList = databaseHelper.getUserData();
+//        txt_user_code.setText(userdataList.get(0).getCompany1());
+        check_of_UserCode=userdataList.get(0).getCompany1().toString().substring(1,3)+"RT";
+        Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
+//        txt_user_code.setText("01RT");
+        Log.e("zzzzzz",":"+check_of_UserCode);
 
         headerList = databaseHelperForItemReturn.selectReturn_Header();
         if (headerList.size() !=0){
@@ -193,7 +208,7 @@ public class ScanItemsReturnActivity extends AppCompatActivity
                 SoapObject request =new SoapObject(Constant.NAMESPACE_For_Search_Barcode_returnitem , Constant.METHOD_For_Search_Barcode_returnitem);
                 request.addProperty("GTIN", edt_barcode.getText().toString());
                 request.addProperty("P_ORG", P_ORG);
-                request.addProperty("SITE", "01RT");
+                request.addProperty("SITE", check_of_UserCode);
                 request.addProperty("VENDOR", VENDOR);
 
                 RETURN="Empty";
