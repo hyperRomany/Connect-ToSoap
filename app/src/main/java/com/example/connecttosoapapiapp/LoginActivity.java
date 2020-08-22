@@ -441,8 +441,13 @@ public class LoginActivity extends AppCompatActivity {
 
                       Toast.makeText(LoginActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     Log.e("zzzVersionDataarray","dfdf"+VersionDataarray.size());
+                    Log.e("zzzVersionDataarray","  "+Double.valueOf(GetVersionOfApp()));
+                    Log.e("zzzVersionDataarray","  "+Double.valueOf(VersionDataarray.get(0)));
                     if (VersionDataarray.size() !=0) {
-                        if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
+                        //TODO check more than
+                      //  if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
+                        if (Double.valueOf(GetVersionOfApp())< Double.valueOf(VersionDataarray.get(0))) {
+
                             Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
 //                        DownloadData(Uri.parse(Constant.ApksURL));
 //                        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
@@ -484,7 +489,8 @@ public class LoginActivity extends AppCompatActivity {
         }else if (editpassword.getText().toString().isEmpty()) {
             editpassword.setError("من فضلك أدخل كلمه السر");
         }else if(VersionDataarray.size() !=0){
-            if(!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))){
+        //    if(!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))){
+            if (Double.valueOf(GetVersionOfApp())< Double.valueOf(VersionDataarray.get(0))) {
                 Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
             }else if(!DateOfDevice.equals(DateFromnServer)){
                 Toast.makeText(this, "أضبط تاريخ الجهاز", Toast.LENGTH_SHORT).show();

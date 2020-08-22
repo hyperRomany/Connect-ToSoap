@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -27,6 +25,8 @@ import com.example.connecttosoapapiapp.Promotion.Modules.NoteModule;
 import com.example.connecttosoapapiapp.Promotion.Modules.Prom_item_Module;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
+import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
+import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -47,6 +47,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class ReviewActivity extends AppCompatActivity {
     String Barcode,Superviser_id,Superviser_username;
     Boolean modify_for_all;
@@ -64,6 +66,9 @@ public class ReviewActivity extends AppCompatActivity {
     Button btn_ReviewDone;
     String InsertAllOrInsertLastChange;
     List<String> InsetallornotList;
+    String check_of_UserCode;
+    DatabaseHelper databaseHelper;
+    List<Users> userdataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +109,13 @@ public class ReviewActivity extends AppCompatActivity {
 
             Log.e("zzzmodify_for_all",""+modify_for_all);
         }
+
+        // To get user code
+        databaseHelper=new DatabaseHelper(this);
+        userdataList=new ArrayList<>();
+        userdataList = databaseHelper.getUserData();
+        check_of_UserCode=userdataList.get(0).getCompany1()/*.toString().substring(1,3)*/;
+    //    Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
 
         databaseHelperForProotion=new DatabaseHelperForProotion(this);
 
@@ -420,7 +432,10 @@ public class ReviewActivity extends AppCompatActivity {
                     }else {
                         prom_item_module.setOtherNotes1(prom_item_moduleList.get(i).getOtherNotes1());
                     }
+
+                    prom_item_module.setCompany(check_of_UserCode);
                     prom_item_moduleListforUpload.add(prom_item_module);
+
 
                 }
                 /*Gson gson=new Gson();

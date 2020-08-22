@@ -25,6 +25,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.connecttosoapapiapp.Promotion.Helper.DatabaseHelperForProotion;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
+import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
+import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +56,9 @@ DatabaseHelperForProotion databaseHelperForProotion;
 Button btn_search_prom;
 String TodayOrActive="";
 LinearLayout linear_of_date;
+    String check_of_UserCode;
+    DatabaseHelper databaseHelper;
+    List<Users> userdataList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +77,14 @@ LinearLayout linear_of_date;
         check_promotion_Department=findViewById(R.id.check_promotion_Department);
         sp_Department=findViewById(R.id.sp_Department);
         check_promotionforarticle=findViewById(R.id.check_promotionforarticle);
+
+        // To get user code
+        databaseHelper=new DatabaseHelper(this);
+        userdataList=new ArrayList<>();
+        userdataList = databaseHelper.getUserData();
+        check_of_UserCode=userdataList.get(0).getCompany1().toString().substring(2,3);
+        Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
+
 
         if (getIntent().getExtras() !=null){
             TodayOrActive=getIntent().getExtras().getString("TodayOrActive");
@@ -273,6 +286,7 @@ LinearLayout linear_of_date;
                                  Toast.makeText(SearchForGetPromotionActivity.this, "العرض غير موجود..تأكد من الاخيارات", Toast.LENGTH_SHORT).show();
                              }
                         } catch (JSONException e) {
+                            Log.e("zzzerror","scacsasca" +e.getMessage() );
                             e.printStackTrace();
                             Toast.makeText(SearchForGetPromotionActivity.this, "لم يتم العثور على العرض .. راجع البيانات مره أخرى", Toast.LENGTH_SHORT).show();
                         }
@@ -367,7 +381,7 @@ LinearLayout linear_of_date;
                             ,enddate,Integer.valueOf(department),
                             Barcode,false,check_promotionforarticle.isChecked(),check_promotiondate.isChecked()));
                 }
-
+                params.put("UserType",check_of_UserCode);
 
                 return params;
             }
@@ -375,7 +389,7 @@ LinearLayout linear_of_date;
         };
 
         // Add the realibility on the connection.
-        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+        request.setRetryPolicy(new DefaultRetryPolicy(500000, 1, 1.0f));
 
         // Start the request immediately
         queue.add(request);

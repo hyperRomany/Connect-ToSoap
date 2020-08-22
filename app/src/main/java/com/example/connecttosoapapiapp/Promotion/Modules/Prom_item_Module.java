@@ -24,6 +24,7 @@ public class Prom_item_Module {
     public static final String discountvalue = "discountvalue";
     public static final String note_id = "note_id";
 
+
     public static final String supervisor_id = "supervisor_id";
     public static final String supervisor_name = "supervisor_name";
     public static final String OtherNotes = "OtherNotes";
@@ -45,7 +46,6 @@ public class Prom_item_Module {
                     + item_desc + " VARCHAR(20),"
                     + qty_std_price + " VARCHAR(20),"
                     + return_type + " VARCHAR(20),"
-
                     + sell_price + " VARCHAR(20),"
                     + vatrate + " VARCHAR(20),"
                     + discountvalue + " VARCHAR(20),"
@@ -53,13 +53,21 @@ public class Prom_item_Module {
                     + supervisor_id + " VARCHAR(20),"
                     + supervisor_name + " VARCHAR(20),"
                     + OtherNotes + " VARCHAR(200)"
-
                     + ")";
 
     private String Discountno1, Date_from1, Date_to1, Discounttype1, Prom_desc1, last_modified_time1,
             prom_post1, status1, itemean1, department1, barcode1, item_desc1,return_type1,
-            sell_price1,qty_std_price1,vatrate1,discountvalue1,note_id1,supervisor_id1,supervisor_name1,OtherNotes1;
+            sell_price1,qty_std_price1,vatrate1,discountvalue1,note_id1,
+            supervisor_id1,supervisor_name1,OtherNotes1,Company;
 private  Boolean UpdateOrInsert;
+
+    public String getCompany() {
+        return Company;
+    }
+
+    public void setCompany(String company) {
+        Company = company;
+    }
 
     public Boolean getUpdateOrInsert() {
         return UpdateOrInsert;
