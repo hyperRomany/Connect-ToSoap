@@ -86,7 +86,7 @@ public class ScanItemAvailabilityActivity extends AppCompatActivity
     String Depart,KQTY,GQTY,TotalQTYFor23,BarcodeFor23,editbarcode;
     VolleyError volleyErrorPublic;
     TextView txt_descripation,txt_code_item,txt_state_item,txt_available_in_site,txt_unite,txt_grp,
-            txt_sales_today/*,txt_available_minus_sales*/,txt_price;
+            txt_sales_today/*,txt_available_minus_sales*/,txt_price, txt_state_barcode;
     Button btn_search_barcode;
     String Article="";
     List<Users> userdataList;
@@ -114,7 +114,7 @@ Button btn_export;
         txt_available_in_site=findViewById(R.id.txt_available_in_site);
         txt_unite=findViewById(R.id.txt_unite);
         txt_grp=findViewById(R.id.txt_grp);
-
+        txt_state_barcode=findViewById(R.id.txt_state_barcode);
      //   txt_available_minus_sales=findViewById(R.id.txt_available_minus_sales);
         txt_sales_today=findViewById(R.id.txt_sales_today);
 
@@ -160,6 +160,7 @@ Button btn_export;
         txt_code_item.setText("كود الصنف");
         txt_descripation.setText("الوصف");
         txt_state_item.setText("حالة الصنف");
+        txt_state_barcode.setText("حاله الباركود");
         txt_unite.setText("وحدة القياس");
         txt_sales_today.setText("مبيعات اليوم");
         txt_price.setText("سعر القطعه");
@@ -280,7 +281,7 @@ Button btn_export;
                 Toast.makeText(ScanItemAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
                 
                 if (ReturnSearchList.get(8).equalsIgnoreCase("1")) {
-                    edt_barcode.setError("هذا الباركود غير فعال");
+                    edt_barcode.setError("هذا الصنف غير فعال");
                 }  else {
 
                     txt_descripation.setText(ReturnSearchList.get(1));
@@ -288,12 +289,12 @@ Button btn_export;
 
 
                     if (ReturnSearchList.get(3).equalsIgnoreCase("0")){
-                        txt_state_item.setText("الباركود فعال");
+                        txt_state_item.setText("الصنف فعال");
 
                 }else if (ReturnSearchList.get(3).equalsIgnoreCase("1")) {
-                        txt_state_item.setText("الباركود غير فعال");
+                        txt_state_item.setText("الصنف غير فعال");
                         txt_state_item.setTextColor(getResources().getColor(R.color.red));
-                        edt_barcode.setError("الباركود غير فعال");
+                        edt_barcode.setError("الصنف غير فعال");
                     }
                     txt_available_in_site.setText(ReturnSearchList.get(6));
                     txt_unite.setText(ReturnSearchList.get(2));
@@ -567,11 +568,16 @@ Button btn_export;
                                             edt_barcode.requestFocus();
                                         txt_sales_today.setText(object.getString("qty"));
                                         txt_price.setText(object.getString("price"));
+                                        if (Integer.valueOf(object.getString("status_for_barcode")) == 0) {
+                                            txt_state_barcode.setText("الباركود فعال");
+                                        }else if (Integer.valueOf(object.getString("status_for_barcode")) == 1){
+                                            txt_state_barcode.setText("الباركود  غير فعال");
+                                        }else if (Integer.valueOf(object.getString("status_for_barcode")) == -1){
+                                            txt_state_barcode.setText("الباركود غير موجود");
+                                        }
                                             // edit_current_deliver.setText(null);
 //                                            CreateORUpdateRecycleView(postionForsave);
                                             Toast.makeText(ScanItemAvailabilityActivity.this, "تم", Toast.LENGTH_SHORT).show();
-
-
                                     } else {
                                        // Toast.makeText(ScanItemAvailabilityActivity.this, , Toast.LENGTH_SHORT).show();
                                   //      edt_barcode.setError("الباركود غير موجود");

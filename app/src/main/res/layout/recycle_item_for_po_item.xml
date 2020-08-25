@@ -5,13 +5,14 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="horizontal"
     android:layoutDirection="ltr"
+    android:id="@+id/main_linear_of_item"
     >
         <CheckBox
             android:id="@+id/checkbox_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            android:focusable="true"/>
+            />
 
 
         <TextView
@@ -41,6 +42,15 @@ android:orientation="horizontal"
             android:visibility="gone"
             />
         <TextView
+            android:id="@+id/txt_ean11"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="الباركود"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+        <!--android:textIsSelectable="true" -->
+        <TextView
             android:id="@+id/txt_delivered_quantity"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -64,15 +74,7 @@ android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:textSize="@dimen/font_size_for_text_of_app"
             />
-        <TextView
-            android:id="@+id/txt_ean11"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:text="الباركود"
-            android:gravity="center_horizontal"
-            android:textSize="@dimen/font_size_for_text_of_app"
-            android:textIsSelectable="true"
-            />
+
         <TextView
             android:id="@+id/txt_vendor_nam"
             android:layout_width="130dp"

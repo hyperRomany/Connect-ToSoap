@@ -81,8 +81,7 @@ public class ItemOfPoItemsAdapter extends RecyclerView.Adapter<ItemOfPoItemsAdap
         holder.txtdelivered_quantity.setText(po_item.getPDNEWQTY1());
         holder.txt_pounite.setText(po_item.getMEINH1());
         holder.txt_ean11.setText(po_item.getEAN111());
-
-//        holder.txt_ean11.setTextIsSelectable(true);
+      // holder.txt_ean11.setTextIsSelectable(true);
 //
 //        holder.txtmaterial.requestFocus();
        // Log.e("btn_editChecked000",""+ItemsList.size());

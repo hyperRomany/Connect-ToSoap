@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.connecttosoapapiapp.R;
@@ -22,7 +23,7 @@ public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDeliever
         CheckBox checkBox;
         public TextView txt_nu,txtmaterial, txt_vendornam, txt_shorttext,
         txtquantity,txtdelivered_quantity,txt_pounite,txt_ean11;
-
+        LinearLayout main_linear_of_item;
         public MyViewHolder(View view) {
             super(view);
             checkBox = view.findViewById(R.id.checkbox_item);
@@ -34,6 +35,7 @@ public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDeliever
             txtdelivered_quantity = view.findViewById(R.id.txt_delivered_quantity);
             txt_pounite =  view.findViewById(R.id.txt_po_unite);
             txt_ean11 =  view.findViewById(R.id.txt_ean11);
+            main_linear_of_item=view.findViewById(R.id.main_linear_of_item);
         }
     }
 
@@ -50,26 +52,32 @@ public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDeliever
         return new MyViewHolder(itemView);
     }
 
+   // @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
          po_item = ItemsList.get(position);
         if (po_item.getChecked_Item()){
             holder.checkBox.setChecked(true);
+  //          holder.main_linear_of_item.setBackgroundColor(R.color.red);
         }else {
             holder.checkBox.setChecked(false);
+  //          holder.main_linear_of_item.setBackgroundColor(R.color.third_white);
+
         }
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
+      //      @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
                 if (holder.checkBox.isChecked()){
                     //po_item.setChecked_Item(true);
                     ItemsList.get(position).setChecked_Item(true);
                   //  Log.e("editChecked",""+ItemsList.get(position).getMATERIAL1());
+    //                holder.main_linear_of_item.setBackgroundColor(R.color.red);
 
                 }else if (!holder.checkBox.isChecked()){
                     //po_item.setChecked_Item(false);
                     ItemsList.get(position).setChecked_Item(false);
-                   // Log.e("editCheckedUN",""+ItemsList.get(position).getMATERIAL1());
+    //                holder.main_linear_of_item.setBackgroundColor(R.color.third_white);
                 }
             }
         });
@@ -83,6 +91,7 @@ public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDeliever
         holder.txtdelivered_quantity.setText(po_item.getPDNEWQTY1());
         holder.txt_pounite.setText(po_item.getPO_UNIT1());
         holder.txt_ean11.setText(po_item.getEAN111());
+//        holder.txt_ean11.setTextIsSelectable(true);
 
         //            android:textIsSelectable="true"
 //        holder.txt_ean11.setTextIsSelectable(true);
