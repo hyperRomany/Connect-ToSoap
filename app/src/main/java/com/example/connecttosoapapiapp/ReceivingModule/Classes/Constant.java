@@ -185,15 +185,16 @@ public class Constant {
     public static String SOAP_ACTION_For_Upload_GI="urn:sap-com:document:sap:rfc:functions:zppc_GI:Z_PPC_GOODS_ISSUE_CC_EHRequest";
 
 /*****************************************////// for search Item Return
-public static String NAMESPACE_For_Search_Barcode_returnitem="urn:sap-com:document:sap:rfc:functions";
+    public static String NAMESPACE_For_Search_Barcode_returnitem="urn:sap-com:document:sap:rfc:functions";
     public static String METHOD_For_Search_Barcode_returnitem="ZBAPI_PPC_SEARCH_PURCH";
-    public static String URL_For_Search_Barcode_returnitem="http://ERP-DEV.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_purch/120/zws_ppc_search_purch_sn/zws_ppc_search_purch_bn";
+    public static String URL_For_Search_Barcode_returnitem="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_purch/300/zws_ppc_search_purch_sn/zws_ppc_search_purch_bn";
     public static String SOAP_ACTION_For_Search_Barcode_returnitem="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_SEARCH_PURCH:ZBAPI_PPC_SEARCH_PURCHRequest";
 
     //*//////////////////////  for create item return
     public static String NAMESPACE_For_create_returnitem="urn:sap-com:document:sap:rfc:functions";
     public static String METHOD_For_create_returnitem="ZBAPI_PPC_CREATE_RETURN_PO";
-    public static String URL_For_create_returnitem="http://ERP-DEV.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/120/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn";
+    //http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn
+    public static String URL_For_create_returnitem="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn";
     public static String SOAP_ACTION_For_create_returnitem="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_RETURN_PO:ZBAPI_PPC_CREATE_RETURN_PORequest";
 
 
@@ -206,7 +207,7 @@ public static String NAMESPACE_For_Search_Barcode_returnitem="urn:sap-com:docume
     public final static String ListfornotsFromSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/GetNots.php";
 
 
-    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active.php";
+    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/Update/SP_PROM_GetPromotions_Active.php";
 
 //    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active_issue.php";
 

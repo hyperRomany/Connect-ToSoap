@@ -48,7 +48,6 @@
             android:textDirection="rtl"
             android:textSize="@dimen/font_size_for_text_of_app"
             android:backgroundTint="@color/colorAccent"
-            android:maxLength="13"
             />
 
         <Button

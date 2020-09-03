@@ -59,6 +59,8 @@ LinearLayout linear_of_date;
     String check_of_UserCode;
     DatabaseHelper databaseHelper;
     List<Users> userdataList;
+    String startingDate="",enddate="",Barcode="",department;
+    int ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,207 +196,209 @@ LinearLayout linear_of_date;
         }else {
             Log.e("zzzzURL", "URL is empty");
         }
-        Log.e("zzzzURL","URL is"+URL);
-        request = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        btn_search_prom.setVisibility(View.VISIBLE);
-                        String encodedstring = null;
-                        try {
-                            encodedstring = URLEncoder.encode(response,"ISO-8859-1");
-                            response = URLDecoder.decode(encodedstring,"UTF-8");
-
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                        Log.e("onResponser", "response"+response);
-                        //  Log.e("onResponse", "response"+Uri.encode(response, "utf-8").toString());
-                        Log.e("onResponse", "request"+request);
-                        try {
-
-                            JSONObject object = new JSONObject(response);
-                            //Log.e("onResponse", "object"+object);
-
-                            String statusreponse = object.getString("statusreponse");
-                             Log.e("onResponse", "object2"+statusreponse);
-
-                             if (Integer.valueOf(statusreponse) ==1) {
-                                 //TODO Delete Local DB
-                                 databaseHelperForProotion.DeletePromItems();
-
-                                 String notessize = object.getString("notessize");
-
-                                for (int i=0;i<Integer.valueOf(notessize);i++) {
-                                    String discountno = object.getString("discountno"+i);
-                                    String date_from = object.getString("date_from"+i);
-                                    String date_to = object.getString("date_to"+i);
-                                    String discounttype = object.getString("discounttype"+i);
-                                    String prom_desc = object.getString("prom_desc"+i);
-                                    String last_modified_time = object.getString("last_modified_time"+i);
-                                    String prom_post = object.getString("prom_post"+i);
-                                    String status = object.getString("status"+i);
-                                    String itemean = object.getString("itemean"+i);
-                                    String department = object.getString("department"+i);
-                                    String barcode = object.getString("barcode"+i);
-                                    String item_desc = object.getString("item_desc"+i);
-
-                                    String return_type,qty_std_price;
-                                    if (TodayOrActive.equalsIgnoreCase("Today") ||
-                                            TodayOrActive.equalsIgnoreCase("Active")){
-                                         return_type = object.getString("return_type"+i);
-                                        qty_std_price="";
-                                    }else {
-                                         qty_std_price = object.getString("qty_std_price"+i);
-                                        return_type="";
-                                    }
-                                    String sell_price = object.getString("sell_price"+i);
-                                    String vatrate = object.getString("vatrate"+i);
-                                    String discountvalue = object.getString("discountvalue"+i);
-                                    String note_id = object.getString("note_id"+i);
 
 
-                                    //TODO inset it to locl database
-                                    databaseHelperForProotion.insertProitem(
-                                            discountno,
-                                            date_from,
-                                            date_to,
-                                            discounttype,
-                                            prom_desc,
-                                            last_modified_time,
-                                            prom_post,
-                                            status,
-                                            itemean,
-                                            department,
-                                            barcode,
-                                            item_desc,
-                                            return_type,
-                                            qty_std_price,
-                                            sell_price,
-                                            vatrate,
-                                            discountvalue,
-                                            note_id
-                                    );
+        Boolean Multiselection=false;
+        if (check_promotion_ID.isChecked() ==true) {
+            if (edit_ID.getText().toString().isEmpty()) {
+                ID = 0;
+            } else {
+                ID = Integer.valueOf(edit_ID.getText().toString());
+            }
+        }else {
+            ID=0;
+        }
 
+        if (check_promotiondate.isChecked() ==true &&
+                (edit_startdate.getText().toString().isEmpty() || edit_enddate.getText().toString().isEmpty())) {
 
-                                }
-                                 Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
-                                 GotoShow.putExtra("TodayOrActive",TodayOrActive);
-                                startActivity(GotoShow);
-                               //  finish();
-                             }else {
-                                 Toast.makeText(SearchForGetPromotionActivity.this, "العرض غير موجود..تأكد من الاخيارات", Toast.LENGTH_SHORT).show();
-                             }
-                        } catch (JSONException e) {
-                            Log.e("zzzerror","scacsasca" +e.getMessage() );
-                            e.printStackTrace();
-                            Toast.makeText(SearchForGetPromotionActivity.this, "لم يتم العثور على العرض .. راجع البيانات مره أخرى", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        btn_search_prom.setVisibility(View.VISIBLE);
-                        NetworkResponse response = error.networkResponse;
-                        String errorMsg = "";
-                        if (response != null && response.data != null) {
-                            String errorString = new String(response.data);
-                            Log.i("log error", errorString);
-                        }
-                    }
+                if (edit_startdate.getText().toString().isEmpty()) {
+                    edit_startdate.setError("أدخل تاريخ البداية");
+                    edit_startdate.requestFocus();
                 }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-
-                Map<String, String> params = new HashMap<String, String>();
-
-                int ID;
-                String startingDate="",enddate="",Barcode="",department;
-                Boolean Multiselection=false;
-                if (check_promotion_ID.isChecked() ==true) {
-                    if (edit_ID.getText().toString().isEmpty()) {
-                        ID = 0;
-                    } else {
-                        ID = Integer.valueOf(edit_ID.getText().toString());
-                    }
-                }else {
-                    ID=0;
+                if (edit_enddate.getText().toString().isEmpty()) {
+                    edit_enddate.setError("أدخل تاريخ الالنهايه");
+                    edit_enddate.requestFocus();
                 }
+            btn_search_prom.setVisibility(View.VISIBLE);
 
-                if (check_promotiondate.isChecked() ==true) {
-                    if (edit_startdate.getText().toString().isEmpty() || edit_enddate.getText().toString().isEmpty()) {
-                        if (edit_startdate.getText().toString().isEmpty()) {
-                            edit_startdate.setError("أدخل تاريخ البداية");
-                            edit_startdate.requestFocus();
-                        }
-                        if (edit_enddate.getText().toString().isEmpty()) {
-                            edit_enddate.setError("أدخل تاريخ البداية");
-                            edit_enddate.requestFocus();
-                        }
-                    }else {
-                        startingDate = edit_startdate.getText().toString();
-                        enddate = edit_enddate.getText().toString();
+        }else {
+            startingDate = edit_startdate.getText().toString();
+            enddate = edit_enddate.getText().toString();
 //                        Log.e("zzzstartingDate",""+startingDate);
 //                        Log.e("zzzenddate",""+enddate);
+
+
+            Log.e("zzzzURL", "URL is" + URL);
+            request = new StringRequest(Request.Method.POST, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            btn_search_prom.setVisibility(View.VISIBLE);
+                            String encodedstring = null;
+                            try {
+                                encodedstring = URLEncoder.encode(response, "ISO-8859-1");
+                                response = URLDecoder.decode(encodedstring, "UTF-8");
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            Log.e("onResponser", "response" + response);
+                            //  Log.e("onResponse", "response"+Uri.encode(response, "utf-8").toString());
+                            Log.e("onResponse", "request" + request);
+                            try {
+
+                                JSONObject object = new JSONObject(response);
+                                //Log.e("onResponse", "object"+object);
+
+                                String statusreponse = object.getString("statusreponse");
+                                Log.e("onResponse", "object2" + statusreponse);
+
+                                if (Integer.valueOf(statusreponse) == 1) {
+                                    //TODO Delete Local DB
+                                    databaseHelperForProotion.DeletePromItems();
+
+                                    String notessize = object.getString("notessize");
+
+                                    for (int i = 0; i < Integer.valueOf(notessize); i++) {
+                                        String discountno = object.getString("discountno" + i);
+                                        String date_from = object.getString("date_from" + i);
+                                        String date_to = object.getString("date_to" + i);
+                                        String discounttype = object.getString("discounttype" + i);
+                                        String prom_desc = object.getString("prom_desc" + i);
+                                        String last_modified_time = object.getString("last_modified_time" + i);
+                                        String prom_post = object.getString("prom_post" + i);
+                                        String status = object.getString("status" + i);
+                                        String itemean = object.getString("itemean" + i);
+                                        String department = object.getString("department" + i);
+                                        String barcodeI = object.getString("barcode" + i);
+                                        String item_desc = object.getString("item_desc" + i);
+
+                                        String return_type, qty_std_price;
+                                        if (TodayOrActive.equalsIgnoreCase("Today") ||
+                                                TodayOrActive.equalsIgnoreCase("Active")) {
+                                            return_type = object.getString("return_type" + i);
+                                            qty_std_price = "";
+                                        } else {
+                                            qty_std_price = object.getString("qty_std_price" + i);
+                                            return_type = "";
+                                        }
+                                        String sell_price = object.getString("sell_price" + i);
+                                        String vatrate = object.getString("vatrate" + i);
+                                        String discountvalue = object.getString("discountvalue" + i);
+                                        String note_id = object.getString("note_id" + i);
+
+
+                                        //TODO inset it to locl database
+                                        databaseHelperForProotion.insertProitem(
+                                                discountno,
+                                                date_from,
+                                                date_to,
+                                                discounttype,
+                                                prom_desc,
+                                                last_modified_time,
+                                                prom_post,
+                                                status,
+                                                itemean,
+                                                department,
+                                                barcodeI,
+                                                item_desc,
+                                                return_type,
+                                                qty_std_price,
+                                                sell_price,
+                                                vatrate,
+                                                discountvalue,
+                                                note_id
+                                        );
+
+
+                                    }
+                                    Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
+                                    GotoShow.putExtra("TodayOrActive", TodayOrActive);
+                                    startActivity(GotoShow);
+                                    //  finish();
+                                } else {
+                                    Toast.makeText(SearchForGetPromotionActivity.this, "العرض غير موجود..تأكد من الاخيارات", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                Log.e("zzzerror", "scacsasca" + e.getMessage());
+                                e.printStackTrace();
+                                Toast.makeText(SearchForGetPromotionActivity.this, "لم يتم العثور على العرض .. راجع البيانات مره أخرى", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            btn_search_prom.setVisibility(View.VISIBLE);
+                            NetworkResponse response = error.networkResponse;
+                            String errorMsg = "";
+                            if (response != null && response.data != null) {
+                                String errorString = new String(response.data);
+                                Log.i("log error", errorString);
+                            }
+                        }
                     }
-                }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+
+                    Map<String, String> params = new HashMap<String, String>();
 
 
-                if (check_promotion_Barcode.isChecked() ==true) {
-                    if (edit_Barcode.getText().toString().isEmpty()) {
-                        edit_Barcode.setError("أدخل الباركود");
+                    if (check_promotion_Barcode.isChecked() == true) {
+                        if (edit_Barcode.getText().toString().isEmpty()) {
+                            edit_Barcode.setError("أدخل الباركود");
+                        } else {
+                            Barcode = edit_Barcode.getText().toString();
+                        }
                     } else {
-                        Barcode = edit_Barcode.getText().toString();
+                        Barcode = "";
                     }
-                }else {
-                    Barcode="";
-                }
 
-                if (check_promotion_Department.isChecked() ==true){
-                    //TODO
-                    department = pur_org_describtionlist.get(sp_Department.getSelectedItemPosition()).replace(" ","");
-                }else {
-                    department="0";
-                }
+                    if (check_promotion_Department.isChecked() == true) {
+                        //TODO
+                        department = pur_org_describtionlist.get(sp_Department.getSelectedItemPosition()).replace(" ", "");
+                    } else {
+                        department = "0";
+                    }
 
 //                Log.e("zzzzCond",""+GetPromotoins(ID
 //                        ,0,startingDate
 //                        ,enddate,Integer.valueOf(department),
 //                        Barcode,false,false,check_promotiondate.isChecked()));
 
-                if (TodayOrActive.equalsIgnoreCase("Today") ||
-                        TodayOrActive.equalsIgnoreCase("Active")){
-                    params.put("Cond",GetPromotoins(ID
-                            ,0,startingDate
-                            ,enddate,Integer.valueOf(department),
-                            Barcode,false,check_promotionforarticle.isChecked(),check_promotiondate.isChecked()));
-                }else if (TodayOrActive.equalsIgnoreCase("Expired")){
-                    params.put("Cond",GetPromotoins_Expired(ID
-                            ,0,startingDate
-                            ,enddate,Integer.valueOf(department),
-                            Barcode,false,check_promotionforarticle.isChecked(),check_promotiondate.isChecked()));
-                }else if (TodayOrActive.equalsIgnoreCase("Stoped")){
-                    params.put("Cond",GetPromotoins_Stopped(ID
-                            ,0,startingDate
-                            ,enddate,Integer.valueOf(department),
-                            Barcode,false,check_promotionforarticle.isChecked(),check_promotiondate.isChecked()));
+                    if (TodayOrActive.equalsIgnoreCase("Today") ||
+                            TodayOrActive.equalsIgnoreCase("Active")) {
+                        params.put("Cond", GetPromotoins(ID
+                                , 0, startingDate
+                                , enddate, Integer.valueOf(department),
+                                Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()));
+                    } else if (TodayOrActive.equalsIgnoreCase("Expired")) {
+                        params.put("Cond", GetPromotoins_Expired(ID
+                                , 0, startingDate
+                                , enddate, Integer.valueOf(department),
+                                Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()));
+                    } else if (TodayOrActive.equalsIgnoreCase("Stoped")) {
+                        params.put("Cond", GetPromotoins_Stopped(ID
+                                , 0, startingDate
+                                , enddate, Integer.valueOf(department),
+                                Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()));
+                    }
+                    params.put("UserType", check_of_UserCode);
+
+                    return params;
                 }
-                params.put("UserType",check_of_UserCode);
 
-                return params;
-            }
+            };
 
-        };
+            // Add the realibility on the connection.
+            request.setRetryPolicy(new DefaultRetryPolicy(500000, 1, 1.0f));
 
-        // Add the realibility on the connection.
-        request.setRetryPolicy(new DefaultRetryPolicy(500000, 1, 1.0f));
+            // Start the request immediately
+            queue.add(request);
 
-        // Start the request immediately
-        queue.add(request);
-
-
+        }
 
     }
 
@@ -547,13 +551,21 @@ LinearLayout linear_of_date;
 
     public void GetPromotion(View view) {
         btn_search_prom.setVisibility(View.GONE);
-        if (check_promotiondate.isChecked() || check_promotion_Barcode.isChecked() ||
-                check_promotion_ID.isChecked() ||
-                check_promotion_Department.isChecked() || check_promotionforarticle.isChecked()) {
+
+        // TODO let him choice without
+        if (TodayOrActive.equalsIgnoreCase("Today") ){
             getPromotionfromsqlserver();
+
         }else {
-            btn_search_prom.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "من فضلك قم بالاختيار اولا", Toast.LENGTH_SHORT).show();
+
+            if (check_promotiondate.isChecked() || check_promotion_Barcode.isChecked() ||
+                    check_promotion_ID.isChecked() ||
+                    check_promotion_Department.isChecked() || check_promotionforarticle.isChecked()) {
+                getPromotionfromsqlserver();
+            } else {
+                btn_search_prom.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "من فضلك قم بالاختيار اولا", Toast.LENGTH_SHORT).show();
+            }
         }
 //        Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
 //        startActivity(GotoShow);
@@ -575,9 +587,6 @@ LinearLayout linear_of_date;
         String Datetoday = sdf.format(new Date());
         String _cond = "";
 
-
-
-
 //        Log.e("zzzstarting1Date",""+Startingdate.substring(0,Startingdate.indexOf("/")));
 //        Log.e("zzzstarting2Date",""+Startingdate.substring(Startingdate.indexOf("/")+1,Startingdate.indexOf(",")));
 //        Log.e("zzzstarting3Date",""+Startingdate.substring(Startingdate.indexOf(",")+1,Startingdate.length()));
@@ -586,11 +595,11 @@ LinearLayout linear_of_date;
             _cond = " AND discountno = " + PromId;
 
             if (TodayOrActive.equalsIgnoreCase("Today")){
-                _cond += " AND cast ( I.date_from as date ) >=  ''" +Datetoday+"''" ;
+                //last_modified_time
+                _cond += " AND cast ( I.last_modified_time as date ) <=  ''" +Datetoday+"''" ;
             }
 
-        }
-        else {
+        }else {
 
             if (Department > 0 && !MultiDepartment)
             {
@@ -614,15 +623,16 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( I.date_from as date ) >=  ''" +Startingdate+"''"+
-                        " AND cast ( I.date_to as date ) <=  ''" +endeddate+"''";
+                _cond += " AND cast ( I.date_from as date ) <=  ''" +Startingdate+"''"+
+                        " AND cast ( I.date_to as date ) >=  ''" +endeddate+"''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
             }
 
             if (TodayOrActive.equalsIgnoreCase("Today")){
-                _cond += " AND cast ( I.date_from as date ) >=  ''" +Datetoday+"''" ;
+                //P.last_modified_time
+                _cond += " AND cast ( I.last_modified_time as date ) =  ''" +Datetoday+"''" ;
             }
 
             //العروض الجديدة فقط .. بدون تحديد فترة
@@ -705,7 +715,7 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( P.date_from as date ) >=  ''" +Startingdate+"''"+
+                _cond += " AND cast ( P.date_to as date ) >=  ''" +Startingdate+"''"+
                         " AND cast ( P.date_to as date ) <=  ''" +endeddate+"''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();

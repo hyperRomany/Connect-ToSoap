@@ -792,9 +792,8 @@ Button btn_export,btn_Get_Document;
 //            Go_To_ScanRecieving.putExtra("This Is First Time",true);
 //            Log.e("This Is First Time","true");
 //            startActivity(Go_To_ScanRecieving);
-
-
             }
+            //to get document number
             else if (ExportORGetdocument.equalsIgnoreCase("GETDocument")) {
                 if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
                     txt_response.setText("" + EnvelopeBodyInCurrent);

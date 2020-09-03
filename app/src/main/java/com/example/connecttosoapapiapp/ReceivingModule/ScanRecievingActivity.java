@@ -411,10 +411,12 @@ LinearLayout linear_parent;
                     Log.d("TotalDeliver", "" + CDeliver);
 
                     Double TotalDeliver = AskaedQuantity - (LDeliver + CDeliver);
+                    Double Reminde = (LDeliver + CDeliver) - AskaedQuantity;
+
                     Log.d("TotalDeliver", "" + TotalDeliver);
 
                     if (TotalDeliver < 0) {
-                        editcurrentdeliver.setError(   "هذه الكميه أكبر من المطلوب" /*+(AskaedQuantity)*/  );
+                        editcurrentdeliver.setError(   "هذه الكميه أكبر ب" +(Reminde)  );
                     } else {
                         String STotalDeliver = String.valueOf(LDeliver + CDeliver);
                         txtlastdeliver.setText(String.valueOf(

@@ -247,12 +247,12 @@ public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Item_Return_Search.GTIN, Barcode);
+ //       values.put(Item_Return_Search.GTIN, Barcode);
         values.put(Item_Return_Search.QTY, Qty);
-
+//TODO
         // updating row
-        return db.update(Item_Return_Search.TABLE_Item_Return_Search_NAME, values, null,
-                null);
+        return db.update(Item_Return_Search.TABLE_Item_Return_Search_NAME, values, Item_Return_Search.GTIN + " = ?",
+                new String[]{Barcode});
     }
 
 

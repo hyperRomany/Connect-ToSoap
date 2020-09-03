@@ -13,10 +13,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -43,6 +39,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class PromItemDetailsActivity extends AppCompatActivity {
 String discount_id;
 CheckBox check_modify_for_all;
@@ -50,7 +50,8 @@ DatabaseHelperForProotion databaseHelperForProotion;
 TextView txt_discoun_no,txt_status,txt_discoun_type,txt_discountcount,txt_superviser_name;
 EditText edt_superviser_code,edit_startdate,edit_enddate;
     RecyclerView recyclerView;
-    List<Prom_item_Module> prom_item_moduleList;
+    List<Prom_item_Module> prom_item_moduleList ;
+    List<Prom_item_Module> Superviser_name_IDList;
     DeatailsItemOfPromItemAdapter deatailsItemOfPromItemAdapter;
     public StringRequest request=null;
 
@@ -78,38 +79,48 @@ EditText edt_superviser_code,edit_startdate,edit_enddate;
         txt_superviser_name=findViewById(R.id.txt_superviser_name);
 
         edt_superviser_code=findViewById(R.id.edt_superviser_code);
-        edt_superviser_code.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_GO
-                        || actionId == EditorInfo.IME_ACTION_NEXT
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent == null
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER
-                         || keyEvent.isShiftPressed()){
+        databaseHelperForProotion=new DatabaseHelperForProotion(this);
 
-                    //execute our method for searching
-                    GetUsernamefromsqlserver();
+        Superviser_name_IDList=new ArrayList<>();
+        Superviser_name_IDList = databaseHelperForProotion.selectSupervisernameandID();
+        Log.e("zzzname_ID",""+Superviser_name_IDList.size());
+        if (Superviser_name_IDList.size() >0){
+            txt_superviser_name.setText(Superviser_name_IDList.get(0).getSupervisor_name1());
+            edt_superviser_code.setText(Superviser_name_IDList.get(0).getSupervisor_id1());
+        }else {
+            edt_superviser_code.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH
+                            || actionId == EditorInfo.IME_ACTION_GO
+                            || actionId == EditorInfo.IME_ACTION_NEXT
+                            || actionId == EditorInfo.IME_ACTION_DONE
+                            || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                            || keyEvent == null
+                            || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER
+                            || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
+                            || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER
+                            || keyEvent.isShiftPressed()) {
 
+                        //execute our method for searching
+                        GetUsernamefromsqlserver();
+
+                    }
+
+                    return false;
                 }
-
-                return false;
-            }
-        });
+            });
+        }
         if (getIntent().getExtras() !=null){
             discount_id=getIntent().getExtras().getString("discount_id");
             Log.e("zzzdiscount_id",""+discount_id);
         }
 
-        databaseHelperForProotion=new DatabaseHelperForProotion(this);
 
          prom_item_moduleList=new ArrayList<>();
         prom_item_moduleList = databaseHelperForProotion.selectPromItems(discount_id);
         Log.e("zzzprom_item_moduleList",""+prom_item_moduleList.size());
+
 
         if (prom_item_moduleList.size()>0) {
             txt_discoun_no.setText(prom_item_moduleList.get(0).getDiscountno1());

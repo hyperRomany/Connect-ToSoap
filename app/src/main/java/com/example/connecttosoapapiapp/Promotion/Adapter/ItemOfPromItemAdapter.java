@@ -6,12 +6,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.connecttosoapapiapp.Promotion.Modules.Prom_item_Module;
 import com.example.connecttosoapapiapp.R;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemOfPromItemAdapter
         extends RecyclerView.Adapter<ItemOfPromItemAdapter.MyViewHolder> {
@@ -21,12 +21,13 @@ public class ItemOfPromItemAdapter
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkbox_item_search;
-        public TextView txt_consultative, txt_num_prom, txt_type_prom,
+        public TextView txt_nu ,  txt_consultative, txt_num_prom, txt_type_prom,
                 txt_start_prom,txt_end_prom;
 
         public MyViewHolder(View view) {
             super(view);
             checkbox_item_search = view.findViewById(R.id.checkbox_item_search);
+            txt_nu=  view.findViewById(R.id.txt_nu);
             txt_consultative =  view.findViewById(R.id.txt_consultative);
             txt_num_prom = view.findViewById(R.id.txt_num_prom);
             txt_type_prom =  view.findViewById(R.id.txt_type_prom);
@@ -78,6 +79,8 @@ public class ItemOfPromItemAdapter
         }else {
             holder.txt_consultative.setText("لم يراجع بعد");
         }
+        holder.txt_nu.setText(""+(position+1));
+
         holder.txt_num_prom.setText(prom_item_module.getDiscountno1());
         holder.txt_type_prom.setText(prom_item_module.getDiscounttype1());
         holder.txt_start_prom.setText(prom_item_module.getDate_from1());

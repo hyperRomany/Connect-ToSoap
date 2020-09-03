@@ -263,7 +263,7 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
         // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-         Log.d("zzselectPromItemsThatHas",""+selectQuery);
+         Log.d("zzselectPsThatHas",""+selectQuery);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -307,7 +307,7 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
         // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
         Log.d("zzselectQuery",""+selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
-        Log.d("zzselectPromItemsThatHas",""+selectQuery);
+        Log.d("zzselomItemsThatHas",""+selectQuery);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -396,6 +396,55 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
         db.close();
 
         Log.d("po_itemlistsize",""+prom_item_moduleList.size());
+        // return Po_item list
+        return prom_item_moduleList;
+    }
+
+    public List<Prom_item_Module> selectSupervisernameandID(){
+        List<Prom_item_Module> prom_item_moduleList = new ArrayList<>();
+
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT *FROM " + Prom_item_Module.TABLE_Prom_NAME
+                +" where "+Prom_item_Module.supervisor_id + " > 0";
+
+//        String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME
+//                + " WHERE " +STo_Search.ISS_STG_LOG+" = '"+iss_stg_log+ "' AND "+STo_Search.REC_SITE_LOG+" = '"+rec_stg_log+ "' AND "+STo_Search.GTIN+" = "+Barcode;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        Log.d("zzselemItemsThatHas",""+selectQuery);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                Prom_item_Module prom_item_module = new Prom_item_Module();
+
+                prom_item_module.setSupervisor_id1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.supervisor_id)));
+                prom_item_module.setSupervisor_name1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.supervisor_name)));
+
+
+//                prom_item_module.setChecked_Item(false);
+
+                prom_item_moduleList.add(prom_item_module);
+                if (prom_item_moduleList.isEmpty()){
+                    Log.d("po_itemlist","empty");
+                }
+                //   Log.d("Po_Headersclass",""+po_item.getMEINH1());
+                //Log.d("Po_Headersclasslist",""+po_itemlist.get(0).getMEINH1());
+
+
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.PO_NUMBER)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR_NAME)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        // close db connection
+        db.close();
+
+        Log.d("po_itemlistsizename",""+prom_item_moduleList.size());
         // return Po_item list
         return prom_item_moduleList;
     }
