@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReceivingModule.CheckItemFormActivity"
-    android:padding="9dp"
+    android:padding="3dp"
     android:background="@color/main_background_color"
     >
 
@@ -20,7 +20,7 @@
     <HorizontalScrollView
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="450dp"
     android:orientation="horizontal"
 
         android:scrollbarAlwaysDrawHorizontalTrack="true"
@@ -48,7 +48,7 @@
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="20dp"
    >
 
     <Button

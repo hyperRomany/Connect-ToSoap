@@ -297,8 +297,8 @@ TextView txt_descripation,txt_code_item,txt_state_item,txt_available_in_site,
                             SoapObject rate = new SoapObject(Constant.NAMESPACE_For_Upload_GI, "item");
 
                             rate.addProperty("MATERIAL", Po_Item_For_Gi_Upload.get(i).getMAT_CODE1());
-//                            rate.addProperty("PLANT", Po_Item_For_Gi_Upload.get(i).getREC_SITE1());
-                            rate.addProperty("PLANT", "02SA");
+                            rate.addProperty("PLANT", Po_Item_For_Gi_Upload.get(i).getREC_SITE1());
+//                            rate.addProperty("PLANT", "02SA");
 
                             ///////////
                             rate.addProperty("STGE_LOC", Po_Item_For_Gi_Upload.get(i).getREC_SITE_LOG1());
@@ -310,6 +310,9 @@ TextView txt_descripation,txt_code_item,txt_state_item,txt_available_in_site,
 
                             rate.addProperty("COSTCENTER", CS.replaceAll(" ",""));
                             rate.addProperty("GL_ACCOUNT", "00"+GL.replaceAll(" ",""));
+
+                            ///********************
+
                             rate.addProperty("VENDOR", "");
 
 

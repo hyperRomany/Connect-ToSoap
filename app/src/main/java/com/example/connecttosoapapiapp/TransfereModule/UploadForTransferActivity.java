@@ -120,6 +120,15 @@ int Repeat_On_log=0;
         Sto_searchlist = databaseHelperForTransfer.selectSto_Search_for_Qty();
         Sto_headerlist = databaseHelperForTransfer.selectSto_Header();
 
+        //TODO
+        if( Sto_headerlist.get(0).getIss_Site1().equalsIgnoreCase("01MW")
+                || Sto_headerlist.get(0).getRec_Site1().equalsIgnoreCase("01MW")){
+            radiohtp.setChecked(true);
+            radiosap.setVisibility(View.GONE);
+        }
+        Log.e("zzonCreateU", "n "+radiohtp.isChecked());
+        Log.e("zzonCreateU", "n "+Sto_headerlist.get(0).getIss_Site1());
+        Log.e("zzonCreateU", "n "+Sto_headerlist.get(0).getRec_Site1());
 
         MachaineName = android.os.Build.MODEL;
         Log.d("Build.MODEL",""+MachaineName);

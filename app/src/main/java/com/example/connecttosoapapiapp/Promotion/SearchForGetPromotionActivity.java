@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -553,10 +554,10 @@ LinearLayout linear_of_date;
         btn_search_prom.setVisibility(View.GONE);
 
         // TODO let him choice without
-        if (TodayOrActive.equalsIgnoreCase("Today") ){
-            getPromotionfromsqlserver();
-
-        }else {
+//        if (TodayOrActive.equalsIgnoreCase("Today") ){
+//            getPromotionfromsqlserver();
+//
+//        }else {
 
             if (check_promotiondate.isChecked() || check_promotion_Barcode.isChecked() ||
                     check_promotion_ID.isChecked() ||
@@ -566,7 +567,7 @@ LinearLayout linear_of_date;
                 btn_search_prom.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "من فضلك قم بالاختيار اولا", Toast.LENGTH_SHORT).show();
             }
-        }
+//        }
 //        Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
 //        startActivity(GotoShow);
 
@@ -623,8 +624,8 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( I.date_from as date ) <=  ''" +Startingdate+"''"+
-                        " AND cast ( I.date_to as date ) >=  ''" +endeddate+"''";
+                _cond += " AND cast ( I.date_from as date ) <  ''" +Startingdate+"''"+
+                        " AND cast ( I.date_to as date ) >  ''" +endeddate+"''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
@@ -715,14 +716,15 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( P.date_to as date ) >=  ''" +Startingdate+"''"+
-                        " AND cast ( P.date_to as date ) <=  ''" +endeddate+"''";
+              //TODO THERE IS NO NEED FOR THAT
+                _cond += " AND cast ( P.date_to as date ) =  ''" +Startingdate+"''"+
+                        " AND cast ( P.date_to as date ) =  ''" +endeddate+"''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
             }
             else {
-                _cond += " AND P.date_to <= Getdate() " ;
+                _cond += " AND P.date_to = Getdate() " ;
             }
 
             //العروض الجديدة فقط .. بدون تحديد فترة
@@ -805,11 +807,13 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( P.last_modified_time as date ) >=  ''" +Startingdate+"''"+
-                        " AND cast ( P.last_modified_time as date ) <=  ''" +endeddate+"''";
+                _cond += " AND cast ( P.last_modified_time as date ) =  ''" +Startingdate+"''"+
+                        " AND cast ( P.last_modified_time as date ) =  ''" +endeddate+"''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
+            }else {
+                _cond += " AND cast ( P.last_modified_time as date ) = Getdate() " ;
             }
 
             //العروض الجديدة فقط .. بدون تحديد فترة

@@ -454,7 +454,7 @@ String FromSite,ToSite,Department;
             if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")){
                 editbarcodeforsoap.setError("هذا الباركود غير فعال");
                 edit_asked_from_site_search.setEnabled(false);
-            } else if (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")){
+            } else if (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")){//TODO check qty
                 editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
                 edit_asked_from_site_search.setEnabled(false);
             }else {
@@ -550,7 +550,7 @@ String FromSite,ToSite,Department;
         }else if (edit_asked_from_site_search.getText().toString().isEmpty()){
             edit_asked_from_site_search.setError("من فضلك أدخل الكميه");
         }else if (Double.valueOf(edit_asked_from_site_search.getText().toString()) >
-                Double.valueOf(txt_available_to_site_search.getText().toString())){
+                Double.valueOf(txt_available_to_site_search.getText().toString())){//TODO check qty
             edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن..المتاح"+txt_available_to_site_search.getText().toString());
         }else {
 
@@ -618,7 +618,7 @@ String FromSite,ToSite,Department;
                     txt_state_item_search.setText("حاله الصنف");
                     txt_available_to_site_search.setText("المتاح بالمخزن");*/
 
-                }else {
+                }else {//TODO check qty
                     edit_asked_from_site_search.setError( "هذه الكميه أكبر من المتاح بالمخزن... المتاح" +AvaliableQty);
                 }
             }

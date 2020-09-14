@@ -1,10 +1,13 @@
 package com.example.connecttosoapapiapp.ReceivingModule.Adapter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
@@ -12,6 +15,8 @@ import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class ItemOfPoItemsAdapter extends RecyclerView.Adapter<ItemOfPoItemsAdapter.MyViewHolder> {
 
@@ -81,12 +86,24 @@ public class ItemOfPoItemsAdapter extends RecyclerView.Adapter<ItemOfPoItemsAdap
         holder.txtdelivered_quantity.setText(po_item.getPDNEWQTY1());
         holder.txt_pounite.setText(po_item.getMEINH1());
         holder.txt_ean11.setText(po_item.getEAN111());
+        holder.txt_ean11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager manager = (ClipboardManager) v.getContext().getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("text", holder.txt_ean11.getText());
+                manager.setPrimaryClip(clipData);
+                Toast.makeText(v.getContext(),"تم النسخ",Toast.LENGTH_SHORT).show();
+            }
+        });
       // holder.txt_ean11.setTextIsSelectable(true);
 //
 //        holder.txtmaterial.requestFocus();
        // Log.e("btn_editChecked000",""+ItemsList.size());
     }
 
+    public void refreshView(int position) {
+        notifyItemChanged(position);
+    }
     @Override
     public int getItemCount() {
         return ItemsList.size();

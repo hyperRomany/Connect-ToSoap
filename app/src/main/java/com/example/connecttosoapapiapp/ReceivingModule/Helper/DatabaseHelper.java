@@ -1440,6 +1440,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " +Po_Header.TABLE_Po_Header_NAME);
         db.execSQL("DELETE FROM " +Po_Item.TABLE_NAME);
         db.execSQL("DELETE FROM " +PO_SERIAL.TABLE_PO_SERIAL_NAME);
+
+
         db.close();
     }
     //DeleteUserDataTables

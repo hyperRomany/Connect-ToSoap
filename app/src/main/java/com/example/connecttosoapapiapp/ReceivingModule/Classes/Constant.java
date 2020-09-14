@@ -94,7 +94,10 @@ public class Constant {
     public final static String LoginURL ="http://10.2.1.220:8080/PPCModules/LoginPPC.php";
     public static final String WriteInLogOf_sapTableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_saptable.php";
     public static final String WriteInLogs_sap_ITEMStableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_sap_ITEMStable.php";
+
     public static final String UploadToCSVFtp = "http://10.128.6.160:81/PhpProject1/UploadCSVFile.php";
+    //public static final String UploadCSVFile_ScanBarcode = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ScanBarcode.php";
+
     public static final String UploadCSVFile_ScanBarcode = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ScanBarcode.php";
 
     public static final String UploadCSVFile_ItemAvailabilitye = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ItemAvailability.php";
@@ -165,6 +168,7 @@ public class Constant {
 
     public static final String WriteInLogOf_sapTableofundefined = "http://10.2.1.220:8080/PPCModules/writeinLogs_sap_ofundefined.php";
 
+    public static final String Details_for_Update="http://10.2.1.220:8080/PPCModules/Details.php";
     //for qas
 //    public static String NAMESPACE_For_Upload_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
 //    public static String METHOD_For_Upload_Cycle_Count="ZPPC_CREATE_COUNT";
@@ -207,16 +211,17 @@ public class Constant {
     public final static String ListfornotsFromSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/GetNots.php";
 
 
-    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/Update/SP_PROM_GetPromotions_Active.php";
-
+    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active.php";
 //    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active_issue.php";
+
+    public static String GetExpiredPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Expired.php";
+    public static String GetStopedPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Stopped.php";
 
 
     public final static String GetUserNameFromSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/GetUserName.php";
 
     public final static String UpdatepromotionafterReviewonSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/UpdatepromotionAfterReview.php";
-    public static String GetExpiredPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Expired.php";
-    public static String GetStopedPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Stopped.php";
+
 
 
     public static boolean isOnline(Context context){

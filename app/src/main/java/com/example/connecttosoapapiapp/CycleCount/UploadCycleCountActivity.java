@@ -517,7 +517,7 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
 //                      .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
 //                          public void onClick(DialogInterface dialog, int whichButton) {
 
-                              databaseHelperForCycleCount.DeleteItemsTable();
+                          //    databaseHelperForCycleCount.DeleteItemsTable();
                               Intent GoToBackafter=new Intent(UploadCycleCountActivity.this, CycleCountActivity.class);
                               startActivity(GoToBackafter);
 //                          }
@@ -1154,7 +1154,7 @@ private class GetDataFromDB extends AsyncTask<Void,Void,Void>{
                         po_items_for_logs_items_sqlServer.setSAP_STO_NUMBER( CSVName);
 
                     }
-                            po_items_for_logs_items_sqlServer.setP_ORG( MATERIALDOCUMENT);
+                     po_items_for_logs_items_sqlServer.setP_ORG( MATERIALDOCUMENT);
 
                     po_items_for_logs_items_sqlServer.setP_GRP( "PHYINV");
 
