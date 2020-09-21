@@ -126,9 +126,9 @@ int Repeat_On_log=0;
             radiohtp.setChecked(true);
             radiosap.setVisibility(View.GONE);
         }
-        Log.e("zzonCreateU", "n "+radiohtp.isChecked());
-        Log.e("zzonCreateU", "n "+Sto_headerlist.get(0).getIss_Site1());
-        Log.e("zzonCreateU", "n "+Sto_headerlist.get(0).getRec_Site1());
+        Log.e("szzonCreateU", "n "+radiohtp.isChecked());
+        Log.e("sazzonCreateU", "n "+Sto_headerlist.get(0).getIss_Site1());
+        Log.e("QSzzonCreateU", "n "+Sto_headerlist.get(0).getRec_Site1());
 
         MachaineName = android.os.Build.MODEL;
         Log.d("Build.MODEL",""+MachaineName);

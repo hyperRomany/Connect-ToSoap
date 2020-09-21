@@ -101,7 +101,7 @@ ProgressBar progress_for_export;
     DatabaseHelperForCycleCount databaseHelperForCycleCount;
     DatabaseHelper databaseHelper;
     File filePath;
-    String MachaineName,Device_id_Instance_of_MacAdress;
+    String MachaineName,Device_id_Instance_of_MacAdress , UserComp ="01";
 Boolean From_Sap_Or_Not=false;
 int Repeat_On_log=0;
     List<Po_Items_For_Logs_Items_SqlServer> Po_Items_For_LogsArray;
@@ -154,6 +154,17 @@ EditText edit_username , edit_password;
 //        Po_Item_For_Serail_In_Upload = new ArrayList<>();
 //
 //        Po_Serial_For_Upload = new ArrayList<>();
+
+        // TODO Auto-generated catch block
+        DatabaseHelper databaseHelper=new DatabaseHelper(this);
+        List<Users> userdataList=new ArrayList<>();
+//
+        userdataList = databaseHelper.getUserData();
+        if (userdataList.size()>0) {
+            UserComp = userdataList.get(0).getCompany1();
+            UserComp = UserComp.substring(1, 3);
+            Log.e("zzzz", "" + UserComp);
+        }
 
     }
 
@@ -262,7 +273,7 @@ EditText edit_username , edit_password;
         File folder = new File("/data/user/0/com.example.connecttosoapapiapp/databases/");
         boolean var = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-        CSVName = sdf.format(new Date());
+        CSVName = "PPC_cyclecount_"+sdf.format(new Date());
         //txt_po_number.setText(CSVName);
         if (!folder.exists()) {
             var = folder.mkdir();
@@ -485,12 +496,12 @@ EditText edit_username , edit_password;
               Log.e("pdfupload",""+filePath.getPath());
               Log.e("pdfupload",""+UploadCycleCountActivity.this.getFilesDir());*/
 
-              MultipartUploadRequest multipartUploadRequest=  new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp);
+              MultipartUploadRequest multipartUploadRequest=  new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp_cyclecount);
               multipartUploadRequest.addFileToUpload(filePath.getPath(), "pdf");
 
               Log.e("bbbbbb","nm,.,mcgvbnjmkl,"+filePath.getPath());
                  // name & room_id & user_id & user_name &  type  this is key between android and php only
-
+              multipartUploadRequest.addParameter("UserType", UserComp);
               multipartUploadRequest.addParameter("name", CSVName);
 
                  // .addParameter("type", String.valueOf(3))
@@ -518,8 +529,8 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
 //                          public void onClick(DialogInterface dialog, int whichButton) {
 
                           //    databaseHelperForCycleCount.DeleteItemsTable();
-                              Intent GoToBackafter=new Intent(UploadCycleCountActivity.this, CycleCountActivity.class);
-                              startActivity(GoToBackafter);
+//                              Intent GoToBackafter=new Intent(UploadCycleCountActivity.this, CycleCountActivity.class);
+//                              startActivity(GoToBackafter);
 //                          }
 //                      })
 //                      .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {

@@ -96,6 +96,9 @@ public class Constant {
     public static final String WriteInLogs_sap_ITEMStableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_sap_ITEMStable.php";
 
     public static final String UploadToCSVFtp = "http://10.128.6.160:81/PhpProject1/UploadCSVFile.php";
+
+    public static final String UploadToCSVFtp_cyclecount = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_cyclecount.php";
+
     //public static final String UploadCSVFile_ScanBarcode = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ScanBarcode.php";
 
     public static final String UploadCSVFile_ScanBarcode = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ScanBarcode.php";

@@ -451,10 +451,17 @@ String FromSite,ToSite,Department;
             Log.e("This Is First Time",""+RETURN);
             Toast.makeText(TransferSearchActivity.this,RETURN,Toast.LENGTH_LONG).show();
             STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+            Log.e("ZZONFINISHTime","ZZ"+ (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")));
+
             if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")){
                 editbarcodeforsoap.setError("هذا الباركود غير فعال");
                 edit_asked_from_site_search.setEnabled(false);
-            } else if (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")){//TODO check qty
+
+            } else if ((STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
+                    && !(FromSite.equalsIgnoreCase("01MW")
+                         || ToSite.equalsIgnoreCase("01MW"))){ //TODO check qty
+                Log.d("getISSbbbbb_STG","zz "+STo_searchlist_bg.get(0).getAVAILABLE_STOCK1());
+                Log.d("getISSbbbbb_STG","z"+FromSite);
                 editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
                 edit_asked_from_site_search.setEnabled(false);
             }else {
@@ -549,9 +556,15 @@ String FromSite,ToSite,Department;
             editbarcodeforsoap.setError("من فضلك أدخل الباركود");
         }else if (edit_asked_from_site_search.getText().toString().isEmpty()){
             edit_asked_from_site_search.setError("من فضلك أدخل الكميه");
-        }else if (Double.valueOf(edit_asked_from_site_search.getText().toString()) >
-                Double.valueOf(txt_available_to_site_search.getText().toString())){//TODO check qty
-            edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن..المتاح"+txt_available_to_site_search.getText().toString());
+        }else if ((Double.valueOf(edit_asked_from_site_search.getText().toString()) >
+                Double.valueOf(txt_available_to_site_search.getText().toString()))
+                &&!(FromSite.equalsIgnoreCase("01MW")
+                || ToSite.equalsIgnoreCase("01MW"))){//TODO check qty
+            edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن.1.المتاح"+txt_available_to_site_search.getText().toString());
+            Log.e("zzsav1","n"+FromSite.equalsIgnoreCase("01MW"));
+            Log.e("zzsav1","n"+!(FromSite.equalsIgnoreCase("01MW")
+                    || ToSite.equalsIgnoreCase("01MW")));
+
         }else {
 
             databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log(spiner_storage_location_from.getSelectedItem().toString());
@@ -596,7 +609,12 @@ String FromSite,ToSite,Department;
                 }
                 Double currentQty = Double.valueOf(edit_asked_from_site_search.getText().toString());
                 Double SumQty=lastQty+currentQty;
-                if (SumQty <= AvaliableQty){
+                Log.e("zzdatabase",""+ (SumQty <= AvaliableQty));
+                Log.e("zzdatabase",""+ !(FromSite.equalsIgnoreCase("01MW")
+                        || ToSite.equalsIgnoreCase("01MW")));
+
+                if ((SumQty <= AvaliableQty) || (FromSite.equalsIgnoreCase("01MW")
+                        || ToSite.equalsIgnoreCase("01MW"))){
                     Log.e("SumQty",""+SumQty);
                     Log.e("SumQty",""+spiner_storage_location_from.getSelectedItem().toString());
                     Log.e("SumQty",""+spiner_storage_location_to.getSelectedItem().toString());
@@ -619,7 +637,7 @@ String FromSite,ToSite,Department;
                     txt_available_to_site_search.setText("المتاح بالمخزن");*/
 
                 }else {//TODO check qty
-                    edit_asked_from_site_search.setError( "هذه الكميه أكبر من المتاح بالمخزن... المتاح" +AvaliableQty);
+                    edit_asked_from_site_search.setError( "هذه الكميه أكبر من المتاح بالمخزن.2.. المتاح" +AvaliableQty);
                 }
             }
 

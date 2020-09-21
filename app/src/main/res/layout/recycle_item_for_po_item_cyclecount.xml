@@ -26,7 +26,6 @@ android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:text="الباركود"
             android:gravity="center_horizontal"
-            android:textIsSelectable="true"
             android:textSize="@dimen/font_size_for_text_of_app"
             />
 
