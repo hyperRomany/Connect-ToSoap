@@ -125,8 +125,6 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
 
         // close db connection
         db.close();
-        db.close();
-
         // return newly inserted row id
         return id;
     }
@@ -349,7 +347,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
 
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
-
+//        String selectQuery = "SELECT DISTINCT " +Po_Item_of_cycleCount.EAN11+" FROM " + Po_Item_of_cycleCount.TABLE_NAME;
         String selectQuery = "SELECT *FROM " + Po_Item_of_cycleCount.TABLE_NAME;
 //        //+ " and "  + STo_Search.QTY +"!= null" ;
         //+ " where " + STo_Search.QTY +"!=" +"null or "+ STo_Search.QTY +"!=" +"0.0 and "+STo_Search.GTIN+"="+Barcode;

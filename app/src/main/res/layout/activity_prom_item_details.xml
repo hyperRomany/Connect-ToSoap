@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         >
     <LinearLayout
         android:layout_width="match_parent"
@@ -187,7 +186,7 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="310dp"
             android:orientation="horizontal"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:background="@drawable/module_bg_items"

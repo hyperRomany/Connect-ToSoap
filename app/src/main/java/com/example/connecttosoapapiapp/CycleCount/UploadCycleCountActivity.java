@@ -800,7 +800,7 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
                 WriteInLogOf_sapTableOfSqlServer();
                 WriteInLogs_sap_ITEMStableOfSqlServer();
 
-                databaseHelperForCycleCount.DeleteItemsTable();
+            //    databaseHelperForCycleCount.DeleteItemsTable();
 
                 new AlertDialog.Builder(this)
                         .setTitle(getString(R.string.delete_all_items_cyclecount))

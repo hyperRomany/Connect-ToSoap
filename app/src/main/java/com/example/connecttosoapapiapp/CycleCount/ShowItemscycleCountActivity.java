@@ -37,6 +37,7 @@ public class ShowItemscycleCountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_items_cyclecount);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         recyclerView =findViewById(R.id.recycle_items_view);

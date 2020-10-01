@@ -7,14 +7,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.connecttosoapapiapp.CycleCount.Helper.DatabaseHelperForCycleCount;
 import com.example.connecttosoapapiapp.CycleCount.Modules.Po_Item_of_cycleCount;
 import com.example.connecttosoapapiapp.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class EditItemForCycleCountActivity extends AppCompatActivity {
 TextView txt_barcode,txt_descripation,txt_unite_item;
@@ -55,7 +56,8 @@ TextView txt_barcode,txt_descripation,txt_unite_item;
         if (edit_QTY.getText().toString().isEmpty()){
             edit_QTY.setError("من فضلك ادخل الكميه");
         }else {
-            databaseHelperForCycleCount.Update_QTY(edit_QTY.getText().toString(),txt_barcode.getText().toString());
+
+            databaseHelperForCycleCount.Update_QTY(new DecimalFormat("###.#####").format(Double.valueOf(edit_QTY.getText().toString())),txt_barcode.getText().toString());
             edit_QTY.setText("");
             edit_QTY.setHint("Done");
         }

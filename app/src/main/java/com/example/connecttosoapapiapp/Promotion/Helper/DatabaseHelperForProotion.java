@@ -338,7 +338,7 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selectQuery = "SELECT *FROM " + Prom_item_Module.TABLE_Prom_NAME
-                +" where "+Prom_item_Module.Discountno + "= '"+Discountno+"'";
+                +" where "+Prom_item_Module.Discountno + "= '"+Discountno+"' ORDER BY "+Prom_item_Module.note_id+" ASC ";
 
 //        String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME
 //                + " WHERE " +STo_Search.ISS_STG_LOG+" = '"+iss_stg_log+ "' AND "+STo_Search.REC_SITE_LOG+" = '"+rec_stg_log+ "' AND "+STo_Search.GTIN+" = "+Barcode;

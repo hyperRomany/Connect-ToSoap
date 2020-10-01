@@ -26,6 +26,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,9 +68,11 @@ ProgressBar progress_get_info;
         edit_from=findViewById(R.id.edit_from);
         edit_to=findViewById(R.id.edit_to);
         edit_Barcode=findViewById(R.id.edit_Barcode);
+        edit_Barcode.requestFocus();
         edit_qty=findViewById(R.id.edit_qty);
         btn_get_info=findViewById(R.id.btn_get_info);
-
+//100019480
+//100019482
         databaseHelperForCycleCount=new DatabaseHelperForCycleCount(this);
 
         Intent getData=getIntent();
@@ -133,6 +136,7 @@ ProgressBar progress_get_info;
                 }
             }
         });
+
 
 
     }
@@ -624,7 +628,7 @@ for (Po_Item_of_cycleCount a:arrayList) {
                                     public void onClick(DialogInterface dialog, int whichButton) {
 
                                         databaseHelperForCycleCount.Update_QTY(String.valueOf(Double.valueOf(po_item_of_cycleCountsforsave.get(0).getQTY1())+
-                                                Double.valueOf(edit_qty.getText().toString())), edit_Barcode.getText().toString());
+                                                new DecimalFormat("###.#####").format(Double.valueOf(Double.valueOf(edit_qty.getText().toString())))), edit_Barcode.getText().toString());
                                         edit_Barcode.setError(null);
                                         edit_Barcode.setText("");
                                         edit_Barcode.requestFocus();

@@ -34,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="عدد الباركود"
                 android:textColor="@color/third_white"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                />
 
         </LinearLayout>
 
