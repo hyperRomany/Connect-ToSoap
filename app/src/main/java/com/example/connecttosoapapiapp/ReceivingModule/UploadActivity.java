@@ -23,6 +23,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -70,9 +73,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 
 public class UploadActivity extends AppCompatActivity
@@ -513,7 +513,7 @@ Button btn_export,btn_Get_Document;
     }
 
     @Override
-    public void onRequestPermissionsResult(int RC, String per[], int[] Result) {
+    public void onRequestPermissionsResult(int RC, String[] per, int[] Result) {
 
         switch (RC) {
 
@@ -521,7 +521,7 @@ Button btn_export,btn_Get_Document;
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(UploadActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     UplaodingToFtp();
                 } else {
 
@@ -811,6 +811,7 @@ Button btn_export,btn_Get_Document;
                     txt_response.setText("" + EnvelopeBodyInCurrent);
                 } else if (envelopebodyInIsNull.equalsIgnoreCase("null")) {
                     txt_response.setText("لم يتم وصول الرد null");
+                    //////////waiting///////////////////
                     Get_Document(view);
                 } else if (!MATERIALDOCUMENT.contains("anyType{}") ) {
                     txt_response.setText("تم الرفع برقم\n" + MATERIALDOCUMENT);
@@ -1135,7 +1136,7 @@ Button btn_export,btn_Get_Document;
 //                        Log.d("zzzsizeUploadss",""+Po_iteamList.get(i));
 //                    //   break;
 //                    }*/
-
+  
 
             }
 

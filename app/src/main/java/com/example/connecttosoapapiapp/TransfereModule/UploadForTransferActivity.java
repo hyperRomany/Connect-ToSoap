@@ -17,6 +17,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -65,9 +68,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 
 public class UploadForTransferActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
@@ -104,38 +104,38 @@ int Repeat_On_log=0;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        txt_response=findViewById(R.id.txt_response);
+        txt_response = findViewById(R.id.txt_response);
 
-        radiohtp=findViewById(R.id.radio_ftp);
-        radiosap=findViewById(R.id.radio_sap);
+        radiohtp = findViewById(R.id.radio_ftp);
+        radiosap = findViewById(R.id.radio_sap);
 
-        databaseHelper =new DatabaseHelper(this);
+        databaseHelper = new DatabaseHelper(this);
 
-        userList=databaseHelper.getUserData();
-        check_of_UserCode=userList.get(0).getCompany1().toString().substring(1,3);
+        userList = databaseHelper.getUserData();
+        check_of_UserCode = userList.get(0).getCompany1().substring(1, 3);
 
-        Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "" + check_of_UserCode, Toast.LENGTH_SHORT).show();
 
-        databaseHelperForTransfer =new DatabaseHelperForTransfer(this);
+        databaseHelperForTransfer = new DatabaseHelperForTransfer(this);
         Sto_searchlist = databaseHelperForTransfer.selectSto_Search_for_Qty();
         Sto_headerlist = databaseHelperForTransfer.selectSto_Header();
 
         //TODO
-        if( Sto_headerlist.get(0).getIss_Site1().equalsIgnoreCase("01MW")
-                || Sto_headerlist.get(0).getRec_Site1().equalsIgnoreCase("01MW")){
+        if (Sto_headerlist.get(0).getIss_Site1().equalsIgnoreCase("01MW")
+                || Sto_headerlist.get(0).getRec_Site1().equalsIgnoreCase("01MW")) {
             radiohtp.setChecked(true);
             radiosap.setVisibility(View.GONE);
         }
-        Log.e("szzonCreateU", "n "+radiohtp.isChecked());
-        Log.e("sazzonCreateU", "n "+Sto_headerlist.get(0).getIss_Site1());
-        Log.e("QSzzonCreateU", "n "+Sto_headerlist.get(0).getRec_Site1());
+        Log.e("szzonCreateU", "n " + radiohtp.isChecked());
+        Log.e("sazzonCreateU", "n " + Sto_headerlist.get(0).getIss_Site1());
+        Log.e("QSzzonCreateU", "n " + Sto_headerlist.get(0).getRec_Site1());
 
         MachaineName = android.os.Build.MODEL;
-        Log.d("Build.MODEL",""+MachaineName);
+        Log.d("Build.MODEL", "" + MachaineName);
 
         //TODO this is not work in 6.0 and up
         Device_id_Instance_of_MacAdress = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
-        Log.e("onCreateU", "Map"+Device_id_Instance_of_MacAdress);
+        Log.e("onCreateU", "Map" + Device_id_Instance_of_MacAdress);
 
     }
 
@@ -382,7 +382,7 @@ int Repeat_On_log=0;
     }
 
     @Override
-    public void onRequestPermissionsResult(int RC, String per[], int[] Result) {
+    public void onRequestPermissionsResult(int RC, String[] per, int[] Result) {
 
         switch (RC) {
 
@@ -390,7 +390,7 @@ int Repeat_On_log=0;
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(UploadForTransferActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadForTransferActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     UplaodingToFtp();
                     databaseHelperForTransfer.Update_Sto_Header_For_Status(CSVName);
                 } else {

@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.connecttosoapapiapp.MainActivity;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
@@ -30,8 +32,6 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class ReceivingActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{

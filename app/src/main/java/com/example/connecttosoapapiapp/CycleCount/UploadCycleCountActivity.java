@@ -25,6 +25,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -72,28 +75,23 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 
 public class UploadCycleCountActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<List<String>>{
-TextView txt_po_number, txt_response;
-RadioButton radiohtp, radiosap;
-ProgressBar progress_for_export;
-    public final static String CHANNEL_ID ="1";
+        implements LoaderManager.LoaderCallbacks<List<String>> {
+    public final static String CHANNEL_ID = "1";
+    public StringRequest request = null;
+    public JsonObjectRequest requestitems = null;
+    TextView txt_po_number, txt_response;
     private static final int WATER_REMINDER_NOTIFICATION_ID = 1138;
 
     Button btn_export;
 
     View view;
-    String MATERIALDOCUMENT="Empty", CSVName="test", MESSAGE;
-    private int LOADER_ID = 4;
-
-    public StringRequest request=null;
-    public JsonObjectRequest requestitems=null;
-
-    String EnvelopeBodyInConstant="",EnvelopeBodyInCurrent="";
+    RadioButton radiohtp, radiosap;
+    ProgressBar progress_for_export;
+    String MATERIALDOCUMENT = "Empty", CSVName = "test", MESSAGE;
+    String EnvelopeBodyInConstant = "", EnvelopeBodyInCurrent = "";
+    String MachaineName, Device_id_Instance_of_MacAdress, UserComp = "01";
 
     List<Po_Item_of_cycleCount> Po_Item_For_PHYSINVENTORY;
     List<Po_Item_of_cycleCount> Po_Item_For_ftp_Upload;
@@ -101,11 +99,12 @@ ProgressBar progress_for_export;
     DatabaseHelperForCycleCount databaseHelperForCycleCount;
     DatabaseHelper databaseHelper;
     File filePath;
-    String MachaineName,Device_id_Instance_of_MacAdress , UserComp ="01";
-Boolean From_Sap_Or_Not=false;
-int Repeat_On_log=0;
+    Boolean From_Sap_Or_Not = false;
+    int Repeat_On_log = 0;
+    EditText edit_username, edit_password;
     List<Po_Items_For_Logs_Items_SqlServer> Po_Items_For_LogsArray;
-EditText edit_username , edit_password;
+    private int LOADER_ID = 4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,11 +155,11 @@ EditText edit_username , edit_password;
 //        Po_Serial_For_Upload = new ArrayList<>();
 
         // TODO Auto-generated catch block
-        DatabaseHelper databaseHelper=new DatabaseHelper(this);
-        List<Users> userdataList=new ArrayList<>();
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        List<Users> userdataList = new ArrayList<>();
 //
         userdataList = databaseHelper.getUserData();
-        if (userdataList.size()>0) {
+        if (userdataList.size() > 0) {
             UserComp = userdataList.get(0).getCompany1();
             UserComp = UserComp.substring(1, 3);
             Log.e("zzzz", "" + UserComp);
@@ -273,7 +272,7 @@ EditText edit_username , edit_password;
         File folder = new File("/data/user/0/com.example.connecttosoapapiapp/databases/");
         boolean var = false;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
-        CSVName = "PPC_cyclecount_"+sdf.format(new Date());
+        CSVName = "PPC_cyclecount_" + sdf.format(new Date());
         //txt_po_number.setText(CSVName);
         if (!folder.exists()) {
             var = folder.mkdir();
@@ -496,7 +495,7 @@ EditText edit_username , edit_password;
               Log.e("pdfupload",""+filePath.getPath());
               Log.e("pdfupload",""+UploadCycleCountActivity.this.getFilesDir());*/
 
-              MultipartUploadRequest multipartUploadRequest=  new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp_cyclecount);
+              MultipartUploadRequest multipartUploadRequest = new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp_cyclecount);
               multipartUploadRequest.addFileToUpload(filePath.getPath(), "pdf");
 
               Log.e("bbbbbb","nm,.,mcgvbnjmkl,"+filePath.getPath());
@@ -528,7 +527,7 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
 //                      .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
 //                          public void onClick(DialogInterface dialog, int whichButton) {
 
-                          //    databaseHelperForCycleCount.DeleteItemsTable();
+              //    databaseHelperForCycleCount.DeleteItemsTable();
 //                              Intent GoToBackafter=new Intent(UploadCycleCountActivity.this, CycleCountActivity.class);
 //                              startActivity(GoToBackafter);
 //                          }
@@ -539,11 +538,11 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
 //                          }
 //                      }).show();
 
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    }
+          } catch (MalformedURLException e) {
+              e.printStackTrace();
+          } catch (FileNotFoundException e) {
+              e.printStackTrace();
+          }
 
        /* String PdfID = UUID.randomUUID().toString();
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -603,7 +602,7 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
     }
 
     @Override
-    public void onRequestPermissionsResult(int RC, String per[], int[] Result) {
+    public void onRequestPermissionsResult(int RC, String[] per, int[] Result) {
 
         switch (RC) {
 
@@ -611,7 +610,7 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(UploadCycleCountActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadCycleCountActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     UplaodingToFtp();
                 } else {
 
@@ -955,134 +954,6 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
             };
 
 
-            // Add the realibility on the connection.
-            request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
-
-            // Start the request immediately
-            queue.add(request);
-
-    }
-
-private class GetDataFromDB extends AsyncTask<Void,Void,Void>{
-
-    @Override
-    protected Void doInBackground(Void... voids) {
-        Po_Item_For_ftp_Upload = new ArrayList<>();
-        Po_Item_For_PHYSINVENTORY= new ArrayList<>();
-        Log.e("zzzbEFORE","rfe");
-        Po_Item_For_ftp_Upload=databaseHelperForCycleCount.Get_Items_That_Has_PDNewQTy();
-        Log.e("zzzbaftergatitems","rf");
-
-        List<String> PHYSINVENTORY  = databaseHelperForCycleCount.Get_All_PHYSINVENTORY();
-        Log.e("zzzgatallPh","fr");
-        String cc="";
-        for (int i=0 ; i<Po_Item_For_ftp_Upload.size(); i++){
-            PHYSINVENTORY.remove(Po_Item_For_ftp_Upload.get(i).getPHYSINVENTORY1());
-
-        }
-        Log.e("Po_Item_For_ftp_Upload",""+Po_Item_For_ftp_Upload.size());
-
-        for (int i=0 ; i<PHYSINVENTORY.size(); i++){
-            Po_Item_For_PHYSINVENTORY=databaseHelperForCycleCount.Get_PHYSINVENTORY_That_Not_Has_QTy("0"+PHYSINVENTORY.get(i));
-            Po_Item_For_ftp_Upload.add(new Po_Item_of_cycleCount(Po_Item_For_PHYSINVENTORY.get(0).getPHYSINVENTORY1(),
-                    Po_Item_For_PHYSINVENTORY.get(0).getMATERIAL1(),Po_Item_For_PHYSINVENTORY.get(0).getMAKTX1(),
-                    Po_Item_For_PHYSINVENTORY.get(0).getQTY1(),Po_Item_For_PHYSINVENTORY.get(0).getITEM1(),
-                    Po_Item_For_PHYSINVENTORY.get(0).getBASE_UOM1(),Po_Item_For_PHYSINVENTORY.get(0).getSERNP1(),
-                    Po_Item_For_PHYSINVENTORY.get(0).getEAN111(),Po_Item_For_PHYSINVENTORY.get(0).getMEINH1()));
-        }
-
-
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        btn_export.setEnabled(true);
-        txt_response.setText(String.valueOf("عدد العناصر التى سيتم رفعها   "+Po_Item_For_ftp_Upload.size()));
-    }
-}
-
-// upload for logs tables
-    public void WriteInLogOf_sapTableOfSqlServer(){
-
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // String URL = Constant.LoginURL;
-        request = new StringRequest(Request.Method.POST, Constant.WriteInLogOf_sapTableofcyclecountURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.d("onResponse", response);
-                        Log.d("onResponse", ""+request);
-
-                        try {
-
-                            JSONObject object = new JSONObject(response);
-                            String status = object.getString("status");
-                            Log.d("onResponse", status);
-
-                            String message = object.getString("message");
-                            Log.d("onResponse", message);
-
-                                /*if (status.equalsIgnoreCase("1")){
-                                    Intent gotomain =new Intent(UploadForTransferActivity.this,MainActivity.class);
-                                    startActivity(gotomain);
-                                }else {
-                                    Toast.makeText(UploadForTransferActivity.this, "Your User Or Password Is Wrong", Toast.LENGTH_SHORT).show();
-                                }*/
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        NetworkResponse response = error.networkResponse;
-                        String errorMsg = "";
-                        if (response != null && response.data != null) {
-                            String errorString = new String(response.data);
-                            Log.i("log error", errorString);
-                        }
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-                String Date = sdf.format(new Date());
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("UserName", userList.get(0).getUser_Name1());
-                params.put("Department", "Stockcontrol");
-                params.put("MachineName",MachaineName);
-                params.put("MACAddress", Device_id_Instance_of_MacAdress);
-                params.put("Modulename", "physical inventory");
-                params.put("Company", userList.get(0).getCompany1());
-                params.put("DateTime",Date);
-                if (From_Sap_Or_Not ==true) {
-                    params.put("Sap_OrderNo",Po_Item_For_ftp_Upload.get(0).getPHYSINVENTORY1() +"to"+
-                            Po_Item_For_ftp_Upload.get(Po_Item_For_ftp_Upload.size()-1).getPHYSINVENTORY1() );
-
-                }else {
-                    params.put("Sap_OrderNo", CSVName);
-                    Log.d("Sap_OrderNo",""+CSVName);
-                    Log.d("Sap_OrderNo",""+From_Sap_Or_Not);
-
-                    ///Toast.makeText(UploadForTransferActivity.this, "Not from sap", Toast.LENGTH_SHORT).show();
-
-                }
-//                Log.d("Build.MODELMac6",""+MATERIALDOCUMENT);
-
-                return params;
-            }
-
-        };
-
-
         // Add the realibility on the connection.
         request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
 
@@ -1165,7 +1036,7 @@ private class GetDataFromDB extends AsyncTask<Void,Void,Void>{
                         po_items_for_logs_items_sqlServer.setSAP_STO_NUMBER( CSVName);
 
                     }
-                     po_items_for_logs_items_sqlServer.setP_ORG( MATERIALDOCUMENT);
+                    po_items_for_logs_items_sqlServer.setP_ORG(MATERIALDOCUMENT);
 
                     po_items_for_logs_items_sqlServer.setP_GRP( "PHYINV");
 
@@ -1218,6 +1089,134 @@ private class GetDataFromDB extends AsyncTask<Void,Void,Void>{
         // Start the request immediately
         queue.add(request);
 
+    }
+
+    // upload for logs tables
+    public void WriteInLogOf_sapTableOfSqlServer() {
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // String URL = Constant.LoginURL;
+        request = new StringRequest(Request.Method.POST, Constant.WriteInLogOf_sapTableofcyclecountURL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("onResponse", response);
+                        Log.d("onResponse", "" + request);
+
+                        try {
+
+                            JSONObject object = new JSONObject(response);
+                            String status = object.getString("status");
+                            Log.d("onResponse", status);
+
+                            String message = object.getString("message");
+                            Log.d("onResponse", message);
+
+                                /*if (status.equalsIgnoreCase("1")){
+                                    Intent gotomain =new Intent(UploadForTransferActivity.this,MainActivity.class);
+                                    startActivity(gotomain);
+                                }else {
+                                    Toast.makeText(UploadForTransferActivity.this, "Your User Or Password Is Wrong", Toast.LENGTH_SHORT).show();
+                                }*/
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+                String Date = sdf.format(new Date());
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("UserName", userList.get(0).getUser_Name1());
+                params.put("Department", "Stockcontrol");
+                params.put("MachineName", MachaineName);
+                params.put("MACAddress", Device_id_Instance_of_MacAdress);
+                params.put("Modulename", "physical inventory");
+                params.put("Company", userList.get(0).getCompany1());
+                params.put("DateTime", Date);
+                if (From_Sap_Or_Not == true) {
+                    params.put("Sap_OrderNo", Po_Item_For_ftp_Upload.get(0).getPHYSINVENTORY1() + "to" +
+                            Po_Item_For_ftp_Upload.get(Po_Item_For_ftp_Upload.size() - 1).getPHYSINVENTORY1());
+
+                } else {
+                    params.put("Sap_OrderNo", CSVName);
+                    Log.d("Sap_OrderNo", "" + CSVName);
+                    Log.d("Sap_OrderNo", "" + From_Sap_Or_Not);
+
+                    ///Toast.makeText(UploadForTransferActivity.this, "Not from sap", Toast.LENGTH_SHORT).show();
+
+                }
+//                Log.d("Build.MODELMac6",""+MATERIALDOCUMENT);
+
+                return params;
+            }
+
+        };
+
+
+        // Add the realibility on the connection.
+        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+
+        // Start the request immediately
+        queue.add(request);
+
+    }
+
+    private class GetDataFromDB extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Po_Item_For_ftp_Upload = new ArrayList<>();
+            Po_Item_For_PHYSINVENTORY = new ArrayList<>();
+            Log.e("zzzbEFORE", "rfe");
+            Po_Item_For_ftp_Upload = databaseHelperForCycleCount.Get_Items_That_Has_PDNewQTy();
+            Log.e("zzzbaftergatitems", "rf");
+
+            List<String> PHYSINVENTORY = databaseHelperForCycleCount.Get_All_PHYSINVENTORY();
+            Log.e("zzzgatallPh", "fr");
+            String cc = "";
+            for (int i = 0; i < Po_Item_For_ftp_Upload.size(); i++) {
+                PHYSINVENTORY.remove(Po_Item_For_ftp_Upload.get(i).getPHYSINVENTORY1());
+
+            }
+            Log.e("Po_Item_For_ftp_Upload", "" + Po_Item_For_ftp_Upload.size());
+
+            for (int i = 0; i < PHYSINVENTORY.size(); i++) {
+                Po_Item_For_PHYSINVENTORY = databaseHelperForCycleCount.Get_PHYSINVENTORY_That_Not_Has_QTy("0" + PHYSINVENTORY.get(i));
+                Po_Item_For_ftp_Upload.add(new Po_Item_of_cycleCount(Po_Item_For_PHYSINVENTORY.get(0).getPHYSINVENTORY1(),
+                        Po_Item_For_PHYSINVENTORY.get(0).getMATERIAL1(), Po_Item_For_PHYSINVENTORY.get(0).getMAKTX1(),
+                        Po_Item_For_PHYSINVENTORY.get(0).getQTY1(), Po_Item_For_PHYSINVENTORY.get(0).getITEM1(),
+                        Po_Item_For_PHYSINVENTORY.get(0).getBASE_UOM1(), Po_Item_For_PHYSINVENTORY.get(0).getSERNP1(),
+                        Po_Item_For_PHYSINVENTORY.get(0).getEAN111(), Po_Item_For_PHYSINVENTORY.get(0).getMEINH1()));
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            btn_export.setEnabled(true);
+            txt_response.setText("عدد العناصر التى سيتم رفعها   " + Po_Item_For_ftp_Upload.size());
+        }
     }
 
 }

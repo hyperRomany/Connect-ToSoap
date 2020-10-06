@@ -55,7 +55,7 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
                                  String Discounttype, String Prom_desc, String last_modified_time,
                                  String prom_post, String status,String itemean
                                  , String department  ,   String barcode,String item_desc,String return_type,
-                              String qty_std_price,String sell_price, String vatrate,String discountvalue,String note_id
+                              String sell_price, String vatrate,String discountvalue,String note_id
     ) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -76,7 +76,7 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
         values.put(Prom_item_Module.barcode,barcode);
         values.put(Prom_item_Module.item_desc,item_desc);
         values.put(Prom_item_Module.return_type,return_type);
-        values.put(Prom_item_Module.qty_std_price,qty_std_price);
+       // values.put(Prom_item_Module.qty_std_price,qty_std_price);
         values.put(Prom_item_Module.sell_price,sell_price);
         values.put(Prom_item_Module.vatrate,vatrate);
         values.put(Prom_item_Module.discountvalue,discountvalue);
