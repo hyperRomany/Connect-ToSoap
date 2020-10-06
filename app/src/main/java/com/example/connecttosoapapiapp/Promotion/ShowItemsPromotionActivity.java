@@ -60,7 +60,7 @@ RecyclerView recyclerView;
                 Intent gotodeatails=new Intent(ShowItemsPromotionActivity.this,PromItemDetailsActivity.class);
                 gotodeatails.putExtra("discount_id", Po_Item_List.get(position).getDiscountno1());
                 startActivity(gotodeatails);
-                finish();
+                //finish();
             }
         });
     }

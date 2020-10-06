@@ -6,6 +6,7 @@ android:layout_height="wrap_content"
 android:orientation="horizontal"
     android:layoutDirection="ltr"
     android:id="@+id/main_linear_of_item"
+    android:focusable="true"
     >
         <CheckBox
             android:id="@+id/checkbox_item"
@@ -30,6 +31,9 @@ android:orientation="horizontal"
             android:text="الباركود"
             android:gravity="center_horizontal"
             android:textSize="@dimen/font_size_for_text_of_app"
+            android:focusable="true"
+            android:longClickable="true"
+            android:scrollbars="vertical"
             />
 
         <TextView

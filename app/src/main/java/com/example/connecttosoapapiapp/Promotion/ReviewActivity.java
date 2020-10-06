@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -46,8 +48,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class ReviewActivity extends AppCompatActivity {
     String Barcode,Superviser_id,Superviser_username;
@@ -139,12 +139,13 @@ public class ReviewActivity extends AppCompatActivity {
         txt_discountvalue.setText(prom_item_moduleList.get(0).getDiscountvalue1());
 
 //TODO if discount type not value don't calculte sales price
-        if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("103")) {
+        if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("3")) {
             txt_totalprice.setText(String.valueOf(
-                    dwith0.format(Double.valueOf(prom_item_moduleList.get(0).getSell_price1())
-                            - (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) *
-                            Double.valueOf(prom_item_moduleList.get(0).getVatrate1())) -
-                            Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))));
+                    dwith0.format((Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
+                            Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))*(1+(Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))));
+        }
+        else {
+            txt_discountvalue.setVisibility(View.INVISIBLE);
         }
          noteslist=new ArrayList<>();
         idandnoteslist=new ArrayList<>();
@@ -292,7 +293,7 @@ public class ReviewActivity extends AppCompatActivity {
             InsetallornotList = databaseHelperForProotion.selectPromItemsForInsetall(txt_discoun_no.getText().toString());
             Log.e("zzzInsetallornotList>>", ""+InsetallornotList.size());
 
-            if (InsetallornotList.size() !=0) {
+//            if (InsetallornotList.size() !=0) {
                 if (modify_for_all == false) {
                     //Log.e("zzzmodify_for_all>>", "ReviewDone");
 
@@ -314,15 +315,15 @@ public class ReviewActivity extends AppCompatActivity {
                     WriteInLogs_sap_ITEMStableOfSqlServer();
 
                 }
-            }else {
-                databaseHelperForProotion.Update_Userid_and_username_For_Alldiscuntnoforuploadforfirsttime(txt_discoun_no.getText().toString(),
-                        Superviser_id, Superviser_username);
-                databaseHelperForProotion.Update_noteid_and_noteother_For_Barcode(Barcode, noteIDIsSelected,
-                        sp_another_notes.getText().toString());
-                prom_item_moduleList = new ArrayList<>();
-                prom_item_moduleList = databaseHelperForProotion.selectPromItems(txt_discoun_no.getText().toString());
-                WriteInLogs_sap_ITEMStableOfSqlServer();
-            }
+//            }else {
+//                databaseHelperForProotion.Update_Userid_and_username_For_Alldiscuntnoforuploadforfirsttime(txt_discoun_no.getText().toString(),
+//                        Superviser_id, Superviser_username);
+//                databaseHelperForProotion.Update_noteid_and_noteother_For_Barcode(Barcode, noteIDIsSelected,
+//                        sp_another_notes.getText().toString());
+//                prom_item_moduleList = new ArrayList<>();
+//                prom_item_moduleList = databaseHelperForProotion.selectPromItems(txt_discoun_no.getText().toString());
+//                WriteInLogs_sap_ITEMStableOfSqlServer();
+//            }
             btn_ReviewDone.setVisibility(View.VISIBLE);
         }
     }

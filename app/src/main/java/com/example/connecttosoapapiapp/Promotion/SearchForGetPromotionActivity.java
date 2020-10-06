@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -22,7 +25,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.connecttosoapapiapp.Promotion.Helper.ActivePromotionData;
 import com.example.connecttosoapapiapp.Promotion.Helper.DatabaseHelperForProotion;
+import com.example.connecttosoapapiapp.Promotion.Helper.ExpiredPormotionData;
+import com.example.connecttosoapapiapp.Promotion.Helper.StopedPromotionData;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
@@ -41,8 +47,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class SearchForGetPromotionActivity extends AppCompatActivity {
     public StringRequest request=null;
@@ -79,6 +83,7 @@ LinearLayout linear_of_date;
         check_promotion_Department=findViewById(R.id.check_promotion_Department);
         sp_Department=findViewById(R.id.sp_Department);
         check_promotionforarticle=findViewById(R.id.check_promotionforarticle);
+
 
         // To get user code
         databaseHelper=new DatabaseHelper(this);
@@ -304,7 +309,6 @@ LinearLayout linear_of_date;
                                                 barcodeI,
                                                 item_desc,
                                                 return_type,
-                                                qty_std_price,
                                                 sell_price,
                                                 vatrate,
                                                 discountvalue,
@@ -346,18 +350,18 @@ LinearLayout linear_of_date;
                     Map<String, String> params = new HashMap<String, String>();
 
 
-                    if (check_promotion_Barcode.isChecked() == true) {
-                        if (edit_Barcode.getText().toString().isEmpty()) {
-                            edit_Barcode.setError("أدخل الباركود");
+                        if (check_promotion_Barcode.isChecked() == true) {
+                            if (edit_Barcode.getText().toString().isEmpty()) {
+                                edit_Barcode.setError("أدخل الباركود");
+                            } else {
+                                Barcode = edit_Barcode.getText().toString();
+                            }
                         } else {
-                            Barcode = edit_Barcode.getText().toString();
+                            Barcode = "";
                         }
-                    } else {
-                        Barcode = "";
-                    }
 
-                    if (check_promotion_Department.isChecked() == true) {
-                        //TODO
+                        if (check_promotion_Department.isChecked() == true) {
+                            //TODO
                         department = pur_org_describtionlist.get(sp_Department.getSelectedItemPosition()).replace(" ", "");
                     } else {
                         department = "0";
@@ -401,7 +405,6 @@ LinearLayout linear_of_date;
         }
 
     }
-
 
 
 
@@ -553,22 +556,129 @@ LinearLayout linear_of_date;
         btn_search_prom.setVisibility(View.GONE);
 
         // TODO let him choice without
-        if (TodayOrActive.equalsIgnoreCase("Today") ){
-            getPromotionfromsqlserver();
-
-        }else {
+//        if (TodayOrActive.equalsIgnoreCase("Today") ){
+//            getPromotionfromsqlserver();
+//
+//        }else {
 
             if (check_promotiondate.isChecked() || check_promotion_Barcode.isChecked() ||
                     check_promotion_ID.isChecked() ||
                     check_promotion_Department.isChecked() || check_promotionforarticle.isChecked()) {
-                getPromotionfromsqlserver();
+                //getPromotionfromsqlserver();
+                getfromStored();
             } else {
                 btn_search_prom.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "من فضلك قم بالاختيار اولا", Toast.LENGTH_SHORT).show();
             }
-        }
+//        }
 //        Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
 //        startActivity(GotoShow);
+
+    }
+
+    private void getfromStored() {
+
+        databaseHelperForProotion.DeletePromItems();
+
+        if (edit_ID.getText().toString().isEmpty()) {
+            ID = 0;
+        } else { 
+            ID = Integer.valueOf(edit_ID.getText().toString());
+        }
+                    // sleep the thread, whatever time you want.
+        ActivePromotionData mydata =new ActivePromotionData();
+        ExpiredPormotionData mydata2 =new ExpiredPormotionData();
+        StopedPromotionData mydata3=new StopedPromotionData();
+      //  mydata.doInBackground(GetPromotoinsactive(edit_ID.getText().toString()),getApplicationContext());
+
+
+
+        if (check_promotion_Barcode.isChecked() == true) {
+            if (edit_Barcode.getText().toString().isEmpty()) {
+                edit_Barcode.setError("أدخل الباركود");
+            } else {
+                Barcode = edit_Barcode.getText().toString();
+            }
+        } else {
+            Barcode = "";
+        }
+
+        if (check_promotion_Department.isChecked() == true) {
+            //TODO
+            department = pur_org_describtionlist.get(sp_Department.getSelectedItemPosition()).replace(" ", "");
+        } else {
+            department = "0";
+        }
+        if (check_promotiondate.isChecked() ==true &&
+                (edit_startdate.getText().toString().isEmpty() || edit_enddate.getText().toString().isEmpty())) {
+
+            if (edit_startdate.getText().toString().isEmpty()) {
+                edit_startdate.setError("أدخل تاريخ البداية");
+                edit_startdate.requestFocus();
+            }
+            if (edit_enddate.getText().toString().isEmpty()) {
+                edit_enddate.setError("أدخل تاريخ الالنهايه");
+                edit_enddate.requestFocus();
+            }
+            btn_search_prom.setVisibility(View.VISIBLE);
+
+        }else {
+            startingDate = edit_startdate.getText().toString();
+            enddate = edit_enddate.getText().toString();
+        }
+//                Log.e("zzzzCond",""+GetPromotoins(ID
+//                        ,0,startingDate
+//                        ,enddate,Integer.valueOf(department),
+//                        Barcode,false,false,check_promotiondate.isChecked()));
+
+        if (TodayOrActive.equalsIgnoreCase("Today") ||
+                TodayOrActive.equalsIgnoreCase("Active")) {
+            if (mydata.doInBackground( GetPromotoins(ID, 0, startingDate
+                    , enddate, Integer.valueOf(department),
+                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()),getApplicationContext())==true){
+                Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
+                GotoShow.putExtra("TodayOrActive", TodayOrActive);
+                startActivity(GotoShow);
+                btn_search_prom.setVisibility(View.VISIBLE);
+            }
+            else {
+                Toast.makeText(this,"العرض غير موجود",Toast.LENGTH_LONG).show();
+                btn_search_prom.setVisibility(View.VISIBLE);
+
+            }
+
+        } else if (TodayOrActive.equalsIgnoreCase("Expired")) {
+          if ( mydata2.doInBackground( GetPromotoins_Expired(ID
+                    , 0, startingDate
+                    , enddate, Integer.valueOf(department),
+                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()),getApplicationContext())==true){
+              Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
+              startActivity(GotoShow);
+              btn_search_prom.setVisibility(View.VISIBLE);
+
+          }
+          else {
+              Toast.makeText(this,"العرض غير موجود",Toast.LENGTH_LONG).show();
+              btn_search_prom.setVisibility(View.VISIBLE);
+
+          }
+        } else if (TodayOrActive.equalsIgnoreCase("Stoped")) {
+            if(mydata3.doInBackground(  GetPromotoins_Stopped(ID
+                    , 0, startingDate
+                    , enddate, Integer.valueOf(department),
+                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()),getApplicationContext())==true)
+            {
+                Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
+                startActivity(GotoShow);
+                btn_search_prom.setVisibility(View.VISIBLE);
+
+            }
+            else {
+                Toast.makeText(this,"العرض غير موجود",Toast.LENGTH_LONG).show();
+                btn_search_prom.setVisibility(View.VISIBLE);
+
+            }
+        }
 
     }
 
@@ -596,7 +706,7 @@ LinearLayout linear_of_date;
 
             if (TodayOrActive.equalsIgnoreCase("Today")){
                 //last_modified_time
-                _cond += " AND cast ( I.last_modified_time as date ) <=  ''" +Datetoday+"''" ;
+                _cond += " AND cast ( I.last_modified_time as date ) <=  ''''" +Datetoday+"''''" ;
             }
 
         }else {
@@ -623,8 +733,8 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( I.date_from as date ) <=  ''" +Startingdate+"''"+
-                        " AND cast ( I.date_to as date ) >=  ''" +endeddate+"''";
+                _cond += " AND cast ( I.date_from as date )  >=  ''''" +Startingdate+"''''"+
+                        " AND cast ( I.date_to as date ) >=  ''''" +endeddate+"''''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
@@ -632,8 +742,12 @@ LinearLayout linear_of_date;
 
             if (TodayOrActive.equalsIgnoreCase("Today")){
                 //P.last_modified_time
-                _cond += " AND cast ( I.last_modified_time as date ) =  ''" +Datetoday+"''" ;
+                _cond += " AND I.date_from >= ''''" +Datetoday+"''''" ;
             }
+            else {
+                _cond += " AND I.date_from <''''" +Datetoday+"''''" ;
+            }
+
 
             //العروض الجديدة فقط .. بدون تحديد فترة
 //            if (IsNew) {
@@ -715,13 +829,14 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( P.date_to as date ) >=  ''" +Startingdate+"''"+
-                        " AND cast ( P.date_to as date ) <=  ''" +endeddate+"''";
+              //TODO THERE IS NO NEED FOR THAT
+                _cond += " AND cast ( P.date_to as date ) >=  ''''" +Startingdate+"''''"+
+                        " AND cast ( P.date_to as date ) <=  ''''" +endeddate+"''''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
             }
-            else {
+            else {//TODO test this
                 _cond += " AND P.date_to <= Getdate() " ;
             }
 
@@ -805,12 +920,15 @@ LinearLayout linear_of_date;
 //                            " AND I.date_to <=  dbo.Prom_ConvertDateTime( ''" + DateFormat.format("dd",enddate)+ "'',''"+
 //                            DateFormat.format("MM",enddate)
 //                            + "'',''"+ DateFormat.format("yyyy",enddate) + "'',''"+"00" + "'',''"+"00" + "'',''"+"00" + "'' )";
-                _cond += " AND cast ( P.last_modified_time as date ) >=  ''" +Startingdate+"''"+
-                        " AND cast ( P.last_modified_time as date ) <=  ''" +endeddate+"''";
+                _cond += " AND cast ( P.last_modified_time as date ) >=  ''''" +Startingdate+"''''"+
+                        " AND cast ( P.last_modified_time as date ) <=  ''''" +endeddate+"''''";
 //                } catch (ParseException e) {
 //                    e.printStackTrace();
 //                }
             }
+//            else {
+//                _cond += " AND cast ( P.last_modified_time as date ) <=3 Getdate() " ;
+//            }
 
             //العروض الجديدة فقط .. بدون تحديد فترة
 //            if (IsNew) {

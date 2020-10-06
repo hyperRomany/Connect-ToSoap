@@ -23,6 +23,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -70,9 +73,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 
 public class UploadActivity extends AppCompatActivity
@@ -190,6 +190,8 @@ Button btn_export,btn_Get_Document;
                         MESSAGE="";
                         getLoaderManager().initLoader(LOADER_ID, null, UploadActivity.this);
                         From_Sap_Or_Not = true;
+//                      databaseHelper.DeleteDataOfThreeTables();
+
                     }
                 }else {
 
@@ -354,7 +356,6 @@ Button btn_export,btn_Get_Document;
 
           String PdfID = UUID.randomUUID().toString();
           try {
-
               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                       Log.e("VERSION.SDK_INT " ,"API 26 or higher");
@@ -739,9 +740,9 @@ Button btn_export,btn_Get_Document;
             if (ExportORGetdocument.equalsIgnoreCase("Export")) {
                 if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
                     txt_response.setText("" + EnvelopeBodyInCurrent);
-
                 } else if (envelopebodyInIsNull.equalsIgnoreCase("null")) {
                     txt_response.setText("لم يتم رفع البيانات المطلوبه null");
+                    Get_Document(view);
                 /*if (Po_Item_For_Log_only_Has_value.size()>0) {
                     // for (int i = 0; i < Po_Item_For_Log_only_Has_value.size();i++) {
                     WriteInLogOf_sapTableOfSqlServer();
@@ -761,6 +762,7 @@ Button btn_export,btn_Get_Document;
                 } else if (MATERIALDOCUMENT.contains("anyType{}")) {
                     Toast.makeText(this, "هناك مشكله", Toast.LENGTH_SHORT).show();
                     txt_response.setText("لم يتم رفع" + Po_HeaderList.get(0).getPO_NUMBER1() + "\n" + MESSAGE);
+                    Get_Document(view);
                     if (Po_Item_For_Log_only_Has_value.size() > 0) {
                         // for (int i = 0; i < Po_Item_For_Log_only_Has_value.size();i++) {
                         WriteInLogOf_sapTableOfSqlServer();
@@ -773,16 +775,27 @@ Button btn_export,btn_Get_Document;
                 } else if (!MATERIALDOCUMENT.contains("anyType{}")) {
                     databaseHelper.update_NoMore_To_MaterialNU(MATERIALDOCUMENT);
                     txt_response.setText("تم الرفع برقم\n" + MATERIALDOCUMENT);
+                    WriteInLogOf_sapTableOfSqlServer();
+                    WriteInLogs_sap_ITEMStableOfSqlServer();
+                    //databaseHelper.DeleteDataOfThreeTables();
 
-                    if (Po_Item_For_Log_only_Has_value.size() > 0) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("تم الرفع برقم\n" + MATERIALDOCUMENT)
+                            .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                    databaseHelper.DeleteDataOfThreeTables();
+                                    Intent GoToUpload = new Intent(UploadActivity.this, ReceivingActivity.class);
+                                    startActivity(GoToUpload);
+                                }
+                            }).show();
+//                    if (Po_Item_For_Log_only_Has_value.size() > 0) {
                         // for (int i = 0; i < Po_Item_For_Log_only_Has_value.size();i++) {
-                        WriteInLogOf_sapTableOfSqlServer();
-                        WriteInLogs_sap_ITEMStableOfSqlServer();
-                        //  }
-                    } else {
-                        txt_response.setText("All Qty Is 0.0");
 
-                    }
+                        //  }
+//                    } else {
+//                        txt_response.setText("All Qty Is 0.0");
+//
+//                    }
                 } else if (Po_Item_For_ftp_Upload.size() == 0) {
                     txt_response.setText("You not have any change in Quantity");
                 }
@@ -793,17 +806,28 @@ Button btn_export,btn_Get_Document;
 //            Log.e("This Is First Time","true");
 //            startActivity(Go_To_ScanRecieving);
             }
-            //to get document number
             else if (ExportORGetdocument.equalsIgnoreCase("GETDocument")) {
                 if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
                     txt_response.setText("" + EnvelopeBodyInCurrent);
-
                 } else if (envelopebodyInIsNull.equalsIgnoreCase("null")) {
                     txt_response.setText("لم يتم وصول الرد null");
+                    //////////waiting///////////////////
+                    Get_Document(view);
                 } else if (!MATERIALDOCUMENT.contains("anyType{}") ) {
                     txt_response.setText("تم الرفع برقم\n" + MATERIALDOCUMENT);
+                    databaseHelper.update_NoMore_To_MaterialNU(MATERIALDOCUMENT);
+                    new AlertDialog.Builder(this)
+                            .setTitle("تم الرفع برقم\n" + MATERIALDOCUMENT)
+                            .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+//                                    databaseHelper.DeleteDataOfThreeTables();
+                                    Intent GoToUpload = new Intent(UploadActivity.this, ReceivingActivity.class);
+                                    startActivity(GoToUpload);
+                                }
+                            }).show();
                 }else {
                     txt_response.setText(MESSAGE);
+                    //Upload(view);
                 }
             }
     }

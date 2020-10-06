@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.connecttosoapapiapp.MainActivity;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
@@ -30,8 +32,6 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class ReceivingActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
@@ -144,12 +144,12 @@ Boolean This_Is_First_Time;
 
         if (edit_purchaseorder.getText().toString().isEmpty()){
             edit_purchaseorder.setError("من فضلك ادخل أمر الشراء");
-        } else if (Po_HeaderList.size()== 0){
-            Toast.makeText(this, "else", Toast.LENGTH_SHORT).show();
+        }else if (Po_HeaderList.size() == 0){
+            Toast.makeText(this, "لايوجد أمر سابق برجاء تحميل أمر شراء جديد", Toast.LENGTH_SHORT).show();
 
-            This_Is_First_Time=true;
-            //databaseHelper.DeleteDataOfThreeTables();
-            getLoaderManager().initLoader(LOADER_ID, null, ReceivingActivity.this);
+//            This_Is_First_Time=true;
+//            databaseHelper.DeleteDataOfThreeTables();
+//            getLoaderManager().initLoader(LOADER_ID, null, ReceivingActivity.this);
             /*
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.textforpurchaseorderReciev))
@@ -166,7 +166,7 @@ Boolean This_Is_First_Time;
                         }
                     }).show();*/
 
-        }else if (Po_HeaderList.size()!= 0 && Po_itemList.size() !=0){  //!Po_item_NoMore.contains(" ")
+        } else if (Po_HeaderList.size()!= 0 && Po_itemList.size() !=0){  //!Po_item_NoMore.contains(" ")
             if (Po_HeaderList.get(0).getPO_NUMBER1().equalsIgnoreCase(edit_purchaseorder.getText().toString())
                     && Po_item_NoMore.length()!=0){
 
@@ -219,7 +219,7 @@ Boolean This_Is_First_Time;
                         }).show();
                  }
                  //this to be more secure
-        }else{
+        }/*else{
 
             This_Is_First_Time=true;
             databaseHelper.DeleteDataOfThreeTables();
@@ -241,7 +241,7 @@ Boolean This_Is_First_Time;
                             dialog.cancel();
                         }
                     }).show();*/
-          }
+          //}
     }
 
     public void Loading_PURCHASE_ORDER_New() {
@@ -259,14 +259,14 @@ Boolean This_Is_First_Time;
         if (edit_purchaseorder.getText().toString().isEmpty()){
             edit_purchaseorder.setError("من فضلك ادخل أمر الشراء");
         }else{
-
-            new AlertDialog.Builder(this)
+            This_Is_First_Time=true;
+            databaseHelper.DeleteDataOfThreeTables();
+            getLoaderManager().initLoader(LOADER_ID, null, ReceivingActivity.this);
+            /*new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.textforpurchaseorderReciev))
                     .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            This_Is_First_Time=true;
-                            databaseHelper.DeleteDataOfThreeTables();
-                            getLoaderManager().initLoader(LOADER_ID, null, ReceivingActivity.this);
+
                         }
                     })
                     .setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
@@ -275,7 +275,7 @@ Boolean This_Is_First_Time;
                         }
                     }).show();
 
-
+*/
         }
     }
 

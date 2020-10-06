@@ -2,15 +2,16 @@ package com.example.connecttosoapapiapp.ReceivingModule;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Adapter.ItemOfPoItemsAdapter;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
-import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 
 import java.util.List;
@@ -72,7 +73,6 @@ public class ShowBuyDataActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(itemOfPoItemsAdapter);
-
     }
 
     @Override
