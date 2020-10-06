@@ -513,7 +513,7 @@ Button btn_export,btn_Get_Document;
     }
 
     @Override
-    public void onRequestPermissionsResult(int RC, String per[], int[] Result) {
+    public void onRequestPermissionsResult(int RC, String[] per, int[] Result) {
 
         switch (RC) {
 
@@ -521,7 +521,7 @@ Button btn_export,btn_Get_Document;
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(UploadActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     UplaodingToFtp();
                 } else {
 
@@ -1136,7 +1136,7 @@ Button btn_export,btn_Get_Document;
 //                        Log.d("zzzsizeUploadss",""+Po_iteamList.get(i));
 //                    //   break;
 //                    }*/
-
+  
 
             }
 

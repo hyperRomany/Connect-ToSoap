@@ -88,13 +88,19 @@ public class Constant {
     public final static String ApksURL_ًWithoutName ="http://10.2.1.220:82/PPCAPK/";
 //    public final static String ApksURL ="https://translationapp.000webhostapp.com/ChatServerFiles/UploadFromPPc/app-debugV2.apk";
 
-    public final static String GetVersionURL ="http://10.2.1.220:8080/PPCModules/GetVersionPPC.php";
+    public final static String GetVersionURL = "http://10.2.1.220:8080/PPCModules/GetVersionPPC.php";
 
     /// constant to connect to server on login activity
-    public final static String LoginURL ="http://10.2.1.220:8080/PPCModules/LoginPPC.php";
+    public final static String LoginURL = "http://10.2.1.220:8080/PPCModules/LoginPPC.php";
     public static final String WriteInLogOf_sapTableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_saptable.php";
     public static final String WriteInLogs_sap_ITEMStableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_sap_ITEMStable.php";
+
     public static final String UploadToCSVFtp = "http://10.128.6.160:81/PhpProject1/UploadCSVFile.php";
+
+    public static final String UploadToCSVFtp_cyclecount = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_cyclecount.php";
+
+    //public static final String UploadCSVFile_ScanBarcode = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ScanBarcode.php";
+
     public static final String UploadCSVFile_ScanBarcode = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ScanBarcode.php";
 
     public static final String UploadCSVFile_ItemAvailabilitye = "http://10.2.1.220:8080/PPCModules/UploadCSVFile_ItemAvailability.php";
@@ -165,7 +171,7 @@ public class Constant {
 
     public static final String WriteInLogOf_sapTableofundefined = "http://10.2.1.220:8080/PPCModules/writeinLogs_sap_ofundefined.php";
 
-    public static final String Details_for_Update="http://10.2.1.220:8080/PPCModules/Details.php";
+    public static final String Details_for_Update = "http://10.2.1.220:8080/PPCModules/Details.php";
     //for qas
 //    public static String NAMESPACE_For_Upload_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
 //    public static String METHOD_For_Upload_Cycle_Count="ZPPC_CREATE_COUNT";
@@ -173,68 +179,46 @@ public class Constant {
 //    public static String SOAP_ACTION_For_Upload_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CREATE_COUNT:ZPPC_CREATE_COUNTRequest";
 
     //for Dev
-    public static String NAMESPACE_For_Upload_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Upload_Cycle_Count="ZPPC_CREATE_COUNT";
-    public static String URL_For_Upload_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_count/300/zws_ppc_createe_count_sn/zws_ppc_createe_count_bn";
-    public static String SOAP_ACTION_For_Upload_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CREATE_COUNT:ZPPC_CREATE_COUNTRequest";
-
-
-    //////////////////////////////////////////////////////GI
-    public static String NAMESPACE_For_Upload_GI ="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Upload_GI ="Z_PPC_GOODS_ISSUE_CC_EH";
-    public static String URL_For_Upload_GI="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_gi/200/zppc_gi_cc/zppc_gi_cc";
-    public static String SOAP_ACTION_For_Upload_GI="urn:sap-com:document:sap:rfc:functions:zppc_GI:Z_PPC_GOODS_ISSUE_CC_EHRequest";
-
-/*****************************************////// for search Item Return
-    public static String NAMESPACE_For_Search_Barcode_returnitem="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Search_Barcode_returnitem="ZBAPI_PPC_SEARCH_PURCH";
-    public static String URL_For_Search_Barcode_returnitem="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_purch/300/zws_ppc_search_purch_sn/zws_ppc_search_purch_bn";
-    public static String SOAP_ACTION_For_Search_Barcode_returnitem="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_SEARCH_PURCH:ZBAPI_PPC_SEARCH_PURCHRequest";
-
-    //*//////////////////////  for create item return
-    public static String NAMESPACE_For_create_returnitem="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_create_returnitem="ZBAPI_PPC_CREATE_RETURN_PO";
-    //http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn
-    public static String URL_For_create_returnitem="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn";
-    public static String SOAP_ACTION_For_create_returnitem="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_RETURN_PO:ZBAPI_PPC_CREATE_RETURN_PORequest";
-
-
-    // for item availability module
-    public static String GetDetialsURL="http://10.2.1.220:8080/PPCModules/SelectDataForBarcodeForViewItems.php";
-
+    public static String NAMESPACE_For_Upload_Cycle_Count = "urn:sap-com:document:sap:rfc:functions";
     // for promotion module
-    public final static String Listforpgrp_descriptionFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectPGRP_PORG.php";
+    public final static String Listforpgrp_descriptionFromSqlServerURL = "http://10.2.1.220:8080/PPCModules/SelectPGRP_PORG.php";
+    public final static String ListfornotsFromSqlServerURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/GetNots.php";
+    public final static String GetUserNameFromSqlServerURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/GetUserName.php";
+    //    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active_issue.php";
+    public final static String UpdatepromotionafterReviewonSqlServerURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/UpdatepromotionAfterReview.php";
+    public static String METHOD_For_Upload_Cycle_Count = "ZPPC_CREATE_COUNT";
+    public static String URL_For_Upload_Cycle_Count = "http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_count/300/zws_ppc_createe_count_sn/zws_ppc_createe_count_bn";
+    public static String SOAP_ACTION_For_Upload_Cycle_Count = "urn:sap-com:document:sap:rfc:functions:Zws_PPC_CREATE_COUNT:ZPPC_CREATE_COUNTRequest";
+    //////////////////////////////////////////////////////GI
+    public static String NAMESPACE_For_Upload_GI = "urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_Upload_GI = "Z_PPC_GOODS_ISSUE_CC_EH";
+    public static String URL_For_Upload_GI = "http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_gi/200/zppc_gi_cc/zppc_gi_cc";
+    public static String SOAP_ACTION_For_Upload_GI = "urn:sap-com:document:sap:rfc:functions:zppc_GI:Z_PPC_GOODS_ISSUE_CC_EHRequest";
+    /*****************************************////// for search Item Return
+    public static String NAMESPACE_For_Search_Barcode_returnitem = "urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_Search_Barcode_returnitem = "ZBAPI_PPC_SEARCH_PURCH";
+    public static String URL_For_Search_Barcode_returnitem = "http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_purch/300/zws_ppc_search_purch_sn/zws_ppc_search_purch_bn";
+    public static String SOAP_ACTION_For_Search_Barcode_returnitem = "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_SEARCH_PURCH:ZBAPI_PPC_SEARCH_PURCHRequest";
+    //*//////////////////////  for create item return
+    public static String NAMESPACE_For_create_returnitem = "urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_create_returnitem = "ZBAPI_PPC_CREATE_RETURN_PO";
+    //http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn
+    public static String URL_For_create_returnitem = "http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn";
+    public static String SOAP_ACTION_For_create_returnitem = "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_RETURN_PO:ZBAPI_PPC_CREATE_RETURN_PORequest";
+    // for item availability module
+    public static String GetDetialsURL = "http://10.2.1.220:8080/PPCModules/SelectDataForBarcodeForViewItems.php";
+    public static String GetExpiredPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Expired.php";
+    public static String GetStopedPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Stopped.php";
+    public static String GetTodayPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active.php";
 
-    public final static String ListfornotsFromSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/GetNots.php";
 
+    public static boolean isOnline(Context context) {
 
-    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/Update/SP_PROM_GetPromotions_Active.php";
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-//    public static String GetTodayPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active_issue.php";
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-
-    public final static String GetUserNameFromSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/GetUserName.php";
-
-    public final static String UpdatepromotionafterReviewonSqlServerURL="http://10.2.1.220:8080/PPCModules/PromotionModule/UpdatepromotionAfterReview.php";
-    public static String GetExpiredPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Expired.php";
-    public static String GetStopedPromotionURL="http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Stopped.php";
-
-
-    public static boolean isOnline(Context context){
-
-        ConnectivityManager connectivityManager=(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo networkInfo =connectivityManager.getActiveNetworkInfo();
-
-        if (networkInfo !=null && networkInfo.isConnected()){
-
-            return true;
-
-        }else {
-
-            return false;
-
-        }
+        return networkInfo != null && networkInfo.isConnected();
 
     }
 }

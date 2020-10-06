@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.TransfereModule.Helper.DatabaseHelperForTransfer;
@@ -28,8 +30,6 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class TransferSearchActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
@@ -88,9 +88,9 @@ String FromSite,ToSite,Department;
         }else {
 
             Toast.makeText(this, "intent is null", Toast.LENGTH_SHORT).show();
-            Department = STo_headerlist.get(0).getP_Grp1().toString();
-            FromSite = STo_headerlist.get(0).getIss_Site1().toString();
-            ToSite = STo_headerlist.get(0).getRec_Site1().toString();
+            Department = STo_headerlist.get(0).getP_Grp1();
+            FromSite = STo_headerlist.get(0).getIss_Site1();
+            ToSite = STo_headerlist.get(0).getRec_Site1();
             Log.e("intent is null", "fromsite" + FromSite);
             Log.e("intent is null", "tosite" + ToSite);
             txt_from_site_search.setText(FromSite);
@@ -437,57 +437,64 @@ String FromSite,ToSite,Department;
 
     @Override
     public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
-        Toast.makeText(TransferSearchActivity.this,"finished ",Toast.LENGTH_LONG).show();
+        Toast.makeText(TransferSearchActivity.this, "finished ", Toast.LENGTH_LONG).show();
         getLoaderManager().destroyLoader(LOADER_ID);
-        Log.d("soaMESSAGE4",""+ MESSAGE);
-        Log.e("This Is First Time",""+RETURN);
+        Log.d("soaMESSAGE4", "" + MESSAGE);
+        Log.e("This Is First Time", "" + RETURN);
 
-        if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)){
-            editbarcodeforsoap.setError(""+EnvelopeBodyInCurrent);
+        if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
+            editbarcodeforsoap.setError("" + EnvelopeBodyInCurrent);
             edit_asked_from_site_search.setEnabled(false);
-           // btn_loading_purchase_order.setEnabled(true);
-        }else if(RETURN.contains("anyType{}") ){
-            List<STo_Search> STo_searchlist_bg=new ArrayList<>();
-            Log.e("This Is First Time",""+RETURN);
-            Toast.makeText(TransferSearchActivity.this,RETURN,Toast.LENGTH_LONG).show();
+            // btn_loading_purchase_order.setEnabled(true);
+        } else if (RETURN.contains("anyType{}")) {
+            List<STo_Search> STo_searchlist_bg = new ArrayList<>();
+            Log.e("This Is First Time", "" + RETURN);
+            Toast.makeText(TransferSearchActivity.this, RETURN, Toast.LENGTH_LONG).show();
             STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
-            if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")){
+            Log.e("ZZONFINISHTime", "ZZ" + (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")));
+
+            if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")) {
                 editbarcodeforsoap.setError("هذا الباركود غير فعال");
                 edit_asked_from_site_search.setEnabled(false);
-            } else if (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")){
+
+            } else if ((STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
+                    && !(FromSite.equalsIgnoreCase("01MW")
+                    || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
+                Log.d("getISSbbbbb_STG", "zz " + STo_searchlist_bg.get(0).getAVAILABLE_STOCK1());
+                Log.d("getISSbbbbb_STG", "z" + FromSite);
                 editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
                 edit_asked_from_site_search.setEnabled(false);
-            }else {
+            } else {
                 txt_descripation_search.setText(STo_searchlist_bg.get(0).getUOM_DESC1());
-                txt_code_item_search.setText(STo_searchlist_bg.get(0).getMAT_CODE1().subSequence(6,18));
+                txt_code_item_search.setText(STo_searchlist_bg.get(0).getMAT_CODE1().subSequence(6, 18));
                 txt_state_item_search.setText(STo_searchlist_bg.get(0).getSTATUS1());
                 txt_available_to_site_search.setText(STo_searchlist_bg.get(0).getAVAILABLE_STOCK1());
 
                 Long id = databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log_if_has_anytypevalue(STo_searchlist_bg.get(0).getISS_STG_LOG1());
-                Log.e("getISSbbbbb_STG",""+ STo_searchlist_bg.get(0).getISS_STG_LOG1());
-                Log.e("getISSbbbbb_STG",""+id);
+                Log.e("getISSbbbbb_STG", "" + STo_searchlist_bg.get(0).getISS_STG_LOG1());
+                Log.e("getISSbbbbb_STG", "" + id);
 
                 List<String> Iss_Site_Log_list = new ArrayList<>();
-                for (int i=0;i<STo_searchlist_bg.size();i++){
-                    if (!Iss_Site_Log_list.contains(STo_searchlist_bg.get(i).getISS_STG_LOG1())){
+                for (int i = 0; i < STo_searchlist_bg.size(); i++) {
+                    if (!Iss_Site_Log_list.contains(STo_searchlist_bg.get(i).getISS_STG_LOG1())) {
                         Iss_Site_Log_list.add(STo_searchlist_bg.get(i).getISS_STG_LOG1());
-                        Log.e("getISS_STG",""+ STo_searchlist_bg.get(i).getISS_STG_LOG1());
+                        Log.e("getISS_STG", "" + STo_searchlist_bg.get(i).getISS_STG_LOG1());
                     }
                 }
 
                 Iss_Site_Log_list.remove("anyType{}");
 
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(TransferSearchActivity.this,
-                        android.R.layout.simple_spinner_item,Iss_Site_Log_list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
+                        android.R.layout.simple_spinner_item, Iss_Site_Log_list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spiner_storage_location_from.setAdapter(adapter);
 
                 List<String> Rec_Site_Log_list = new ArrayList<>();
 
-                for (int i=0;i<STo_searchlist_bg.size();i++){
-                    if (!Rec_Site_Log_list.contains(STo_searchlist_bg.get(i).getREC_SITE_LOG1())){
+                for (int i = 0; i < STo_searchlist_bg.size(); i++) {
+                    if (!Rec_Site_Log_list.contains(STo_searchlist_bg.get(i).getREC_SITE_LOG1())) {
                         Rec_Site_Log_list.add(STo_searchlist_bg.get(i).getREC_SITE_LOG1());
-                        Log.e("getISS_STG",""+ STo_searchlist_bg.get(i).getREC_SITE_LOG1());
+                        Log.e("getISS_STG", "" + STo_searchlist_bg.get(i).getREC_SITE_LOG1());
                     }
                 }
                 Rec_Site_Log_list.remove("anyType{}");
@@ -545,37 +552,43 @@ String FromSite,ToSite,Department;
     }
 
     public void SaveDelivered(View view) {
-        if (editbarcodeforsoap.getText().toString().isEmpty() ){
+        if (editbarcodeforsoap.getText().toString().isEmpty()) {
             editbarcodeforsoap.setError("من فضلك أدخل الباركود");
-        }else if (edit_asked_from_site_search.getText().toString().isEmpty()){
+        } else if (edit_asked_from_site_search.getText().toString().isEmpty()) {
             edit_asked_from_site_search.setError("من فضلك أدخل الكميه");
-        }else if (Double.valueOf(edit_asked_from_site_search.getText().toString()) >
-                Double.valueOf(txt_available_to_site_search.getText().toString())){
-            edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن..المتاح"+txt_available_to_site_search.getText().toString());
-        }else {
+        } else if ((Double.valueOf(edit_asked_from_site_search.getText().toString()) >
+                Double.valueOf(txt_available_to_site_search.getText().toString()))
+                && !(FromSite.equalsIgnoreCase("01MW")
+                || ToSite.equalsIgnoreCase("01MW"))) {//TODO check qty
+            edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن.1.المتاح" + txt_available_to_site_search.getText().toString());
+            Log.e("zzsav1", "n" + FromSite.equalsIgnoreCase("01MW"));
+            Log.e("zzsav1", "n" + !(FromSite.equalsIgnoreCase("01MW")
+                    || ToSite.equalsIgnoreCase("01MW")));
+
+        } else {
 
             databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log(spiner_storage_location_from.getSelectedItem().toString());
             databaseHelperForTransfer.Update_Sto_Header_For_Rec_Site_log(spiner_storage_location_to.getSelectedItem().toString());
 
             spiner_storage_location_from.setEnabled(false);
             spiner_storage_location_to.setEnabled(false);
-            Log.e("databaseHelperForTrans",""+spiner_storage_location_from.getSelectedItem().toString().length());
-            Log.e("databaseHelperForTrans",""+ spiner_storage_location_to.getSelectedItem().toString().length());
+            Log.e("databaseHelperForTrans", "" + spiner_storage_location_from.getSelectedItem().toString().length());
+            Log.e("databaseHelperForTrans", "" + spiner_storage_location_to.getSelectedItem().toString().length());
             List<STo_Search> STo_searchlist_btn = new ArrayList<>();
             STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
                     spiner_storage_location_from.getSelectedItem().toString()
-                    ,spiner_storage_location_to.getSelectedItem().toString()
-                    ,editbarcodeforsoap.getText().toString());
-            if (STo_searchlist_btn.size() ==0){
+                    , spiner_storage_location_to.getSelectedItem().toString()
+                    , editbarcodeforsoap.getText().toString());
+            if (STo_searchlist_btn.size() == 0) {
 
                 databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_asked_from_site_search.getText().toString(),
                         spiner_storage_location_from.getSelectedItem().toString()
-                        ,spiner_storage_location_to.getSelectedItem().toString()
-                        ,editbarcodeforsoap.getText().toString());
+                        , spiner_storage_location_to.getSelectedItem().toString()
+                        , editbarcodeforsoap.getText().toString());
                 Double AvaliableQty = Double.valueOf(txt_available_to_site_search.getText().toString()) -
                         Double.valueOf(edit_asked_from_site_search.getText().toString());
-                Log.e("AvaliableQty",""+AvaliableQty);
-                txt_available_to_site_search.setText(""+AvaliableQty);
+                Log.e("AvaliableQty", "" + AvaliableQty);
+                txt_available_to_site_search.setText("" + AvaliableQty);
                 edit_asked_from_site_search.setText("");
                 //edit_asked_from_site_search.setHint("Done");
                 /*editbarcodeforsoap.setText("");
@@ -588,26 +601,31 @@ String FromSite,ToSite,Department;
 
             }else {
                 Double AvaliableQty = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1());
-                Double lastQty =0.0;
-                if (STo_searchlist_btn.get(0).getQTY1().isEmpty()){
-                     lastQty =0.0 ;
-                }else {
-                     lastQty = Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
+                Double lastQty = 0.0;
+                if (STo_searchlist_btn.get(0).getQTY1().isEmpty()) {
+                    lastQty = 0.0;
+                } else {
+                    lastQty = Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
                 }
                 Double currentQty = Double.valueOf(edit_asked_from_site_search.getText().toString());
-                Double SumQty=lastQty+currentQty;
-                if (SumQty <= AvaliableQty){
-                    Log.e("SumQty",""+SumQty);
-                    Log.e("SumQty",""+spiner_storage_location_from.getSelectedItem().toString());
-                    Log.e("SumQty",""+spiner_storage_location_to.getSelectedItem().toString());
-                    Log.e("SumQty",""+editbarcodeforsoap.getText().toString());
+                Double SumQty = lastQty + currentQty;
+                Log.e("zzdatabase", "" + (SumQty <= AvaliableQty));
+                Log.e("zzdatabase", "" + !(FromSite.equalsIgnoreCase("01MW")
+                        || ToSite.equalsIgnoreCase("01MW")));
+
+                if ((SumQty <= AvaliableQty) || (FromSite.equalsIgnoreCase("01MW")
+                        || ToSite.equalsIgnoreCase("01MW"))) {
+                    Log.e("SumQty", "" + SumQty);
+                    Log.e("SumQty", "" + spiner_storage_location_from.getSelectedItem().toString());
+                    Log.e("SumQty", "" + spiner_storage_location_to.getSelectedItem().toString());
+                    Log.e("SumQty", "" + editbarcodeforsoap.getText().toString());
                     databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(SumQty)
-                            ,spiner_storage_location_from.getSelectedItem().toString()
-                            ,spiner_storage_location_to.getSelectedItem().toString()
-                            ,editbarcodeforsoap.getText().toString());
+                            , spiner_storage_location_from.getSelectedItem().toString()
+                            , spiner_storage_location_to.getSelectedItem().toString()
+                            , editbarcodeforsoap.getText().toString());
                     edit_asked_from_site_search.setText("");
                     edit_asked_from_site_search.setHint("Done");
-                    txt_available_to_site_search.setText(""+(AvaliableQty-SumQty));
+                    txt_available_to_site_search.setText("" + (AvaliableQty - SumQty));
                     editbarcodeforsoap.setText("");
                     editbarcodeforsoap.requestFocus();
                     /*editbarcodeforsoap.setText("");
@@ -618,8 +636,8 @@ String FromSite,ToSite,Department;
                     txt_state_item_search.setText("حاله الصنف");
                     txt_available_to_site_search.setText("المتاح بالمخزن");*/
 
-                }else {
-                    edit_asked_from_site_search.setError( "هذه الكميه أكبر من المتاح بالمخزن... المتاح" +AvaliableQty);
+                } else {//TODO check qty
+                    edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن.2.. المتاح" + AvaliableQty);
                 }
             }
 
