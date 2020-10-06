@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -48,6 +46,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ReviewActivity extends AppCompatActivity {
     String Barcode,Superviser_id,Superviser_username;
@@ -139,12 +139,16 @@ public class ReviewActivity extends AppCompatActivity {
         txt_discountvalue.setText(prom_item_moduleList.get(0).getDiscountvalue1());
 
 //TODO if discount type not value don't calculte sales price
-        if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("3")) {
+        if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("3")
+        || prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("2") ) {
             txt_totalprice.setText(String.valueOf(
                     dwith0.format((Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
                             Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))*(1+(Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))));
-        }
-        else {
+        } else if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("101")) {
+            txt_totalprice.setText(String.valueOf(
+                    dwith0.format((Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
+                            Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )*(1+(Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))));
+        } else {
             txt_discountvalue.setVisibility(View.INVISIBLE);
         }
          noteslist=new ArrayList<>();
