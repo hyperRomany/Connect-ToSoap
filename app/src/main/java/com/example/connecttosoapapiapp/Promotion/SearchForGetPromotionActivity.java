@@ -582,7 +582,7 @@ LinearLayout linear_of_date;
 
         if (edit_ID.getText().toString().isEmpty()) {
             ID = 0;
-        } else { 
+        } else {
             ID = Integer.valueOf(edit_ID.getText().toString());
         }
                     // sleep the thread, whatever time you want.
