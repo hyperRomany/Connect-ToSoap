@@ -16,15 +16,13 @@ public class ExpiredPormotionData {
 
 
 
-    public Boolean doInBackground(String condition, Context context) {
+    public Boolean doInBackground(String condition, String company, Context context) {
 
 
-        try
-        {
-            ConnectionHelper conStr=new ConnectionHelper();
-            connect =conStr.connectionclasss();        // Connect to database
-            if (connect == null)
-            {
+        try {
+            ConnectionHelper conStr = new ConnectionHelper();
+            connect = conStr.connectionclasss();        // Connect to database
+            if (connect == null) {
                 ConnectionResult = "Check Your Internet Access!";
             }
             else
@@ -32,7 +30,7 @@ public class ExpiredPormotionData {
                 databaseHelperForProotion=new DatabaseHelperForProotion(context);
 
                 // Change below query according to your own database.
-                String query = "EXEC SP_PROM_GetPromotions_Expired @Cond=N'"+condition+"'";
+                String query = "EXEC SP_PROM_GetPromotions_Expired_Android @Cond=N'" + condition + "',@Company = N'" + company + "'";
                 PreparedStatement stmt = connect.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {

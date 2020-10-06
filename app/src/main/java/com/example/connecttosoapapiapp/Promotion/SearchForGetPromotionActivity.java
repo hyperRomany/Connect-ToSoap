@@ -89,8 +89,8 @@ LinearLayout linear_of_date;
         databaseHelper=new DatabaseHelper(this);
         userdataList=new ArrayList<>();
         userdataList = databaseHelper.getUserData();
-        check_of_UserCode=userdataList.get(0).getCompany1().toString().substring(2,3);
-        Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
+        check_of_UserCode = userdataList.get(0).getCompany1().substring(2, 3);
+        Toast.makeText(this, "" + check_of_UserCode, Toast.LENGTH_SHORT).show();
 
 
         if (getIntent().getExtras() !=null){
@@ -633,48 +633,44 @@ LinearLayout linear_of_date;
 
         if (TodayOrActive.equalsIgnoreCase("Today") ||
                 TodayOrActive.equalsIgnoreCase("Active")) {
-            if (mydata.doInBackground( GetPromotoins(ID, 0, startingDate
+            if (mydata.doInBackground(GetPromotoins(ID, 0, startingDate
                     , enddate, Integer.valueOf(department),
-                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()),getApplicationContext())==true){
+                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()), check_of_UserCode, getApplicationContext()) == true) {
                 Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
                 GotoShow.putExtra("TodayOrActive", TodayOrActive);
                 startActivity(GotoShow);
                 btn_search_prom.setVisibility(View.VISIBLE);
-            }
-            else {
-                Toast.makeText(this,"العرض غير موجود",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "العرض غير موجود", Toast.LENGTH_LONG).show();
                 btn_search_prom.setVisibility(View.VISIBLE);
 
             }
 
         } else if (TodayOrActive.equalsIgnoreCase("Expired")) {
-          if ( mydata2.doInBackground( GetPromotoins_Expired(ID
+            if (mydata2.doInBackground(GetPromotoins_Expired(ID
                     , 0, startingDate
                     , enddate, Integer.valueOf(department),
-                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()),getApplicationContext())==true){
-              Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
-              startActivity(GotoShow);
-              btn_search_prom.setVisibility(View.VISIBLE);
-
-          }
-          else {
-              Toast.makeText(this,"العرض غير موجود",Toast.LENGTH_LONG).show();
-              btn_search_prom.setVisibility(View.VISIBLE);
-
-          }
-        } else if (TodayOrActive.equalsIgnoreCase("Stoped")) {
-            if(mydata3.doInBackground(  GetPromotoins_Stopped(ID
-                    , 0, startingDate
-                    , enddate, Integer.valueOf(department),
-                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()),getApplicationContext())==true)
-            {
+                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()), check_of_UserCode, getApplicationContext()) == true) {
                 Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
                 startActivity(GotoShow);
                 btn_search_prom.setVisibility(View.VISIBLE);
 
+            } else {
+                Toast.makeText(this, "العرض غير موجود", Toast.LENGTH_LONG).show();
+                btn_search_prom.setVisibility(View.VISIBLE);
+
             }
-            else {
-                Toast.makeText(this,"العرض غير موجود",Toast.LENGTH_LONG).show();
+        } else if (TodayOrActive.equalsIgnoreCase("Stoped")) {
+            if (mydata3.doInBackground(GetPromotoins_Stopped(ID
+                    , 0, startingDate
+                    , enddate, Integer.valueOf(department),
+                    Barcode, false, check_promotionforarticle.isChecked(), check_promotiondate.isChecked()), check_of_UserCode, getApplicationContext()) == true) {
+                Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
+                startActivity(GotoShow);
+                btn_search_prom.setVisibility(View.VISIBLE);
+
+            } else {
+                Toast.makeText(this, "العرض غير موجود", Toast.LENGTH_LONG).show();
                 btn_search_prom.setVisibility(View.VISIBLE);
 
             }
