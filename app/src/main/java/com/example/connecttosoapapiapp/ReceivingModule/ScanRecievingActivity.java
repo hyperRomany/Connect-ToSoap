@@ -211,7 +211,7 @@ LinearLayout linear_parent;
         editcurrentdeliver.setText("");
 
         if (!barCode.isEmpty()){
-
+// get all data for this barcode ===> this give us 5 because article has required 5 times
             Po_Item_all_List_for_barcode = databaseHelper.Search_Barcode_Po_Item(barCode);
             Log.e("zzzSearch_Bar1 ",""+Po_Item_all_List_for_barcode.size());
             if (Po_Item_all_List_for_barcode.size() == 1) {  // if barcode has one Po-iteam
@@ -250,44 +250,77 @@ LinearLayout linear_parent;
                 }
 
             }
+
+
             else if (Po_Item_all_List_for_barcode.size() > 1) {  // if barcode has many Po-iteam
-                Log.e("zzzSearch_Bar2Bef ",""+Po_Item_all_List_for_barcode.size());
+                Log.e("zzzSearch_many Po-iteam ",""+Po_Item_all_List_for_barcode.size());
                 for (int i=0;i<Po_Item_all_List_for_barcode.size();i++) {
-                    List<Po_Item> po_itemlist = new ArrayList<>();
-                    Log.e("zzzSearch_BarPoUN ",""+Po_Item_all_List_for_barcode.get(i).getPO_ITEM1());
+                    Log.e("zzzSearch__many Po-iteam ",""+Po_Item_all_List_for_barcode.get(i).getPO_ITEM1());
 
-                    po_itemlist = databaseHelper.Get_Po_Item_for_po_iteam(Po_Item_all_List_for_barcode.get(i).getPO_ITEM1());
-                    for (int J=0;J<po_itemlist.size();J++) {
-                        Po_Item_all_List.add(po_itemlist.get(J));
-                        Log.e("zzzSearch_BarC ",""+Po_Item_all_List.get(J).getEAN111());
+                    List<Po_Item> po_itemlist_for_po_item = new ArrayList<>();
+                    po_itemlist_for_po_item = databaseHelper.Get_sum_qty_for_po_iteam(Po_Item_all_List_for_barcode.get(i).getPO_ITEM1());
+                    Log.e("zzzfor_po_itemsiz ",""+po_itemlist_for_po_item.size());
 
+                    if (Double.valueOf(po_itemlist_for_po_item.get(0).getPDNEWQTY1())>0){
+                        //this mean that there is a barcode has qty >0 for this po_item
+                        Log.e("zzzfor_qty ","more than "+Double.valueOf(po_itemlist_for_po_item.get(0).getPDNEWQTY1()));
+                        if (Po_Item_all_List_for_barcode.get(i).getPO_UNIT1().equalsIgnoreCase(Po_Item_all_List_for_barcode.get(i).getMEINH1())
+                                && Double.valueOf(Po_Item_all_List_for_barcode.get(i).getPDNEWQTY1())>0
+                             ) {
+                            Log.e("zzzfor_qty ",">0 ");
+
+                            Po_Item_List.add(Po_Item_all_List_for_barcode.get(i));
+                        }
+
+                    }else {
+                        Log.e("zzzfor_qty ","equal "+Double.valueOf(po_itemlist_for_po_item.get(0).getPDNEWQTY1()));
+                        if (Po_Item_all_List_for_barcode.get(i).getPO_UNIT1().equalsIgnoreCase(Po_Item_all_List_for_barcode.get(i).getMEINH1())
+                                && Double.valueOf(Po_Item_all_List_for_barcode.get(i).getPDNEWQTY1()) == 0
+                        ) {
+                            Log.e("zzzfor_qty ","=0 ");
+                            Po_Item_List.add(Po_Item_all_List_for_barcode.get(i));
+                        }
                     }
 
-                }
-                Log.e("zzzSearch_Bar2 ",""+Po_Item_all_List.size());
 
+                }
+
+
+                /*
                 for (int i=0;i<Po_Item_all_List.size();i++) {
                     if (Po_Item_all_List.get(i).getPO_UNIT1().equalsIgnoreCase(Po_Item_all_List.get(i).getMEINH1())
                             &&// Po_Item_all_List.get(i).getPDNEWQTY1().equalsIgnoreCase("0.0")
                             Po_Item_all_List.get(i).getEAN111().equalsIgnoreCase(barCode)) {
+                        Log.e("zzzSearch_Beforeadd ",""+Po_Item_List.size());
+
                         Po_Item_List.add(Po_Item_all_List.get(i));
+
+
                         Log.e("zzzSearch_Baradd ",""+Po_Item_all_List.get(i).getEAN111());
                         Log.e("zzzSearch_BarPO_UN ",""+Po_Item_all_List.get(i).getPO_UNIT1());
                         Log.e("zzzSearch_Baradd ",""+Po_Item_all_List.get(i).getPDNEWQTY1());
+                        Log.e("zzzSearch_Baradd ",""+Po_Item_all_List.get(i).getPO_ITEM1());
                     }else if (Po_Item_all_List.get(i).getPO_UNIT1().equalsIgnoreCase(Po_Item_all_List.get(i).getMEINH1())
                             && !Po_Item_all_List.get(i).getPDNEWQTY1().equalsIgnoreCase("0.0")
                             && !Po_Item_all_List.get(i).getEAN111().equalsIgnoreCase(barCode)){
-                        Log.e("zzzSearch_Baradd ",""+Po_Item_all_List.get(i).getEAN111());
+                        Log.e("zzzSearch_Baraddclear",""+Po_Item_all_List.get(i).getEAN111());
                         Log.e("zzzSearch_Barclear ",""+Po_Item_all_List.get(i).getPO_UNIT1());
                         Log.e("zzzSearch_Barclear ",""+Po_Item_all_List.get(i).getPDNEWQTY1());
+                        Log.e("zzzSearch_Barclear ",""+Po_Item_all_List.get(i).getPO_ITEM1());
+
                         for (int k=0;k<Po_Item_List.size();k++) {
                             if (Po_Item_all_List.get(i).getPO_ITEM1().equalsIgnoreCase(Po_Item_List.get(k).getPO_ITEM1())) {
+                                Log.e("zzzSearch_BarclearD ",""+Po_Item_all_List.get(i).getPO_ITEM1());
+
                                 Po_Item_List.clear();
                             }
                         }
                     }
-                }
+                }*/
             }
+
+            Log.e("zzzPo_Item_List ",""+Po_Item_List.size());
+
 
             if (Po_Item_List.size()<=0){
                 editbarcode.setError("هذا الباركود غير متاح..أو ليس لديه نفس الوحده المطلوبه..أوهذا الصنف تم أستلامه من قبل");

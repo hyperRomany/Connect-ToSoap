@@ -423,14 +423,14 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME
-                + " where "+STo_Search.GTIN+"="+Barcode;
+                + " where "+STo_Search.GTIN+"='"+Barcode+"'";
                 //+ " and "  + STo_Search.QTY +"!= null" ;
         //+ " where " + STo_Search.QTY +"!=" +"null or "+ STo_Search.QTY +"!=" +"0.0 and "+STo_Search.GTIN+"="+Barcode;
 
         // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
+         Log.e("zzzzQueryforselect","Q "+selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // Log.d("po_itemlist","empty"+cursor.getString(cursor.getColumnIndex(Po_Item_of_cycleCount.SHORT_TEXT)));
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {

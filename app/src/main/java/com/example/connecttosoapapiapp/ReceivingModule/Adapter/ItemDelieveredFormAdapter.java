@@ -91,7 +91,7 @@ public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDeliever
         holder.txtdelivered_quantity.setText(po_item.getPDNEWQTY1());
         holder.txt_pounite.setText(po_item.getPO_UNIT1());
         holder.txt_ean11.setText(po_item.getEAN111());
-        holder.txt_ean11.setTextIsSelectable(true);
+     //   holder.txt_ean11.setTextIsSelectable(true);
 
         //            android:textIsSelectable="true"
 //        holder.txt_ean11.setTextIsSelectable(true);
