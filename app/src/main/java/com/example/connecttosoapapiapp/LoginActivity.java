@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
 
                     //execute our method for searching
+
                     Login();
                 }
 
@@ -134,7 +135,13 @@ public class LoginActivity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER) {
 
                     //execute our method for searching
-                    Login();
+                    if (DateFromnServer != null) {
+                        Login();
+                    }else {
+                        Toast.makeText(LoginActivity.this, "لم يتم وصول الى التاريخ من السيرفر", Toast.LENGTH_SHORT).show();
+                        VersionDataarray = GetVersionFromServer();
+                    }
+
                 }
 
                 return false;
@@ -147,9 +154,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Constant.isOnline(LoginActivity.this)) {
-
-                    Login();
-
+                    if (DateFromnServer != null) {
+                        Login();
+                    }else {
+                        Toast.makeText(LoginActivity.this, "لم يتم وصول الى التاريخ من السيرفر", Toast.LENGTH_SHORT).show();
+                        VersionDataarray = GetVersionFromServer();
+                    }
                 } else {
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle(getString(R.string.textcheckinternet))
@@ -261,7 +271,7 @@ public class LoginActivity extends AppCompatActivity {
 
             };
         // Add the realibility on the connection.
-        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+        request.setRetryPolicy(new DefaultRetryPolicy(30000, 3, 1.0f));
 
         // Start the request immediately
         queue.add(request);
