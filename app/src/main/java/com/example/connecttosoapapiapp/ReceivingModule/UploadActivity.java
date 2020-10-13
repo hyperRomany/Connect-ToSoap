@@ -176,7 +176,7 @@ Button btn_export,btn_Get_Document;
     public void onBackPressed() {
 //1000423291
 
-        if (i == 30) {
+        if (i == 30 || btn_export.getVisibility() ==View.GONE) {
             Toast.makeText(this, "تم" + (30 ), Toast.LENGTH_SHORT).show();
 
             Intent Go_Back= new Intent(UploadActivity.this , ScanRecievingActivity.class);
