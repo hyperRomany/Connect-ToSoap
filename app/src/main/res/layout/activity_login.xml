@@ -104,6 +104,11 @@
         android:padding="5dp"
         android:layout_marginBottom="5dp"
         />
+    <ProgressBar
+        android:id="@+id/prog_loading_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/txt_version"
         android:layout_width="wrap_content"

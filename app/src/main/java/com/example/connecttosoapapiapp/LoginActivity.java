@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     Date DateFromnServer;
     Date DateOfDevice;
     SimpleDateFormat sdf;
+    ProgressBar prog_loading_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        prog_loading_login=findViewById(R.id.prog_loading_login);
 
         editusername = findViewById(R.id.username);
         editusername.setFocusable(true);
@@ -154,11 +157,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Constant.isOnline(LoginActivity.this)) {
+                    prog_loading_login.setVisibility(View.VISIBLE);
+                    btnlogin.setVisibility(View.GONE);
                     if (DateFromnServer != null) {
                         Login();
                     }else {
+                        prog_loading_login.setVisibility(View.INVISIBLE);
+                        btnlogin.setVisibility(View.VISIBLE);
                         Toast.makeText(LoginActivity.this, "لم يتم وصول الى التاريخ من السيرفر", Toast.LENGTH_SHORT).show();
                         VersionDataarray = GetVersionFromServer();
+
                     }
                 } else {
                     new AlertDialog.Builder(LoginActivity.this)
