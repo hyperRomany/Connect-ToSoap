@@ -1295,6 +1295,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return po_itemlist;
     }
 
+    public  List<Po_Item> Get_sum_qty_for_po_iteam(String po_iteam1) {
+        List<Po_Item> po_itemlist = new ArrayList<>();
+
+        /*
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + Po_Item_of_cycleCount.TABLE_NAME + " where " + Po_Item_of_cycleCount.EAN11 +" = ?"  ;
+        // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{BarCode});
+         */
+        // Select All Query
+        String selectQuery = "SELECT sum( " +Po_Item.PDNEWQTY + ") " + Po_Item.PDNEWQTY + " FROM " + Po_Item.TABLE_NAME+
+                " where " + Po_Item.PO_ITEM  +" = '" + po_iteam1+"'" ;
+        // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Log.d("po_itemlist","empty"+cursor.getString(cursor.getColumnIndex(Po_Item_of_cycleCount.SHORT_TEXT)));
+        Log.e("zzzselectQuery",""+selectQuery);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Po_Item  po_item = new Po_Item();
+
+                //الكميه المستلمه سابقا
+                po_item.setPDNEWQTY1(cursor.getString(cursor.getColumnIndex(Po_Item.PDNEWQTY)));
+//
+
+                po_item.setChecked_Item(false);
+               /* po_itemlist.add(new Po_Item_of_cycleCount(cursor.getString(cursor.getColumnIndex(Po_Header.PO_NUMBER)),
+                        cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR)),
+                        cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR_NAME))));*/
+
+
+                po_itemlist.add(po_item);
+//                if (po_itemlist.isEmpty()){
+//                    Log.d("po_itemlist","empty");
+//                }
+                //   Log.d("Po_Headersclass",""+po_item.getMEINH1());
+                //Log.d("Po_Headersclasslist",""+po_itemlist.get(0).getMEINH1());
+
+
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.PO_NUMBER)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR_NAME)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        // close db connection
+        db.close();
+
+        //  Log.d("po_itemlistsize",""+po_itemlist.size());
+        // return Po_item list
+        return po_itemlist;
+    }
+
     public  List<Po_Item> Get_Po_Item_for_po_iteam_for_upload(String po_iteam1/*,String PO_UNIT*/) {
         List<Po_Item> po_itemlist = new ArrayList<>();
 

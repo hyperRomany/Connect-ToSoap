@@ -15,8 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.TransfereModule.Helper.DatabaseHelperForTransfer;
@@ -30,6 +28,8 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class TransferSearchActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
@@ -451,7 +451,7 @@ String FromSite,ToSite,Department;
             Log.e("This Is First Time", "" + RETURN);
             Toast.makeText(TransferSearchActivity.this, RETURN, Toast.LENGTH_LONG).show();
             STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
-            Log.e("ZZONFINISHTime", "ZZ" + (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")));
+//            Log.e("ZZONFINISHTime", "ZZ" + (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")));
 
             if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")) {
                 editbarcodeforsoap.setError("هذا الباركود غير فعال");

@@ -7,12 +7,12 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDelieveredFormAdapter.MyViewHolder> {
 
@@ -91,7 +91,7 @@ public class ItemDelieveredFormAdapter extends RecyclerView.Adapter<ItemDeliever
         holder.txtdelivered_quantity.setText(po_item.getPDNEWQTY1());
         holder.txt_pounite.setText(po_item.getPO_UNIT1());
         holder.txt_ean11.setText(po_item.getEAN111());
-
+        holder.txt_ean11.setTextIsSelectable(true);
 
         //            android:textIsSelectable="true"
 //        holder.txt_ean11.setTextIsSelectable(true);
