@@ -189,117 +189,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Background Async Task to download file
-     * */
-    class DownloadFileFromURL extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread Show Progress Bar Dialog
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showDialog(DIALOG_DOWNLOAD_PROGRESS);
-
-        }
-
-        /**
-         * Downloading file in background thread
-         * */
-        @Override
-        protected String doInBackground(String... f_url) {
-            int count;
-            Log.e("zzzf_urldoInBac",""+f_url[0]);
-            try {
-                URL url = new URL(f_url[0]);
-                URLConnection conection = url.openConnection();
-                conection.connect();
-
-                // this will be useful so that you can show a tipical 0-100%
-                // progress bar
-                int lenghtOfFile = conection.getContentLength();
-
-                // download the file
-                InputStream input = new BufferedInputStream(url.openStream(),
-                        8192);
-
-                // Output stream
-                OutputStream output = new FileOutputStream(Environment
-                        .getExternalStorageDirectory().toString()
-                        + "/"+f_url[1]);
-
-                byte data[] = new byte[1024];
-
-                long total = 0;
-
-                while ((count = input.read(data)) != -1) {
-                    total += count;
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-
-                    // writing data to file
-                    output.write(data, 0, count);
-                }
-
-                // flushing output
-                output.flush();
-
-                UpdateDownloadORNot=true;
-
-                // closing streams
-                output.close();
-                input.close();
-
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
-                UpdateDownloadORNot=false;
-//                Toast.makeText(LoginActivity.this, "لم يتم التتصال بالسيرفر لتحميل اخر تحديث", Toast.LENGTH_SHORT).show();
-            }
-
-            return null;
-        }
-
-        /**
-         * Updating progress bar
-         * */
-        protected void onProgressUpdate(String... progress) {
-            // setting progress percentage
-            mProgressDialog.setProgress(Integer.parseInt(progress[0]));
-
-        }
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
-        @Override
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog after the file was downloaded
-            dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
-            Log.e("zzzonPostExecute","onPostExecute");
-            if (UpdateDownloadORNot ==true){
-                InstallApk();
-            }else if (UpdateDownloadORNot == false){
-                Toast.makeText(LoginActivity.this, "لم يتم الأتصال بالسيرفر لتحميل اخر تحديث", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
-
-    private String GetVersionOfApp() {
-        String Version = "0.0";
-        try {
-            PackageManager pm = getPackageManager();
-            PackageInfo pInfo = pm.getPackageInfo(getPackageName(), 0);
-            Version = pInfo.versionName;
-            Log.d(TAG, "checkVersion.DEBUG: App version: " + Version);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return Version;
-    }
-
     public List<String> GetVersionFromServer() {
         RequestQueue queue = Volley.newRequestQueue(this);
             request = new StringRequest(Request.Method.POST, Constant.GetVersionURL,
@@ -318,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
                             JsonObject object1 = new JsonObject().getAsJsonObject(response);
                             Log.e("onResponseresoo", "object" + object1);
                             try {
-                                JSONObject object = new JSONObject(response.toString());
+                                JSONObject object = new JSONObject(response);
                                 Log.e("onResponse", "object" + object);
 
                                 String status = object.getString("status");
@@ -333,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                                         DateFromnServer = sdf.parse(object.getString("Today_Date"));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
-                                    };
+                                    }
                                     Log.d("onResponse", ""+DateFromnServer);
 
                                     RequestRunTimePermission();
@@ -366,18 +255,72 @@ public class LoginActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() {
 
                     Map<String, String> params = new HashMap<String, String>();
-                  //  params.put("User_Name", editusername.getText().toString());
+                    //  params.put("User_Name", editusername.getText().toString());
                     return params;
                 }
 
             };
-            // Add the realibility on the connection.
-            request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+        // Add the realibility on the connection.
+        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
 
-            // Start the request immediately
-            queue.add(request);
+        // Start the request immediately
+        queue.add(request);
 
-        return VersionDataarray   ;
+        return VersionDataarray;
+    }
+
+    private String GetVersionOfApp() {
+        String Version = "0.0";
+        try {
+            PackageManager pm = getPackageManager();
+            PackageInfo pInfo = pm.getPackageInfo(getPackageName(), 0);
+            Version = pInfo.versionName;
+            Log.d(TAG, "checkVersion.DEBUG: App version: " + Version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return Version;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int RC, String[] per, int[] Result) {
+
+        switch (RC) {
+
+            case 1:
+
+                if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
+//                    GetVersionFromServer();
+
+                    Toast.makeText(LoginActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Log.e("zzzVersionDataarray", "dfdf" + VersionDataarray.size());
+                    Log.e("zzzVersionDataarray", "  " + Double.valueOf(GetVersionOfApp()));
+                    Log.e("zzzVersionDataarray", "  " + Double.valueOf(VersionDataarray.get(0)));
+                    if (VersionDataarray.size() != 0) {
+                        //TODO check more than
+                        //  if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
+                        if (Double.valueOf(GetVersionOfApp()) < Double.valueOf(VersionDataarray.get(0))) {
+
+                            Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
+//                        DownloadData(Uri.parse(Constant.ApksURL));
+//                        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+//                        registerReceiver(downloadReceiver, filter);
+
+                            if (!VersionDataarray.get(1).equalsIgnoreCase("")) {
+                                new DownloadFileFromURL().execute(Constant.ApksURL_ًWithoutName + VersionDataarray.get(1), VersionDataarray.get(1));
+                            } else {
+                                Toast.makeText(this, "لم يتم الحصول على الاسم الاصدار من السيرفر", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else {
+                        Log.e("zzzVersionDataarray", "else VersionDataarray.size() =0");
+                    }
+                } else {
+
+                    Toast.makeText(LoginActivity.this, "تم إلغاء الأذن", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
 
     public void InstallApk() {
@@ -429,48 +372,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int RC, String per[], int[] Result) {
-
-        switch (RC) {
-
-            case 1:
-
-                if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
-//                    GetVersionFromServer();
-
-                      Toast.makeText(LoginActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
-                    Log.e("zzzVersionDataarray","dfdf"+VersionDataarray.size());
-                    Log.e("zzzVersionDataarray","  "+Double.valueOf(GetVersionOfApp()));
-                    Log.e("zzzVersionDataarray","  "+Double.valueOf(VersionDataarray.get(0)));
-                    if (VersionDataarray.size() !=0) {
-                        //TODO check more than
-                      //  if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
-                        if (Double.valueOf(GetVersionOfApp())< Double.valueOf(VersionDataarray.get(0))) {
-
-                            Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
-//                        DownloadData(Uri.parse(Constant.ApksURL));
-//                        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-//                        registerReceiver(downloadReceiver, filter);
-
-                            if (!VersionDataarray.get(1).equalsIgnoreCase("")) {
-                                new DownloadFileFromURL().execute(Constant.ApksURL_ًWithoutName + VersionDataarray.get(1), VersionDataarray.get(1));
-                            } else {
-                                Toast.makeText(this, "لم يتم الحصول على الاسم الاصدار من السيرفر", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }else {
-                        Log.e("zzzVersionDataarray","else VersionDataarray.size() =0");
-                    }
-                } else {
-
-                    Toast.makeText(LoginActivity.this, "تم إلغاء الأذن", Toast.LENGTH_LONG).show();
-                }
-                break;
-        }
-    }
-
-
     public void Login() {
         try {
             DateOfDevice = sdf.parse(sdf.format(new Date()));
@@ -513,7 +414,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.e("onResponseresoo", "object" + object1);
                                 try {
 
-                                    JSONObject object = new JSONObject(response.toString());
+                                    JSONObject object = new JSONObject(response);
                                     Log.e("onResponse", "object" + object);
 
                                     String status = object.getString("status");
@@ -618,6 +519,104 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(LoginActivity.this, "خطا فى التسجل", Toast.LENGTH_LONG).show();
         }
+    }
+
+    /**
+     * Background Async Task to download file
+     */
+    class DownloadFileFromURL extends AsyncTask<String, String, String> {
+
+        /**
+         * Before starting background thread Show Progress Bar Dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showDialog(DIALOG_DOWNLOAD_PROGRESS);
+
+        }
+
+        /**
+         * Downloading file in background thread
+         */
+        @Override
+        protected String doInBackground(String... f_url) {
+            int count;
+            Log.e("zzzf_urldoInBac", "" + f_url[0]);
+            try {
+                URL url = new URL(f_url[0]);
+                URLConnection conection = url.openConnection();
+                conection.connect();
+
+                // this will be useful so that you can show a tipical 0-100%
+                // progress bar
+                int lenghtOfFile = conection.getContentLength();
+
+                // download the file
+                InputStream input = new BufferedInputStream(url.openStream(),
+                        8192);
+
+                // Output stream
+                OutputStream output = new FileOutputStream(Environment
+                        .getExternalStorageDirectory().toString()
+                        + "/" + f_url[1]);
+
+                byte[] data = new byte[1024];
+
+                long total = 0;
+
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    // publishing the progress....
+                    // After this onProgressUpdate will be called
+                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+
+                    // writing data to file
+                    output.write(data, 0, count);
+                }
+
+                // flushing output
+                output.flush();
+
+                UpdateDownloadORNot = true;
+
+                // closing streams
+                output.close();
+                input.close();
+
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+                UpdateDownloadORNot = false;
+//                Toast.makeText(LoginActivity.this, "لم يتم التتصال بالسيرفر لتحميل اخر تحديث", Toast.LENGTH_SHORT).show();
+            }
+
+            return null;
+        }
+
+        /**
+         * Updating progress bar
+         */
+        protected void onProgressUpdate(String... progress) {
+            // setting progress percentage
+            mProgressDialog.setProgress(Integer.parseInt(progress[0]));
+
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         **/
+        @Override
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after the file was downloaded
+            dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
+            Log.e("zzzonPostExecute", "onPostExecute");
+            if (UpdateDownloadORNot == true) {
+                InstallApk();
+            } else if (UpdateDownloadORNot == false) {
+                Toast.makeText(LoginActivity.this, "لم يتم الأتصال بالسيرفر لتحميل اخر تحديث", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     @Override

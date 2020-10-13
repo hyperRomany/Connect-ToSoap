@@ -60,14 +60,13 @@ public class StopedPromotionData {
                     //datanum.put("Capital",rs.getString("ot_doc_id"));
                     data.add(datanum);*/
 
-                    if (!rs.getString("discountno").isEmpty()) {
-                        databaseHelperForProotion.insertProitem(rs.getString("discountno"), rs.getString("date_from"), rs.getString("date_to"), rs.getString("discounttype"),
+                    if (!rs.getString("prom_id").isEmpty()) {
+                        databaseHelperForProotion.insertProitem(rs.getString("prom_id"), rs.getString("PROM_SDATE"), rs.getString("PROM_EDATE"), rs.getString("prom_type"),
                                 rs.getString("prom_desc"), rs.getString("last_modified_time"), rs.getString("prom_post"), rs.getString("status"), rs.getString("itemean"), rs.getString("department")
-                                , rs.getString("barcode"), rs.getString("item_desc"), rs.getString("return_type"), rs.getString("sell_price")
+                                , rs.getString("barcode"), rs.getString("item_desc"), rs.getString("qty_std_price"), rs.getString("sell_price")
                                 , rs.getString("vatrate"), rs.getString("discountvalue"), rs.getString("note_id"));
                         isSuccess = true;
-                    }
-                    else {
+                    } else {
                         isSuccess = false;
                     }
                 }
