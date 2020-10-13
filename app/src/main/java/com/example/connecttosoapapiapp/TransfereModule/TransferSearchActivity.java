@@ -26,6 +26,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,7 +141,8 @@ String FromSite,ToSite,Department;
                         txt_code_item_search.setText(STo_searchlist_btn.get(0).getMAT_CODE1().subSequence(6, 18));
                         txt_state_item_search.setText(STo_searchlist_btn.get(0).getSTATUS1());
                         Double total = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
-                        txt_available_to_site_search.setText(String.valueOf(total));
+                        txt_available_to_site_search.setText(String.valueOf(
+                                new DecimalFormat("###.##").format(Double.valueOf(total))));
                         txt_from_site_search.setText(STo_searchlist_btn.get(0).getISS_SITE1());
                         txt_to_site_search.setText(STo_searchlist_btn.get(0).getREC_SITE1());
                     } else {
@@ -175,7 +177,8 @@ String FromSite,ToSite,Department;
                         txt_code_item_search.setText(STo_searchlist_btn.get(0).getMAT_CODE1().subSequence(6, 18));
                         txt_state_item_search.setText(STo_searchlist_btn.get(0).getSTATUS1());
                         Double total = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
-                        txt_available_to_site_search.setText(String.valueOf(total));
+                        txt_available_to_site_search.setText(String.valueOf(
+                                new DecimalFormat("###.##").format(Double.valueOf(total))));
                         txt_from_site_search.setText(STo_searchlist_btn.get(0).getISS_SITE1());
                         txt_to_site_search.setText(STo_searchlist_btn.get(0).getREC_SITE1());
                     } else {
@@ -223,18 +226,30 @@ String FromSite,ToSite,Department;
         }else {
             List<STo_Search> STo_searchlist_btn = new ArrayList<>();
             //search if it is in local database
-            STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+            if (editbarcodeforsoap.getText().toString().startsWith("23")){
+                STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                Log.e("zzzbarcode",""+editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
+            }else
+                STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+
             Log.e("STo_searchlist is","size"+STo_searchlist_btn.size());
             if (STo_searchlist_btn.size() > 0) {
                 if(STo_searchlist_btn.get(0).getSTATUS1().equalsIgnoreCase("1")){
                     editbarcodeforsoap.setError("هذا الباركود غير فعال");
-                }
-                else {
+            }else if ((STo_searchlist_btn.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
+                        && !(FromSite.equalsIgnoreCase("01MW")
+                        || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
+                    Log.d("getISSbbbbb_STG", "zz " + STo_searchlist_btn.get(0).getAVAILABLE_STOCK1());
+                    Log.d("getISSbbbbb_STG", "z" + FromSite);
+                    editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
+                    edit_asked_from_site_search.setEnabled(false);
+             } else {
                     txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
                     txt_code_item_search.setText(STo_searchlist_btn.get(0).getMAT_CODE1().subSequence(6,18));
                     txt_state_item_search.setText(STo_searchlist_btn.get(0).getSTATUS1());
                     Double total = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
-                    txt_available_to_site_search.setText(String.valueOf(total));
+                    txt_available_to_site_search.setText(String.valueOf(
+                            new DecimalFormat("###.##").format(Double.valueOf(total))));
                     txt_from_site_search.setText(STo_searchlist_btn.get(0).getISS_SITE1());
                     txt_to_site_search.setText(STo_searchlist_btn.get(0).getREC_SITE1());
 
@@ -321,6 +336,10 @@ String FromSite,ToSite,Department;
             @Override
             public Object loadInBackground() {
                 SoapObject request =new SoapObject(Constant.NAMESPACE_For_Search_Barcode , Constant.METHOD_For_Search_Barcode);
+                if (editbarcodeforsoap.getText().toString().startsWith("23")){
+                    request.addProperty("GTIN", Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                    Log.e("zzzbarcode",""+editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
+                }else
                 request.addProperty("GTIN", editbarcodeforsoap.getText().toString());
                 request.addProperty("ISS_SITE", FromSite);
                 request.addProperty("REC_SITE", ToSite);
@@ -433,6 +452,29 @@ String FromSite,ToSite,Department;
             }
         };
         return asyncTaskLoader;
+    }
+
+    private String Calculatcheckdigitforscales(String toString) {
+        String Barcode;
+        int  chkdigit;
+        Log.e("zzzbarodd1 ",""+toString.charAt(1));
+        Log.e("zzzbarodd1 ",""+Integer.valueOf(toString.charAt(1)));
+        Log.e("zzzbarodd1.2 ",""+Integer.valueOf(toString.substring(1,2)));
+        Log.e("zzzbarodd11 ",""+toString.charAt(11));
+        Log.e("zzzbarodd11.12 ",""+Integer.valueOf(toString.substring(11,12)));
+        int odd  = Integer.valueOf(toString.substring(1,2)) + Integer.valueOf(toString.substring(3,4)) + Integer.valueOf(toString.substring(5,6)) + Integer.valueOf(toString.substring(7,8)) + Integer.valueOf(toString.substring(9,10)) + Integer.valueOf(toString.substring(11,12));
+        int eveen  = Integer.valueOf(toString.substring(0,1)) + Integer.valueOf(toString.substring(2,3)) + Integer.valueOf(toString.substring(4,5)) + Integer.valueOf(toString.substring(6,7)) + Integer.valueOf(toString.substring(8,9)) + Integer.valueOf(toString.substring(10,11));
+
+        Log.e("zzzbarodd",""+odd);
+        Log.e("zzzbareveen",""+eveen);
+        if ((((odd * 3) + eveen) % 10) != 0 )
+                 chkdigit = 10 - (((odd * 3) + eveen) % 10) ;
+        else
+                chkdigit = 0 ;
+
+        Barcode=toString +chkdigit;
+        Log.e("zzzbarcode",""+Barcode);
+        return Barcode;
     }
 
     @Override
@@ -585,10 +627,13 @@ String FromSite,ToSite,Department;
                         spiner_storage_location_from.getSelectedItem().toString()
                         , spiner_storage_location_to.getSelectedItem().toString()
                         , editbarcodeforsoap.getText().toString());
+
                 Double AvaliableQty = Double.valueOf(txt_available_to_site_search.getText().toString()) -
                         Double.valueOf(edit_asked_from_site_search.getText().toString());
                 Log.e("AvaliableQty", "" + AvaliableQty);
-                txt_available_to_site_search.setText("" + AvaliableQty);
+
+                txt_available_to_site_search.setText("" + String.valueOf(
+                        new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty))));
                 edit_asked_from_site_search.setText("");
                 //edit_asked_from_site_search.setHint("Done");
                 /*editbarcodeforsoap.setText("");
@@ -619,13 +664,14 @@ String FromSite,ToSite,Department;
                     Log.e("SumQty", "" + spiner_storage_location_from.getSelectedItem().toString());
                     Log.e("SumQty", "" + spiner_storage_location_to.getSelectedItem().toString());
                     Log.e("SumQty", "" + editbarcodeforsoap.getText().toString());
-                    databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(SumQty)
+                    databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
                             , spiner_storage_location_from.getSelectedItem().toString()
                             , spiner_storage_location_to.getSelectedItem().toString()
                             , editbarcodeforsoap.getText().toString());
                     edit_asked_from_site_search.setText("");
                     edit_asked_from_site_search.setHint("Done");
-                    txt_available_to_site_search.setText("" + (AvaliableQty - SumQty));
+                    txt_available_to_site_search.setText("" + String.valueOf(
+                            new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty - SumQty))));
                     editbarcodeforsoap.setText("");
                     editbarcodeforsoap.requestFocus();
                     /*editbarcodeforsoap.setText("");

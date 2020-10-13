@@ -1,7 +1,6 @@
 package com.example.connecttosoapapiapp.TransfereModule;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +13,8 @@ import com.example.connecttosoapapiapp.TransfereModule.modules.STo_Search;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Edit_Order_DataActivity extends AppCompatActivity {
 DatabaseHelperForTransfer databaseHelperForTransfer;
@@ -61,6 +62,7 @@ List<STo_Search> sTo_searchList;
 
     public void SaveUpdateQTY(View view) {
         if (Double.valueOf(edit_last_deliver.getText().toString()) <= Double.valueOf(TotalavailbleQty)  ){
+
             databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_last_deliver.getText().toString(),issCheckedIssLog,
                     issCheckedRecLog,issCheckedBarcode);
             edit_last_deliver.setText("Done");

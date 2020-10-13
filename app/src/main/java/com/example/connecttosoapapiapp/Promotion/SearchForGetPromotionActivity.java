@@ -15,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -47,6 +45,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SearchForGetPromotionActivity extends AppCompatActivity {
     public StringRequest request=null;
@@ -314,8 +314,6 @@ LinearLayout linear_of_date;
                                                 discountvalue,
                                                 note_id
                                         );
-
-
                                     }
                                     Intent GotoShow = new Intent(SearchForGetPromotionActivity.this, ShowItemsPromotionActivity.class);
                                     GotoShow.putExtra("TodayOrActive", TodayOrActive);

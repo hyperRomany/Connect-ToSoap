@@ -23,9 +23,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -73,6 +70,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 
 public class UploadActivity extends AppCompatActivity
@@ -157,18 +157,43 @@ Button btn_export,btn_Get_Document;
 
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent Go_Back= new Intent(UploadActivity.this , ScanRecievingActivity.class);
-        Go_Back.putExtra("This Is First Time",false);
-        startActivity(Go_Back);
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Intent Go_Back= new Intent(UploadActivity.this , ScanRecievingActivity.class);
+//        Go_Back.putExtra("This Is First Time",false);
+//        startActivity(Go_Back);
+//        super.onBackPressed();
+//    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
+
+    //TODO to prevent user from back (Duplication)
+    int i = 0;
+    @Override
+    public void onBackPressed() {
+//1000423291
+
+        if (i == 30) {
+            Toast.makeText(this, "تم" + (30 ), Toast.LENGTH_SHORT).show();
+
+            Intent Go_Back= new Intent(UploadActivity.this , ScanRecievingActivity.class);
+            Go_Back.putExtra("This Is First Time",false);
+            startActivity(Go_Back);
+            super.onBackPressed();
+            this.i = 0;
+        } else {
+           // Toast.makeText(this, "click on more time" + (59 - i), Toast.LENGTH_SHORT).show();
+            this.i++;
+            Toast.makeText(this, "أضغط عدد مرات أخرى" + (30 - i), Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+
+
 
     public void Upload(View view) {
         String Po_item_NoMore = databaseHelper.select_what_has_NoMore_value();

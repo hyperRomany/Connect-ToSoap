@@ -39,7 +39,7 @@ public class ScanRecievingActivity extends AppCompatActivity {
 
     Button btnsearchbarcode;
 LinearLayout linear_parent;
-    List<Po_Header> Po_HeaderList ;
+    List<Po_Header> Po_HeaderList;
 
     Double AskaedQuantity=0.0;
     View view;

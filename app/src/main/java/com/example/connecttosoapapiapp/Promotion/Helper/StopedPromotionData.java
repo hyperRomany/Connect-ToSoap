@@ -1,6 +1,7 @@
 package com.example.connecttosoapapiapp.Promotion.Helper;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -30,8 +31,12 @@ public class StopedPromotionData {
 
                 // Change below query according to your own database.
                 String query = "EXEC SP_PROM_GetPromotions_Stopped_Android @Cond=N'" + condition + "',@Company = N'" + company + "'";
+                Log.e("zzzstored",""+query);
                 PreparedStatement stmt = connect.prepareStatement(query);
+
                 ResultSet rs = stmt.executeQuery();
+                Log.e("zzzstoredrs ",""+rs);
+
                 while (rs.next()) {
                     /*Map<String,String> datanum=new HashMap<String,String>();
                     datanum.put("discountno",rs.getString("discountno"));
