@@ -142,12 +142,21 @@ public class ReviewActivity extends AppCompatActivity {
         if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("3")
         || prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("2") ) {
             txt_totalprice.setText(String.valueOf(
-                    dwith0.format((Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
-                            Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))*(1+(Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))));
+                    dwith0.format(
+                            (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
+                            Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))
+
+                            +(Double.valueOf(prom_item_moduleList.get(0).getSell_price1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
+            ));
         } else if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("101")) {
             txt_totalprice.setText(String.valueOf(
-                    dwith0.format((Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
-                            Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )*(1+(Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))));
+                    dwith0.format(
+                            (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
+                            (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) *
+                                    (Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )))
+
+                                    +(Double.valueOf(prom_item_moduleList.get(0).getSell_price1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
+            ));
         } else {
             txt_discountvalue.setVisibility(View.INVISIBLE);
         }

@@ -316,10 +316,10 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("zzzVersionDataarray", "  " + Double.valueOf(VersionDataarray.get(0)));
                     if (VersionDataarray.size() != 0) {
                         //TODO check more than
-                        //  if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
-                        if (Double.valueOf(GetVersionOfApp()) < Double.valueOf(VersionDataarray.get(0))) {
+                       //   if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
+                          if (Double.valueOf(GetVersionOfApp()) < Double.valueOf(VersionDataarray.get(0))) {
 
-                            Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
 //                        DownloadData(Uri.parse(Constant.ApksURL));
 //                        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 //                        registerReceiver(downloadReceiver, filter);
