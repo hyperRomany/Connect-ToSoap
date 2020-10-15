@@ -2,14 +2,14 @@ package com.example.connecttosoapapiapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -41,6 +41,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,7 +86,8 @@ ArrayList<String> arrayList_po_header;
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         preferencesEditor = preferences.edit();
 
-        if (isFirstRun("update")==true) {
+
+        if (isFirstRun("updateVersion" ,GetVersionOfApp())==true) {
             Details(userdataList.get(0).getUser_Name1().trim());
         }
     }
@@ -256,12 +259,37 @@ ArrayList<String> arrayList_po_header;
     }
 
 
-    public boolean isFirstRun(String forWhat) {
+    public boolean isFirstRun(String forWhat ,String Versioncode) {
+        Log.d("aaavvPr", " " + preferences.getString(forWhat, "1.0"));
+
+        if (Double.valueOf(preferences.getString(forWhat, "1.0")) <Double.valueOf((Versioncode) )) {
+            preferencesEditor.putString(forWhat, Versioncode).commit();
+            Log.d("aaavvPr_PU", " " + Versioncode);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private String GetVersionOfApp() {
+        String Version = "0.0";
+        try {
+            PackageManager pm = getPackageManager();
+            PackageInfo pInfo = pm.getPackageInfo(getPackageName(), 0);
+            Version = pInfo.versionName;
+            Log.d("aaavvvvv", "checkVersion.DEBUG: App version: " + Version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return Version;
+    }
+   /* public boolean isFirstRun(String forWhat) {
         if (preferences.getBoolean(forWhat, true)) {
             preferencesEditor.putBoolean(forWhat, false).commit();
             return true;
         } else {
             return false;
         }
-    }
+    }*/
 }
