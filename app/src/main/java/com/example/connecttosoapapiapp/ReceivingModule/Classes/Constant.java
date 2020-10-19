@@ -125,6 +125,8 @@ public class Constant {
 
     public static String NAMESPACE_For_Upload_transfere ="urn:sap-com:document:sap:rfc:functions";
     public static String METHOD_For_Upload_transfere="ZBAPI_PPC_CREATE_STO";
+   // http://QAS-ERP:8001/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_create_sto/200/zws_ppc_create_sto/zws_ppc_create_sto
+   // public static String URL_For_Upload_transfere="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_sto/300/zws_ppc_create_sto_sn/zws_ppc_create_sto_bn";
     public static String URL_For_Upload_transfere="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_sto/300/zws_ppc_create_sto_sn/zws_ppc_create_sto_bn";
     public static String SOAP_ACTION_For_Upload_transfere="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_STO:ZBAPI_PPC_CREATE_STORequest";
 

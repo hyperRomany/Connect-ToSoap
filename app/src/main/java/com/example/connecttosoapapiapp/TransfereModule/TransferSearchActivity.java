@@ -384,7 +384,7 @@ String FromSite,ToSite,Department;
                     // edit_purchaseorder.setError("Your PURCHASE ORDER Is Wrong");
                 }else {
                     SoapObject soapObject_All_response = (SoapObject) envelope.bodyIn;
-                    Log.d("getPropertyCoun", String.valueOf(soapObject_All_response.getPropertyCount()));
+//                    Log.d("getPropertyCoun", String.valueOf(soapObject_All_response.getPropertyCount()));
 
                 for (int i = 0; i < soapObject_All_response.getPropertyCount(); i++) {
 
@@ -392,7 +392,7 @@ String FromSite,ToSite,Department;
 
                             SoapObject soapObject_items = (SoapObject) soapObject_All_response.getProperty(i);
                              RETURN = (String) soapObject_All_response.getProperty(0).toString();
-                            Log.d("getPropertyCounitems", String.valueOf(soapObject_items.getPropertyCount()));
+                        //    Log.d("getPropertyCounitems", String.valueOf(soapObject_items.getPropertyCount()));
 
                             for (int j = 0; j < soapObject_items.getPropertyCount(); j++) {
 
