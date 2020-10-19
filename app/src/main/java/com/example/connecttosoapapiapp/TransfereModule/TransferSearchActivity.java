@@ -1,8 +1,10 @@
 package com.example.connecttosoapapiapp.TransfereModule;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
@@ -642,7 +644,7 @@ String FromSite,ToSite,Department;
                 Double.valueOf(txt_available_to_site_search.getText().toString()))
                 && !(FromSite.equalsIgnoreCase("01MW")
                 || ToSite.equalsIgnoreCase("01MW"))) {//TODO check qty
-            edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن.1.المتاح" + txt_available_to_site_search.getText().toString());
+            edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن...المتاح" + txt_available_to_site_search.getText().toString());
             Log.e("zzsav1", "n" + FromSite.equalsIgnoreCase("01MW"));
             Log.e("zzsav1", "n" + !(FromSite.equalsIgnoreCase("01MW")
                     || ToSite.equalsIgnoreCase("01MW")));
@@ -658,17 +660,19 @@ String FromSite,ToSite,Department;
             Log.e("databaseHelperForTrans", "" + spiner_storage_location_to.getSelectedItem().toString().length());
             List<STo_Search> STo_searchlist_btn = new ArrayList<>();
             if (editbarcodeforsoap.getText().toString().startsWith("23")) {
-                STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase_For_save_QTY_in_transfersearchactivity(
                         spiner_storage_location_from.getSelectedItem().toString()
                         , spiner_storage_location_to.getSelectedItem().toString()
                         , Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
             }else {
-                STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase_For_save_QTY_in_transfersearchactivity(
                         spiner_storage_location_from.getSelectedItem().toString()
                         , spiner_storage_location_to.getSelectedItem().toString()
                         , editbarcodeforsoap.getText().toString());
             }
+
             if (STo_searchlist_btn.size() == 0) {
+
                 if (editbarcodeforsoap.getText().toString().startsWith("23")) {
                     databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_asked_from_site_search.getText().toString(),
                             spiner_storage_location_from.getSelectedItem().toString()
@@ -719,22 +723,59 @@ String FromSite,ToSite,Department;
                     Log.e("SumQty", "" + spiner_storage_location_to.getSelectedItem().toString());
                     Log.e("SumQty", "" + editbarcodeforsoap.getText().toString());
                     if (editbarcodeforsoap.getText().toString().startsWith("23")) {
-                        databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
-                                , spiner_storage_location_from.getSelectedItem().toString()
-                                , spiner_storage_location_to.getSelectedItem().toString()
-                                ,Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                        new AlertDialog.Builder(this)
+                                .setTitle("تم أدخال الصنف من قبل بكميه "+lastQty +"سوف يتم تزويد الكميه")
+                                .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
+                                                , spiner_storage_location_from.getSelectedItem().toString()
+                                                , spiner_storage_location_to.getSelectedItem().toString()
+                                                ,Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+
+                                        edit_asked_from_site_search.setText("");
+                                        edit_asked_from_site_search.setHint("Done");
+                                        txt_available_to_site_search.setText("" + String.valueOf(
+                                                new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty - SumQty))));
+                                        editbarcodeforsoap.setText("");
+                                        editbarcodeforsoap.requestFocus();
+
+                                    }
+                                })
+                                /*.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.cancel();
+                                    }
+                                })*/
+                                .show();
+
                     }else {
-                        databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
-                                , spiner_storage_location_from.getSelectedItem().toString()
-                                , spiner_storage_location_to.getSelectedItem().toString()
-                                , editbarcodeforsoap.getText().toString());
+                        new AlertDialog.Builder(this)
+                                .setTitle("تم أدخال الصنف من قبل بكميه "+lastQty +"سوف يتم تزويد الكميه")
+                                .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
+                                                , spiner_storage_location_from.getSelectedItem().toString()
+                                                , spiner_storage_location_to.getSelectedItem().toString()
+                                                , editbarcodeforsoap.getText().toString());
+
+                                        edit_asked_from_site_search.setText("");
+                                        edit_asked_from_site_search.setHint("Done");
+                                        txt_available_to_site_search.setText("" + String.valueOf(
+                                                new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty - SumQty))));
+                                        editbarcodeforsoap.setText("");
+                                        editbarcodeforsoap.requestFocus();
+                                    }
+                                })
+                                /*.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.cancel();
+                                    }
+                                })*/
+                                .show();
+
+
                     }
-                    edit_asked_from_site_search.setText("");
-                    edit_asked_from_site_search.setHint("Done");
-                    txt_available_to_site_search.setText("" + String.valueOf(
-                            new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty - SumQty))));
-                    editbarcodeforsoap.setText("");
-                    editbarcodeforsoap.requestFocus();
+
                     /*editbarcodeforsoap.setText("");
                     editbarcodeforsoap.requestFocus();
                     edit_asked_from_site_search.setEnabled(false);
@@ -744,7 +785,7 @@ String FromSite,ToSite,Department;
                     txt_available_to_site_search.setText("المتاح بالمخزن");*/
 
                 } else {//TODO check qty
-                    edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن.2.. المتاح" + AvaliableQty);
+                    edit_asked_from_site_search.setError("هذه الكميه أكبر من المتاح بالمخزن... المتاح" + AvaliableQty);
                 }
             }
 

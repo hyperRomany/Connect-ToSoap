@@ -415,6 +415,71 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
         return STo_searchlist;
     }
 
+    public List<STo_Search> Search_if_Barcode_in_localDataBase_For_save_QTY_in_transfersearchactivity(String iss_stg_log ,String rec_stg_log , String Barcode ){
+        List<STo_Search> STo_searchlist = new ArrayList<>();
+
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME
+                + " WHERE " +STo_Search.ISS_STG_LOG+" = '"+iss_stg_log+ "' AND "+
+                STo_Search.REC_SITE_LOG+" = '"+rec_stg_log+ "' AND "+STo_Search.GTIN+" = '"+Barcode
+                + "' AND "+STo_Search.QTY+" != '0.0'";
+//        //+ " and "  + STo_Search.QTY +"!= null" ;
+        //+ " where " + STo_Search.QTY +"!=" +"null or "+ STo_Search.QTY +"!=" +"0.0 and "+STo_Search.GTIN+"="+Barcode;
+
+//        String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME
+//                + " WHERE " +STo_Search.ISS_STG_LOG+" = "+iss_stg_log +" AND "+STo_Search.GTIN+" = "+Barcode;
+
+        //+ " and "  + STo_Search.QTY +"!= null" ;
+        //+ " where " + STo_Search.QTY +"!=" +"null or "+ STo_Search.QTY +"!=" +"0.0 and "+STo_Search.GTIN+"="+Barcode;
+
+        // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Log.d("po_itemlist","empty"+cursor.getString(cursor.getColumnIndex(Po_Item_of_cycleCount.SHORT_TEXT)));
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+
+                STo_Search STo_search = new STo_Search();
+
+                STo_search.setUOM_DESC1(cursor.getString(cursor.getColumnIndex(STo_Search.UOM_DESC)));
+                STo_search.setMAT_CODE1(cursor.getString(cursor.getColumnIndex(STo_Search.MAT_CODE)));
+                STo_search.setSTATUS1(cursor.getString(cursor.getColumnIndex(STo_Search.STATUS)));
+                STo_search.setAVAILABLE_STOCK1(cursor.getString(cursor.getColumnIndex(STo_Search.AVAILABLE_STOCK)));
+                STo_search.setISS_STG_LOG1(cursor.getString(cursor.getColumnIndex(STo_Search.ISS_STG_LOG)));
+                STo_search.setREC_SITE_LOG1(cursor.getString(cursor.getColumnIndex(STo_Search.REC_SITE_LOG)));
+                STo_search.setISS_SITE1(cursor.getString(cursor.getColumnIndex(STo_Search.ISS_SITE)));
+                STo_search.setREC_SITE1(cursor.getString(cursor.getColumnIndex(STo_Search.REC_SITE)));
+                STo_search.setMEINH1(cursor.getString(cursor.getColumnIndex(STo_Search.MEINH)));
+                STo_search.setGTIN1(cursor.getString(cursor.getColumnIndex(STo_Search.GTIN)));
+                STo_search.setQTY1(cursor.getString(cursor.getColumnIndex(STo_Search.QTY)));
+                STo_search.setChecked_Item(false);
+
+                STo_searchlist.add(STo_search);
+                if (STo_searchlist.isEmpty()){
+                    Log.d("po_itemlist","empty");
+                }
+                //   Log.d("Po_Headersclass",""+po_item.getMEINH1());
+                //Log.d("Po_Headersclasslist",""+po_itemlist.get(0).getMEINH1());
+
+
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.PO_NUMBER)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR_NAME)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        // close db connection
+        db.close();
+
+        Log.d("po_itemlistsize","rch_if_Ba"+STo_searchlist.size());
+        // return Po_item list
+        return STo_searchlist;
+    }
+
 
     public List<STo_Search> Search__Barcode(String Barcode ){
         List<STo_Search> STo_searchlist = new ArrayList<>();
@@ -531,6 +596,7 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
         //return db.update(STo_Search.TABLE_STO_Search_NAME, values, STo_Search.REC_SITE_LOG + " = ?", new String[]{"anyType{}"});
         return db.update(STo_Search.TABLE_STO_Search_NAME, values, STo_Search.ISS_STG_LOG+ " = ? and "+STo_Search.REC_SITE_LOG+" = ? and "+STo_Search.GTIN+" = ? ", new String[]{iss_stg_log ,Res_stg_log, Barcod});
     }
+
 
     public void DeleteBarcodeStosearchTable(String Barcode){
         SQLiteDatabase db = this.getWritableDatabase();

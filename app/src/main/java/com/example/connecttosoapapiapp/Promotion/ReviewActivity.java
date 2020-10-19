@@ -136,7 +136,6 @@ public class ReviewActivity extends AppCompatActivity {
         txt_sellprice.setText(dwith0.format(Double.valueOf(prom_item_moduleList.get(0).getSell_price1())));
         txt_taxs.setText(dwith0.format(Double.valueOf(prom_item_moduleList.get(0).getVatrate1())));
 
-        txt_discountvalue.setText(prom_item_moduleList.get(0).getDiscountvalue1());
 
 //TODO if discount type not value don't calculte sales price
         if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("3")
@@ -146,8 +145,15 @@ public class ReviewActivity extends AppCompatActivity {
                             (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
                             Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))
 
-                            +(Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
+                            +((Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
+                                    Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))
+                            )
+                                    * (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100))
             ));
+
+            txt_discountvalue.setText(prom_item_moduleList.get(0).getDiscountvalue1());
+
+
         } else if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("101")) {
             txt_totalprice.setText(String.valueOf(
                     dwith0.format(
@@ -155,8 +161,17 @@ public class ReviewActivity extends AppCompatActivity {
                             (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) *
                                     (Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )))
 
-                                    +(Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
+                                    +(
+                                            (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
+                                    (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) *
+                                            (Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )))
+                            ) *
+                                    (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100))
             ));
+
+            txt_discountvalue.setText(String.valueOf(Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) *
+                    (Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )));
+
         } else {
             txt_discountvalue.setVisibility(View.INVISIBLE);
         }
