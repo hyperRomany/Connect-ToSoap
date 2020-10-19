@@ -132,7 +132,14 @@ String FromSite,ToSite,Department;
                 Log.e("spiner_storage_l",""+spiner_storage_location_to.getSelectedItem().toString());
                 Log.e("spiner_storage_l",""+editbarcodeforsoap.getText().toString());
                 if (!editbarcodeforsoap.getText().toString().isEmpty()) {
-                    STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(spiner_storage_location_from.getSelectedItem().toString()
+                    if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                        STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                                spiner_storage_location_from.getSelectedItem().toString()
+                                , spiner_storage_location_to.getSelectedItem().toString()
+                                , Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                    }else
+                         STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                            spiner_storage_location_from.getSelectedItem().toString()
                             , spiner_storage_location_to.getSelectedItem().toString()
                             , editbarcodeforsoap.getText().toString());
                     Log.e("spiner_storage_lsi", "" + STo_searchlist_btn.size());
@@ -166,11 +173,17 @@ String FromSite,ToSite,Department;
                 Log.e("spiner_storage_l",""+spiner_storage_location_to.getSelectedItem().toString());
                 Log.e("spiner_storage_l",""+editbarcodeforsoap.getText().toString());
                 if (!editbarcodeforsoap.getText().toString().isEmpty()) {
-                    STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                    if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                        STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                                spiner_storage_location_from.getSelectedItem().toString()
+                                , spiner_storage_location_to.getSelectedItem().toString()
+                                , Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                    }else
+                        STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
                             spiner_storage_location_from.getSelectedItem().toString()
                             , spiner_storage_location_to.getSelectedItem().toString()
                             , editbarcodeforsoap.getText().toString());
-                    Log.e("spiner_storage_lsi", "" + STo_searchlist_btn.size());
+                        Log.e("spiner_storage_lsi", "" + STo_searchlist_btn.size());
 
                     if (STo_searchlist_btn.size() != 0) {
                         txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
@@ -228,22 +241,24 @@ String FromSite,ToSite,Department;
             //search if it is in local database
             if (editbarcodeforsoap.getText().toString().startsWith("23")){
                 STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
-                Log.e("zzzbarcode",""+editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
-            }else
+                Log.e("zzzbarcodestart23 ",""+editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
+            }else {
                 STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+                Log.e("zzzbarcodeNotstart23 ",""+editbarcodeforsoap.getText().toString());
 
+            }
             Log.e("STo_searchlist is","size"+STo_searchlist_btn.size());
             if (STo_searchlist_btn.size() > 0) {
                 if(STo_searchlist_btn.get(0).getSTATUS1().equalsIgnoreCase("1")){
                     editbarcodeforsoap.setError("هذا الباركود غير فعال");
-            }else if ((STo_searchlist_btn.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
+                }else if ((STo_searchlist_btn.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
                         && !(FromSite.equalsIgnoreCase("01MW")
                         || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
                     Log.d("getISSbbbbb_STG", "zz " + STo_searchlist_btn.get(0).getAVAILABLE_STOCK1());
                     Log.d("getISSbbbbb_STG", "z" + FromSite);
                     editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
                     edit_asked_from_site_search.setEnabled(false);
-             } else {
+                } else {
                     txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
                     txt_code_item_search.setText(STo_searchlist_btn.get(0).getMAT_CODE1().subSequence(6,18));
                     txt_state_item_search.setText(STo_searchlist_btn.get(0).getSTATUS1());
@@ -339,8 +354,9 @@ String FromSite,ToSite,Department;
                 if (editbarcodeforsoap.getText().toString().startsWith("23")){
                     request.addProperty("GTIN", Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
                     Log.e("zzzbarcode",""+editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
-                }else
-                request.addProperty("GTIN", editbarcodeforsoap.getText().toString());
+                }else {
+                    request.addProperty("GTIN", editbarcodeforsoap.getText().toString());
+                }
                 request.addProperty("ISS_SITE", FromSite);
                 request.addProperty("REC_SITE", ToSite);
 
@@ -400,12 +416,19 @@ String FromSite,ToSite,Department;
                                     }if (i==1 && RETURN.contains("anyType{}")){
                                         ReturnSearchList.add(String.valueOf(soapObject_items_detials.getProperty(k)));
                                         if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
-                                            long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
-                                                    FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
-                                                    ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                    ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
-                                                    ReturnSearchList.get(7),"0.0");
-
+                                            if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                                                long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                        FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
+                                                        ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
+                                                        ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
+                                                        ReturnSearchList.get(7), "0.0");
+                                            }else {
+                                                long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
+                                                        FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
+                                                        ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
+                                                        ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
+                                                        ReturnSearchList.get(7), "0.0");
+                                            }
                                             //databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log(ReturnSearchList.get(4));
                                             Log.e("ReturnSearchList",""+ReturnSearchList.get(4));
 
@@ -424,11 +447,24 @@ String FromSite,ToSite,Department;
                                                     Log.e("itemkif(j",""+id);
                                                     Log.d("For_each_itemk=2=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
                                                 }else {
-                                                    long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
-                                                            FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
-                                                            ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
-                                                            ReturnSearchList.get(7),"0.0");
+
+                                                    if (editbarcodeforsoap.getText().toString().startsWith("23")){
+                                                        long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                                FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
+                                                                ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
+                                                                ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                                ReturnSearchList.get(7),"0.0");
+                                                    }else {
+                                                        long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
+                                                                FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
+                                                                ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
+                                                                ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                                ReturnSearchList.get(7),"0.0");
+
+                                                    }
+
+
+
                                                     Log.d("For_each_itemk=3=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
                                                     Log.e("itemkif(jelse",""+id);
                                                     ReturnSearchList.clear();
@@ -492,7 +528,11 @@ String FromSite,ToSite,Department;
             List<STo_Search> STo_searchlist_bg = new ArrayList<>();
             Log.e("This Is First Time", "" + RETURN);
             Toast.makeText(TransferSearchActivity.this, RETURN, Toast.LENGTH_LONG).show();
-            STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+            if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+            }else {
+                STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+            }
 //            Log.e("ZZONFINISHTime", "ZZ" + (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")));
 
             if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")) {
@@ -617,16 +657,30 @@ String FromSite,ToSite,Department;
             Log.e("databaseHelperForTrans", "" + spiner_storage_location_from.getSelectedItem().toString().length());
             Log.e("databaseHelperForTrans", "" + spiner_storage_location_to.getSelectedItem().toString().length());
             List<STo_Search> STo_searchlist_btn = new ArrayList<>();
-            STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
-                    spiner_storage_location_from.getSelectedItem().toString()
-                    , spiner_storage_location_to.getSelectedItem().toString()
-                    , editbarcodeforsoap.getText().toString());
-            if (STo_searchlist_btn.size() == 0) {
-
-                databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_asked_from_site_search.getText().toString(),
+            if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                        spiner_storage_location_from.getSelectedItem().toString()
+                        , spiner_storage_location_to.getSelectedItem().toString()
+                        , Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+            }else {
+                STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
                         spiner_storage_location_from.getSelectedItem().toString()
                         , spiner_storage_location_to.getSelectedItem().toString()
                         , editbarcodeforsoap.getText().toString());
+            }
+            if (STo_searchlist_btn.size() == 0) {
+                if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                    databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_asked_from_site_search.getText().toString(),
+                            spiner_storage_location_from.getSelectedItem().toString()
+                            , spiner_storage_location_to.getSelectedItem().toString()
+                            ,  Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                }else {
+                    databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_asked_from_site_search.getText().toString(),
+                            spiner_storage_location_from.getSelectedItem().toString()
+                            , spiner_storage_location_to.getSelectedItem().toString()
+                            , editbarcodeforsoap.getText().toString());
+                }
+
 
                 Double AvaliableQty = Double.valueOf(txt_available_to_site_search.getText().toString()) -
                         Double.valueOf(edit_asked_from_site_search.getText().toString());
@@ -664,10 +718,17 @@ String FromSite,ToSite,Department;
                     Log.e("SumQty", "" + spiner_storage_location_from.getSelectedItem().toString());
                     Log.e("SumQty", "" + spiner_storage_location_to.getSelectedItem().toString());
                     Log.e("SumQty", "" + editbarcodeforsoap.getText().toString());
-                    databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
-                            , spiner_storage_location_from.getSelectedItem().toString()
-                            , spiner_storage_location_to.getSelectedItem().toString()
-                            , editbarcodeforsoap.getText().toString());
+                    if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                        databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
+                                , spiner_storage_location_from.getSelectedItem().toString()
+                                , spiner_storage_location_to.getSelectedItem().toString()
+                                ,Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
+                    }else {
+                        databaseHelperForTransfer.Update_Sto_search_For_QTY(String.valueOf(new DecimalFormat("###.##").format(Double.valueOf(SumQty)))
+                                , spiner_storage_location_from.getSelectedItem().toString()
+                                , spiner_storage_location_to.getSelectedItem().toString()
+                                , editbarcodeforsoap.getText().toString());
+                    }
                     edit_asked_from_site_search.setText("");
                     edit_asked_from_site_search.setHint("Done");
                     txt_available_to_site_search.setText("" + String.valueOf(
