@@ -63,6 +63,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -414,7 +415,24 @@ int Repeat_On_log=0;
             @Override
             public Object loadInBackground() {
                 SoapObject request =new SoapObject(Constant.NAMESPACE_For_Upload_transfere, Constant.METHOD_For_Upload_transfere);
-
+                Log.d("list",""+Sto_searchlist);
+                //////////////////////////////////////////////////////////////////////
+//                ArrayList<String> GtinList =new ArrayList<>();
+//                for (int i=0;i<Sto_searchlist.size();i++)
+//                {
+//                    GtinList.add(Sto_searchlist.get(i).getGTIN1());
+//                }
+//
+//
+//                for (int j=0;j<Sto_searchlist.size();j++) {
+//                    for (int x = 0;x<j;x++) {
+//                        if (Sto_searchlist.get(j).getGTIN1().equals(Sto_searchlist.get(x).getGTIN1())) {
+//                            System.out.println(Sto_searchlist.get(x) + " is duplicated");
+//                            Sto_searchlist.remove(x);
+//                        }
+//                    }
+//                }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 MESSAGE ="";
                 if (Sto_searchlist.size() == 0){
                     Log.e("envelope", "Po_Item_For_ftp_Upload.size() ==0");
@@ -427,7 +445,8 @@ int Repeat_On_log=0;
 
                     Vector v1 = new Vector();
 
-                    for (int i = 0; i < Sto_searchlist.size(); i++) {
+
+                        for (int i = 0; i < Sto_searchlist.size(); i++) {
 
                         SoapObject rate = new SoapObject(Constant.NAMESPACE_For_Upload_transfere, "item");
 
@@ -481,7 +500,7 @@ int Repeat_On_log=0;
                     Log.e("envelopebodyIn", ""+envelope.bodyIn);
                     Log.e("envelope.bodyOut", ""+envelope.bodyOut);
                     Log.e("envelope", ""+((SoapObject)envelope.bodyIn).getPropertyCount());
-                    Log.e("envelope", ""+((SoapObject)envelope.bodyIn).getProperty(0));
+                  Log.e("envelope", ""+((SoapObject)envelope.bodyIn).getProperty(0));
                     SoapObject GetReturn= (SoapObject)((SoapObject)envelope.bodyIn).getProperty(0);
                     if (GetReturn.getPropertyCount() >0){
                         for (int i=0 ; i<GetReturn.getPropertyCount() ; i++) {
@@ -797,6 +816,5 @@ int Repeat_On_log=0;
         queue.add(request);
 
     }
-
 
 }

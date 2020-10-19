@@ -146,7 +146,7 @@ public class ReviewActivity extends AppCompatActivity {
                             (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) -
                             Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()))
 
-                            +(Double.valueOf(prom_item_moduleList.get(0).getSell_price1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
+                            +(Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
             ));
         } else if (prom_item_moduleList.get(0).getDiscounttype1().equalsIgnoreCase("101")) {
             txt_totalprice.setText(String.valueOf(
@@ -155,7 +155,7 @@ public class ReviewActivity extends AppCompatActivity {
                             (Double.valueOf(prom_item_moduleList.get(0).getSell_price1()) *
                                     (Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1()) * 0.01 )))
 
-                                    +(Double.valueOf(prom_item_moduleList.get(0).getSell_price1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
+                                    +(Double.valueOf(prom_item_moduleList.get(0).getDiscountvalue1())* (Double.valueOf(prom_item_moduleList.get(0).getVatrate1())/100)))
             ));
         } else {
             txt_discountvalue.setVisibility(View.INVISIBLE);
