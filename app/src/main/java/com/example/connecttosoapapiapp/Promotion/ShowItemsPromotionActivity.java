@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.connecttosoapapiapp.Promotion.Adapter.ItemOfPromItemAdapter;
 import com.example.connecttosoapapiapp.Promotion.Helper.DatabaseHelperForProotion;
 import com.example.connecttosoapapiapp.Promotion.Helper.ItemClickSupport;
@@ -15,7 +11,13 @@ import com.example.connecttosoapapiapp.Promotion.Modules.Prom_item_Module;
 import com.example.connecttosoapapiapp.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ShowItemsPromotionActivity extends AppCompatActivity {
 RecyclerView recyclerView;
@@ -37,7 +39,7 @@ RecyclerView recyclerView;
     public void CreateORUpdateRecycleView(){
 
 
-        itemOfPromItemAdapter = new ItemOfPromItemAdapter(prom_item_moduleList);
+        itemOfPromItemAdapter = new ItemOfPromItemAdapter(sortlistnote(prom_item_moduleList));
 
         recyclerView.setHasFixedSize(true);
 
@@ -135,6 +137,17 @@ RecyclerView recyclerView;
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public List<Prom_item_Module> sortlistnote(List<Prom_item_Module> list)
+    {
+        Collections.sort(list, new Comparator<Prom_item_Module>() {
+            @Override
+            public int compare(Prom_item_Module o1, Prom_item_Module o2) {
+                return o1.getNote_id1().compareTo(o2.getNote_id1());
+            }
+        });
+        return list;
     }
 
 }

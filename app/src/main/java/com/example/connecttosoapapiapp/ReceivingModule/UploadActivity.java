@@ -760,8 +760,8 @@ Button btn_export,btn_Get_Document;
     public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
       //;  Toast.makeText(UploadForTransferActivity.this,"finished ",Toast.LENGTH_LONG);
         getLoaderManager().destroyLoader(LOADER_ID);
-            btn_export.setVisibility(View.VISIBLE);
-            btn_Get_Document.setVisibility(View.VISIBLE);
+//            btn_export.setVisibility(View.VISIBLE);
+//            btn_Get_Document.setVisibility(View.VISIBLE);
             if (ExportORGetdocument.equalsIgnoreCase("Export")) {
                 if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
                     txt_response.setText("" + EnvelopeBodyInCurrent);

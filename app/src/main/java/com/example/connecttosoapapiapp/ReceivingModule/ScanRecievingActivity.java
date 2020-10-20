@@ -202,15 +202,25 @@ LinearLayout linear_parent;
 
     public void SearchBarCode(View view) {
         editcurrentdeliver.setError(null);
-        String barCode = editbarcode.getText().toString();
        //  Po_Item_List;
         Po_Item_List = new ArrayList<>();
         Po_Item_all_List = new ArrayList<>();
         Po_Item_all_List_for_barcode = new ArrayList<>();
+        String barCode = editbarcode.getText().toString();
 
+//        String barCode,K,G;
         editcurrentdeliver.setText("");
 
-        if (!barCode.isEmpty()){
+//        if (editbarcode.getText().toString().startsWith("23")) {
+//            barCode = Calculatcheckdigitforscales(editbarcode.getText().toString().substring(0,7)+"00000");
+//            K=editbarcode.getText().toString().substring(7,9);
+//            G=editbarcode.getText().toString().substring(9,12);
+//            editcurrentdeliver.setText(K+"."+G);
+//        }else {
+//            barCode = editbarcode.getText().toString();
+//        }
+
+            if (!barCode.isEmpty()){
 // get all data for this barcode ===> this give us 5 because article has required 5 times
             Po_Item_all_List_for_barcode = databaseHelper.Search_Barcode_Po_Item(barCode);
             Log.e("zzzSearch_Bar1 ",""+Po_Item_all_List_for_barcode.size());
@@ -569,6 +579,31 @@ LinearLayout linear_parent;
         Intent GoToShowBuyData =new Intent(ScanRecievingActivity.this,ShowBuyDataActivity.class);
         startActivity(GoToShowBuyData);
     }
+
+
+    private String Calculatcheckdigitforscales(String toString) {
+        String Barcode;
+        int  chkdigit;
+        Log.e("zzzbarodd1 ",""+toString.charAt(1));
+        Log.e("zzzbarodd1 ",""+Integer.valueOf(toString.charAt(1)));
+        Log.e("zzzbarodd1.2 ",""+Integer.valueOf(toString.substring(1,2)));
+        Log.e("zzzbarodd11 ",""+toString.charAt(11));
+        Log.e("zzzbarodd11.12 ",""+Integer.valueOf(toString.substring(11,12)));
+        int odd  = Integer.valueOf(toString.substring(1,2)) + Integer.valueOf(toString.substring(3,4)) + Integer.valueOf(toString.substring(5,6)) + Integer.valueOf(toString.substring(7,8)) + Integer.valueOf(toString.substring(9,10)) + Integer.valueOf(toString.substring(11,12));
+        int eveen  = Integer.valueOf(toString.substring(0,1)) + Integer.valueOf(toString.substring(2,3)) + Integer.valueOf(toString.substring(4,5)) + Integer.valueOf(toString.substring(6,7)) + Integer.valueOf(toString.substring(8,9)) + Integer.valueOf(toString.substring(10,11));
+
+        Log.e("zzzbarodd",""+odd);
+        Log.e("zzzbareveen",""+eveen);
+        if ((((odd * 3) + eveen) % 10) != 0 )
+            chkdigit = 10 - (((odd * 3) + eveen) % 10) ;
+        else
+            chkdigit = 0 ;
+
+        Barcode=toString +chkdigit;
+        Log.e("zzzbarcode",""+Barcode);
+        return Barcode;
+    }
+
 
     @Override
     public void onBackPressed() {

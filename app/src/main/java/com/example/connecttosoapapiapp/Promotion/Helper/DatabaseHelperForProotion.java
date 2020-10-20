@@ -176,7 +176,7 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
 
         String selectQuery = "SELECT distinct "+Prom_item_Module.Discountno+","+Prom_item_Module.Date_from+","+
                 Prom_item_Module.Date_to
-               +","+Prom_item_Module.Discounttype
+               +","+Prom_item_Module.Discounttype +", min( "+Prom_item_Module.note_id +") "+ Prom_item_Module.note_id
                // +"," + selectPromItemsThatHas(Prom_item_Module.Discountno)
                 /*+"," + Prom_item_Module.Prom_desc+","+
                 Prom_item_Module.last_modified_time+","+ Prom_item_Module.prom_post+","+ Prom_item_Module.status+","+
@@ -185,11 +185,11 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
                 Prom_item_Module.barcode+","+Prom_item_Module.item_desc+","+ Prom_item_Module.note_id+","+
                 Prom_item_Module.OtherNotes+","+Prom_item_Module.supervisor_id+","+Prom_item_Module.supervisor_name*/
 
-                +" FROM " + Prom_item_Module.TABLE_Prom_NAME ;
+                +" FROM " + Prom_item_Module.TABLE_Prom_NAME +" group by  "+Prom_item_Module.Discountno;
         // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        // Log.d("po_itemlist","empty"+cursor.getString(cursor.getColumnIndex(Po_Item_of_cycleCount.SHORT_TEXT)));
+         Log.d("po_itemQ ",""+selectQuery);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -201,7 +201,8 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
                 prom_item_module.setDate_from1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Date_from)));
                 prom_item_module.setDate_to1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Date_to)));
                 prom_item_module.setDiscounttype1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Discounttype)));
-                prom_item_module.setNote_id1(selectPromItemsThatHas(prom_item_module.getDiscountno1()));
+                prom_item_module.setNote_id1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.note_id)));
+           //     prom_item_module.setNote_id1(selectPromItemsThatHas(prom_item_module.getDiscountno1()));
 
                 //     prom_item_module.setNote_id1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.note_id)));
 //                prom_item_module.setProm_desc1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Prom_desc)));
@@ -249,7 +250,90 @@ public class DatabaseHelperForProotion extends SQLiteOpenHelper {
         // return Po_item list
         return prom_item_moduleList;
     }
+    /*
+     public List<Prom_item_Module> selectPromItemsDistinctDiscountNoWithoutNoteId(){
+        List<Prom_item_Module> prom_item_moduleList = new ArrayList<>();
 
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String selectQuery = "SELECT distinct "+Prom_item_Module.Discountno+","+Prom_item_Module.Date_from+","+
+                Prom_item_Module.Date_to
+               +","+Prom_item_Module.Discounttype
+               // +"," + selectPromItemsThatHas(Prom_item_Module.Discountno)
+                /*+"," + Prom_item_Module.Prom_desc+","+
+                Prom_item_Module.last_modified_time+","+ Prom_item_Module.prom_post+","+ Prom_item_Module.status+","+
+                Prom_item_Module.itemean+","+ Prom_item_Module.department+","+ Prom_item_Module.return_type+","+
+                Prom_item_Module.sell_price+","+ Prom_item_Module.vatrate+","+ Prom_item_Module.discountvalue+","+
+                Prom_item_Module.barcode+","+Prom_item_Module.item_desc+","+ Prom_item_Module.note_id+","+
+                Prom_item_Module.OtherNotes+","+Prom_item_Module.supervisor_id+","+Prom_item_Module.supervisor_name
+
+                +" FROM " + Prom_item_Module.TABLE_Prom_NAME ;
+    // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
+
+    Cursor cursor = db.rawQuery(selectQuery, null);
+         Log.d("po_itemQ ",""+selectQuery);
+
+    // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+        do {
+
+            Prom_item_Module prom_item_module = new Prom_item_Module();
+
+            prom_item_module.setDiscountno1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Discountno)));
+            prom_item_module.setDate_from1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Date_from)));
+            prom_item_module.setDate_to1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Date_to)));
+            prom_item_module.setDiscounttype1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Discounttype)));
+            prom_item_module.setNote_id1(selectPromItemsThatHas(prom_item_module.getDiscountno1()));
+
+            //     prom_item_module.setNote_id1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.note_id)));
+//                prom_item_module.setProm_desc1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.Prom_desc)));
+            //         prom_item_module.setLast_modified_time1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.last_modified_time)));
+            //        prom_item_module.setProm_post1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.prom_post)));
+            //         prom_item_module.setStatus1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.status)));
+            //       prom_item_module.setItemean1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.itemean)));
+            //     prom_item_module.setDepartment1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.department)));
+            //   prom_item_module.setReturn_type1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.return_type)));
+            //              prom_item_module.setSell_price1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.sell_price)));
+            //            prom_item_module.setVatrate1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.vatrate)));
+            //          prom_item_module.setDiscountvalue1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.discountvalue)));
+
+            //        prom_item_module.setBarcode1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.barcode)));
+            //      prom_item_module.setItem_desc1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.item_desc)));
+
+//
+            //    prom_item_module.setOtherNotes1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.OtherNotes)));
+            //      prom_item_module.setSupervisor_id1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.supervisor_id)));
+            //        prom_item_module.setSupervisor_name1(cursor.getString(cursor.getColumnIndex(Prom_item_Module.supervisor_name)));
+
+
+//                Log.d("zznoteid",""+cursor.getString(cursor.getColumnIndex(Prom_item_Module.note_id)));
+
+//                prom_item_module.setChecked_Item(false);
+
+            prom_item_moduleList.add(prom_item_module);
+            if (prom_item_moduleList.isEmpty()){
+                Log.d("po_itemlist","empty");
+            }
+            //   Log.d("Po_Headersclass",""+po_item.getMEINH1());
+            //Log.d("Po_Headersclasslist",""+po_itemlist.get(0).getMEINH1());
+
+
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.PO_NUMBER)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR)));
+//            Log.d("Po_Headers",""+cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR_NAME)));
+        } while (cursor.moveToNext());
+    }
+        cursor.close();
+    // close db connection
+        db.close();
+
+        Log.d("po_itemlistsize",""+prom_item_moduleList.size());
+    // return Po_item list
+        return prom_item_moduleList;
+}
+     */
+//TODO Take more time
     public String selectPromItemsThatHas(String Discountno){
         List<String> prom_item_modulenoteList = new ArrayList<>();
         String ReturnNote="0";
