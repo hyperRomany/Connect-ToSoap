@@ -77,8 +77,8 @@ import androidx.core.app.ActivityCompat;
 
 public class UploadActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
-TextView txt_po_number, txt_response;
-RadioButton radiohtp, radiosap;
+TextView txt_po_number, txt_response, txtvendorname, txtvendornumber;
+RadioButton radiohtp, radiosap ;
     public final static String CHANNEL_ID ="1";
     View view;
     String MATERIALDOCUMENT=" ", CSVName="test", MESSAGE;
@@ -121,6 +121,10 @@ Button btn_export,btn_Get_Document;
         txt_po_number=findViewById(R.id.txt_po_number);
         txt_response=findViewById(R.id.txt_response);
 
+        txtvendorname =findViewById(R.id.txt_vendor_name);
+        txtvendornumber =findViewById(R.id.txt_Vendor_number);
+
+
         radiohtp=findViewById(R.id.radio_ftp);
         radiosap=findViewById(R.id.radio_sap);
 
@@ -129,7 +133,13 @@ Button btn_export,btn_Get_Document;
         userList=databaseHelper.getUserData();
         Po_HeaderList = new ArrayList<>();
         Po_HeaderList =  databaseHelper.getPo_number_Po_Headers();
+
         txt_po_number.setText(Po_HeaderList.get(0).getPO_NUMBER1());
+
+        txtvendorname.setText(Po_HeaderList.get(0).getVENDOR_NAME1());
+
+        //Log.d("Po_HeadersList",""+Po_HeaderList.get(0).getVENDOR_NAME1());
+        txtvendornumber.setText(Po_HeaderList.get(0).getVENDOR11());
 
        // String Path = String.valueOf((UploadForTransferActivity.this).getDatabasePath(DatabaseHelperForTransfer.DATABASE_NAME));
         //Toast.makeText(this, ""+Path, Toast.LENGTH_SHORT).show();
