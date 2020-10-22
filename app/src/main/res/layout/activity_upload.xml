@@ -50,21 +50,21 @@
         <TextView
             android:id="@+id/txt_vendor_name"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:layout_height="wrap_content"
             android:text="Vendor name"
             android:textSize="15dp"
-            android:gravity="center_horizontal"
+            android:gravity="right"
             android:textColor="@color/third_white" />
 
         <TextView
             android:id="@+id/txt_Vendor_number"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:text="Vendor_Number"
             android:textSize="@dimen/font_size_for_text_of_app"
-            android:gravity="center_horizontal"
+            android:gravity="right"
             android:textColor="@color/third_white" />
     </LinearLayout>
     <RadioGroup

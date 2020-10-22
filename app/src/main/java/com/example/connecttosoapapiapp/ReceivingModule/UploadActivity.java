@@ -181,12 +181,15 @@ Button btn_export,btn_Get_Document;
     }
 
     //TODO to prevent user from back (Duplication)
+    ////1000427782
+    //txt_response.setText("تم الرفع برقم\n" + MATERIALDOCUMENT);
     int i = 0;
     @Override
     public void onBackPressed() {
 //1000423291
 
-        if (i == 30 || btn_export.getVisibility() ==View.VISIBLE) {
+        if (i == 30 || btn_export.getVisibility() ==View.VISIBLE
+                || txt_response.getText().toString().contains("تم الرفع برقم")) {
             Toast.makeText(this, "تم" + (30 ), Toast.LENGTH_SHORT).show();
 
             Intent Go_Back= new Intent(UploadActivity.this , ScanRecievingActivity.class);
@@ -778,6 +781,8 @@ Button btn_export,btn_Get_Document;
                 } else if (envelopebodyInIsNull.equalsIgnoreCase("null")) {
                     txt_response.setText("لم يتم رفع البيانات المطلوبه null");
                     Get_Document(view);
+                    WriteInLogOf_sapTableOfSqlServer();
+                    WriteInLogs_sap_ITEMStableOfSqlServer();
                 /*if (Po_Item_For_Log_only_Has_value.size()>0) {
                     // for (int i = 0; i < Po_Item_For_Log_only_Has_value.size();i++) {
                     WriteInLogOf_sapTableOfSqlServer();
