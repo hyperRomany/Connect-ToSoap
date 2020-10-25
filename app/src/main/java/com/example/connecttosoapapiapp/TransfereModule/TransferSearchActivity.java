@@ -693,10 +693,10 @@ String FromSite,ToSite,Department;
                 txt_available_to_site_search.setText("" + String.valueOf(
                         new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty))));
                 edit_asked_from_site_search.setText("");
-                //edit_asked_from_site_search.setHint("Done");
-                /*editbarcodeforsoap.setText("");
+                edit_asked_from_site_search.setHint("Done");
+                editbarcodeforsoap.setText("");
                 editbarcodeforsoap.requestFocus();
-                edit_asked_from_site_search.setEnabled(false);
+                /*edit_asked_from_site_search.setEnabled(false);
                 txt_descripation_search.setText("وصف الصنف");
                 txt_code_item_search.setText("كود الصنف");
                 txt_state_item_search.setText("حاله الصنف");
