@@ -236,6 +236,8 @@ String FromSite,ToSite,Department;
 
     public void SearchBarCodeFromSoap(View view) {
        // edit_asked_from_site_search.setEnabled(false);
+        edit_asked_from_site_search.setHint("المطلوب تحويله");
+
         if (editbarcodeforsoap.getText().toString().isEmpty()){
             editbarcodeforsoap.setError("من فضلك ادخل الباركود");
         }else {
@@ -247,7 +249,6 @@ String FromSite,ToSite,Department;
             }else {
                 STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
                 Log.e("zzzbarcodeNotstart23 ",""+editbarcodeforsoap.getText().toString());
-
             }
             Log.e("STo_searchlist is","size"+STo_searchlist_btn.size());
             if (STo_searchlist_btn.size() > 0) {
