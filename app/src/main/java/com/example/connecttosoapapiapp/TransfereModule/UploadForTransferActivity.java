@@ -17,9 +17,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -63,11 +60,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 
 public class UploadForTransferActivity extends AppCompatActivity
@@ -203,7 +202,7 @@ int Repeat_On_log=0;
     public void createCSV(){
         File folder = new File("/data/user/0/com.example.connecttosoapapiapp/[] databases/");
         boolean var = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy-HHmmMM-a");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy-HHmmss-a");
         if (userList.size() >0) {
             CSVName = userList.get(0).getUser_Name1() +"_"+ sdf.format(new Date()) +
                     userList.get(0).getComplexID1()+ "_STO";//+txt_po_number.getText().toString();
