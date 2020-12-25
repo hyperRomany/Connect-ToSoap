@@ -627,8 +627,26 @@ for (Po_Item_of_cycleCount a:arrayList) {
                                 .setPositiveButton("تزويد الكميه", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
 
-                                        databaseHelperForCycleCount.Update_QTY(String.valueOf(Double.valueOf(po_item_of_cycleCountsforsave.get(0).getQTY1())+
-                                                new DecimalFormat("###.#####").format(Double.valueOf(Double.valueOf(edit_qty.getText().toString())))), edit_Barcode.getText().toString());
+                                        Log.e("zzzupdate", "onClick:get0:  "+ Double.valueOf(
+                                                po_item_of_cycleCountsforsave.get(0).getQTY1()));
+                                        Log.e("zzzupdate", "onClick:getedit "+
+                                                Double.valueOf(edit_qty.getText().toString()));
+                                        Log.e("zzzupdate", "onClick:sum "+
+                                                Double.valueOf(
+                                                        po_item_of_cycleCountsforsave.get(0).getQTY1())+
+                                                Double.valueOf(edit_qty.getText().toString()));
+
+//new DecimalFormat("###.#####").format(
+                                       /* databaseHelperForCycleCount.Update_QTY(
+                                                String.valueOf(Double.valueOf(po_item_of_cycleCountsforsave.get(0).getQTY1())+
+                                                Double.valueOf(edit_qty.getText().toString())), edit_Barcode.getText().toString());*/
+                                        databaseHelperForCycleCount.
+                                                Update_QTY(String.valueOf(Double.valueOf(
+                                                        po_item_of_cycleCountsforsave.get(0).getQTY1())+
+                                                                Double.valueOf(edit_qty.getText().toString())),
+                                                        edit_Barcode.getText().toString());
+
+
                                         edit_Barcode.setError(null);
                                         edit_Barcode.setText("");
                                         edit_Barcode.requestFocus();

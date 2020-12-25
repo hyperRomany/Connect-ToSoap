@@ -57,7 +57,8 @@ TextView txt_barcode,txt_descripation,txt_unite_item;
             edit_QTY.setError("من فضلك ادخل الكميه");
         }else {
 
-            databaseHelperForCycleCount.Update_QTY(new DecimalFormat("###.#####").format(Double.valueOf(edit_QTY.getText().toString())),txt_barcode.getText().toString());
+            databaseHelperForCycleCount.Update_QTY(new DecimalFormat("###.#####")
+                    .format(Double.valueOf(edit_QTY.getText().toString())),txt_barcode.getText().toString());
             edit_QTY.setText("");
             edit_QTY.setHint("Done");
         }
