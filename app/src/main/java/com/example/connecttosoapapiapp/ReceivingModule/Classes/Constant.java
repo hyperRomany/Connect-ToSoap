@@ -22,26 +22,26 @@ public class Constant {
 //    public final static String NAMESPACE_For_Get_Detials = "urn:sap-com:document:sap:rfc:functions";
 //    public final static String SOAP_ACTION_For_Get_Detials= "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_PO_GETDETAIL:ZPPC_PO_GETDETAILRequest";
 
-//for dev For Recieving module
+//for pro For Recieving module
     public final static String URL_For_Get_Detials = "http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_po_getdetail/300/zws_ppc_po_getdetail/zbn_ppc_po_getdetail";
     public final static String METHOD_For_Get_Detials = "ZPPC_PO_GETDETAIL";
     public final static String NAMESPACE_For_Get_Detials = "urn:sap-com:document:sap:rfc:functions";
     public final static String SOAP_ACTION_For_Get_Detials= "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_PO_GETDETAIL:ZPPC_PO_GETDETAILRequest";
 
-
-    // For upload of purchase order to sap For Recieving module
+//1000226744
+    // For upload of purchase order to qas For Recieving module
 //    public final static String URL_For_Upload = "http://10.10.5.11:8001/sap/bc/srt/rfc/sap/zws_ppc_goods_receipt/200/zws_ppc_goods_receipt/zws_ppc_goods_receipt";
 //    public final static String METHOD_For_Upload = "ZPPC_GOODS_RECEIPT";
 //    public final static String NAMESPACE_For_Upload = "urn:sap-com:document:sap:rfc:functions";
 //    public final static String SOAP_ACTION_For_Upload = "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_GOODS_RECEIPT:ZPPC_GOODS_RECEIPTRequest";
 
-    //for dev For Recieving module
+    //for prd For Recieving module
     public final static String URL_For_Upload = "http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_goods_receipt/300/zsn_ppc_goods_receipt/zbn_ppc_goods_receipt";
     public final static String METHOD_For_Upload = "ZPPC_GOODS_RECEIPT";
     public final static String NAMESPACE_For_Upload = "urn:sap-com:document:sap:rfc:functions";
     public final static String SOAP_ACTION_For_Upload = "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_GOODS_RECEIPT:ZPPC_GOODS_RECEIPTRequest";
 
-    //for DEV For Recieving module Get_Document num
+    //for PRD For Recieving module Get_Document num
     public final static String URL_For_Get_Document = "http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_goods_receipt_mu_ws/300/zppc_goods_receipt_mu_ws/zppc_goods_receipt_mu_ws";
     public final static String METHOD_For_Get_Document = "ZPPC_GOODS_RECEIPT_MU";
     public final static String NAMESPACE_For_Get_Document = "urn:sap-com:document:sap:rfc:functions";
