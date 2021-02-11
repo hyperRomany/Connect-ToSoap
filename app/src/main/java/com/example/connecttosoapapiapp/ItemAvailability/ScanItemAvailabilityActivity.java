@@ -302,6 +302,14 @@ Button btn_export;
 
                     Article=txt_code_item.getText().toString();
                     GetDetialsForBarcod();
+                    itemAvailabilityModuleList.clear();
+                    itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
+                    if (itemAvailabilityModuleList.size() ==0) {
+                        WriteInLogOf_sapTableofundefinedinSqlServer();
+                    }else {
+                        Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+//                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
+                    }
             }
         }else {
                 edt_barcode.setError(MESSAGE);
@@ -312,7 +320,6 @@ Button btn_export;
                 }else {
                     Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
-
                 }
             }
     }

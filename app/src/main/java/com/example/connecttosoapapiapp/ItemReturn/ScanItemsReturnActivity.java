@@ -1,7 +1,5 @@
 package com.example.connecttosoapapiapp.ItemReturn;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -12,7 +10,6 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,8 +22,6 @@ import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
-import com.example.connecttosoapapiapp.TransfereModule.ShowOrderDataActivity;
-import com.example.connecttosoapapiapp.TransfereModule.modules.STo_Search;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -35,6 +30,8 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ScanItemsReturnActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
@@ -133,7 +130,7 @@ public class ScanItemsReturnActivity extends AppCompatActivity
                                 edt_qty.setText("");
                                 txt_des.setText("الوصف");
                                 txt_matcode.setText("كود الصنف");
-
+                                txt_uom.setText("الموقع");
                                 dialog.cancel();
                             }
                         })
@@ -144,7 +141,7 @@ public class ScanItemsReturnActivity extends AppCompatActivity
                                 edt_qty.setText("");
                                 txt_des.setText("الوصف");
                                 txt_matcode.setText("كود الصنف");
-
+                                txt_uom.setText("الموقع");
                                 dialog.cancel();
                             }
                         }).show();
@@ -155,6 +152,7 @@ public class ScanItemsReturnActivity extends AppCompatActivity
                 edt_qty.setText("");
                 txt_des.setText("الوصف");
                 txt_matcode.setText("كود الصنف");
+                txt_uom.setText("الموقع");
             }
 
         }
@@ -183,12 +181,14 @@ public class ScanItemsReturnActivity extends AppCompatActivity
                     edt_qty.requestFocus();
                     txt_des.setText(STo_searchlist.get(0).getDesc1());
                     txt_matcode.setText(STo_searchlist.get(0).getMAT_CODE1().subSequence(6,18));
+                    txt_uom.setText(STo_searchlist.get(0).getDEF_STG_LOC1());
 
                 }
             } else {
                 Toast.makeText(this, "this else", Toast.LENGTH_SHORT).show();
                 txt_des.setText("وصف الصنف");
                 txt_matcode.setText("كود الصنف");
+                txt_uom.setText("الموقع");
                 getLoaderManager().initLoader(LOADER_ID, null, ScanItemsReturnActivity.this);
             }
         }
@@ -251,18 +251,21 @@ public class ScanItemsReturnActivity extends AppCompatActivity
                                 SoapObject soapObject_items_detials = (SoapObject) soapObject_items.getProperty(j);
 //                                for (int k = 0; k < soapObject_items_detials.getPropertyCount(); k++) {
                                     // SoapObject soapObject_For_each_item= (SoapObject) soapObject_All_Return.getProperty(k);
-//                                    Log.d("For_each_itemwith_k", String.valueOf(soapObject_items_detials.getProperty(k)));
-                                    databaseHelperForItemReturn.insert_Item_Return_Search(
-                                            soapObject_items_detials.getProperty(0).toString(),
-                                            soapObject_items_detials.getProperty(2).toString(),
-                                            soapObject_items_detials.getProperty(1).toString(),
-                                            soapObject_items_detials.getProperty(4).toString(),
-                                            "0.0",
-                                            soapObject_items_detials.getProperty(3).toString(),
-                                            soapObject_items_detials.getProperty(5).toString(),
-                                            soapObject_items_detials.getProperty(6).toString(),
-                                            soapObject_items_detials.getProperty(8).toString(),
-                                            soapObject_items_detials.getProperty(9).toString());
+                                    Log.d("For_each_itemwith_k_def", String.valueOf(soapObject_items_detials.getProperty(11)));
+                                    if (String.valueOf(soapObject_items_detials.getProperty(11)).equalsIgnoreCase("X")) {
+                                        Log.e("TAG", "loadInBackground: inset " );
+                                        databaseHelperForItemReturn.insert_Item_Return_Search(
+                                                soapObject_items_detials.getProperty(0).toString(),
+                                                soapObject_items_detials.getProperty(2).toString(),
+                                                soapObject_items_detials.getProperty(1).toString(),
+                                                soapObject_items_detials.getProperty(4).toString(),
+                                                "0.0",
+                                                soapObject_items_detials.getProperty(3).toString(),
+                                                soapObject_items_detials.getProperty(5).toString(),
+                                                soapObject_items_detials.getProperty(6).toString(),
+                                                soapObject_items_detials.getProperty(8).toString(),
+                                                soapObject_items_detials.getProperty(9).toString());
+                                    }
 //                                }
                             }
                         }else if (i==1){
@@ -298,6 +301,7 @@ public class ScanItemsReturnActivity extends AppCompatActivity
             Log.e("This Is First Time",""+RETURN);
             Toast.makeText(ScanItemsReturnActivity.this,RETURN,Toast.LENGTH_LONG).show();
             STo_searchlist_bg = databaseHelperForItemReturn.Search__Barcode(edt_barcode.getText().toString());
+            Log.e("TAG", "onLoadFinished:ss "+STo_searchlist_bg.size() );
             if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")){
                 edt_barcode.setError("هذا الباركود غير فعال");
             } else {

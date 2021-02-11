@@ -287,6 +287,9 @@ public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
               item_return_search.setSTG_LOC1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.STG_LOC)));
               item_return_search.setDEF_STG_LOC1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.DEF_STG_LOC)));
 
+              item_return_search.setP_GRP1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.P_GRP)));
+              item_return_search.setP_ORG1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.P_ORG)));
+
               item_return_search.setChecked_Item(false);
               Item_Return_Searchlist.add(item_return_search);
               if (Item_Return_Searchlist.isEmpty()){
@@ -377,7 +380,7 @@ public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selectQuery = "SELECT *FROM " + Item_Return_Search.TABLE_Item_Return_Search_NAME
-                + " where "+Item_Return_Search.GTIN+"="+Barcode;
+                + " where "+Item_Return_Search.GTIN+"='"+Barcode+"'";
                 //+ " and "  + STo_Search.QTY +"!= null" ;
         //+ " where " + STo_Search.QTY +"!=" +"null or "+ STo_Search.QTY +"!=" +"0.0 and "+STo_Search.GTIN+"="+Barcode;
 
@@ -398,6 +401,8 @@ public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
                 item_return_search.setMAT_CODE1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.MAT_CODE)));
                 item_return_search.setSTATUS1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.STATUS)));
                 item_return_search.setQTY1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.QTY)));
+                item_return_search.setDEF_STG_LOC1(cursor.getString(cursor.getColumnIndex(Item_Return_Search.DEF_STG_LOC)));
+
 
 
                 Item_Return_Searchlist.add(item_return_search);
