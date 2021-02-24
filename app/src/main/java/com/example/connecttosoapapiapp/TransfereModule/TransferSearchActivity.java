@@ -418,7 +418,9 @@ String FromSite,ToSite,Department;
                                         }*/
                                     }if (i==1 && RETURN.contains("anyType{}")){
                                         ReturnSearchList.add(String.valueOf(soapObject_items_detials.getProperty(k)));
-                                        if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
+                                        Log.d("for_each_item_for_Def", String.valueOf(soapObject_items_detials.getProperty(9)));
+                                        if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")
+                                                &&String.valueOf(soapObject_items_detials.getProperty(9)).contains("X")){
                                             if (editbarcodeforsoap.getText().toString().startsWith("23")) {
                                                 long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
                                                         FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
@@ -426,6 +428,8 @@ String FromSite,ToSite,Department;
                                                         ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
                                                         ReturnSearchList.get(7), "0.0");
                                             }else {
+                                                Log.d("Insert_item_for_Def", String.valueOf(soapObject_items_detials.getProperty(9)));
+
                                                 long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
                                                         FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
                                                         ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
@@ -437,7 +441,10 @@ String FromSite,ToSite,Department;
 
                                             Log.d("For_each_itemk=1=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
                                             ReturnSearchList.clear();
-                                        }else if (k ==9 && !String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
+                                        }else if (k ==9 && !String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")
+                                                &&String.valueOf(soapObject_items_detials.getProperty(9)).contains("X")){
+                                            Log.d("update_item_for_Def", String.valueOf(soapObject_items_detials.getProperty(9)));
+
                                             CheckItemssize = databaseHelperForTransfer.selectSto_Search();
 
                                             Log.e("CheckItemssizeelseif",""+CheckItemssize.size());
