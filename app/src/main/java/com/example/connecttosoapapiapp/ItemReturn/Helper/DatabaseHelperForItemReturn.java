@@ -21,7 +21,7 @@ import java.util.List;
 public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";
@@ -46,8 +46,8 @@ public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + Item_Return_Header.TABLE_STO_HEADER_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + Item_Return_Search.TABLE_Item_Return_Search_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + Item_Return_Header.TABLE_STO_HEADER_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + Item_Return_Search.TABLE_Item_Return_Search_NAME);
 
         // Create tables again
         onCreate(db);

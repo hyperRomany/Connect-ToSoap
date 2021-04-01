@@ -19,7 +19,7 @@ import java.util.List;
 public class DatabaseHelperForItemAvailability extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";
@@ -51,7 +51,9 @@ public class DatabaseHelperForItemAvailability extends SQLiteOpenHelper {
 //String iss_Strg_Log1,String rec_Site_log1,
 
     public long insert_ItemsAvai(String Barcode, String Message,
-                                 String UserName
+                                 String UserName,
+                                 String Todaysales,
+                                 String Avaliblestock
     ) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -62,6 +64,9 @@ public class DatabaseHelperForItemAvailability extends SQLiteOpenHelper {
         values.put(ItemAvailabilityModule.BarCode, Barcode);
         values.put(ItemAvailabilityModule.Message, Message);
         values.put(ItemAvailabilityModule.UserName, UserName);
+        values.put(ItemAvailabilityModule.Todaysales, Todaysales);
+        values.put(ItemAvailabilityModule.Avaliblestock, Avaliblestock);
+
 
         //values.put(Users.NO_MORE_GR, NO_MORE_GR);
 
@@ -96,6 +101,8 @@ public class DatabaseHelperForItemAvailability extends SQLiteOpenHelper {
 
                 itemAvailabilityModule.setUserName1(cursor.getString(cursor.getColumnIndex(ItemAvailabilityModule.UserName)));
                 itemAvailabilityModule.setBarCode1(cursor.getString(cursor.getColumnIndex(ItemAvailabilityModule.BarCode)));
+                itemAvailabilityModule.setTodaysales(cursor.getString(cursor.getColumnIndex(ItemAvailabilityModule.Todaysales)));
+                itemAvailabilityModule.setAvaliblestock(cursor.getString(cursor.getColumnIndex(ItemAvailabilityModule.Avaliblestock)));
 
                 itemAvailabilityModule.setMessage1(cursor.getString(cursor.getColumnIndex(ItemAvailabilityModule.Message)));
 

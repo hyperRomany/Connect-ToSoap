@@ -36,8 +36,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TransferSearchActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
-EditText editbarcodeforsoap,edit_asked_from_site_search;
-String FromSite,ToSite,Department;
+    EditText editbarcodeforsoap,edit_asked_from_site_search;
+    String FromSite,ToSite,Department;
     private int LOADER_ID = 1;
     DatabaseHelperForTransfer databaseHelperForTransfer;
 
@@ -45,7 +45,7 @@ String FromSite,ToSite,Department;
     List<String> ReturnSearchList ;
     List<STo_Search> CheckItemssize;
     TextView txt_descripation_search,txt_code_item_search,txt_state_item_search,
-    txt_from_site_search,txt_available_to_site_search,txt_to_site_search;
+            txt_from_site_search,txt_available_to_site_search,txt_to_site_search;
     Spinner spiner_storage_location_from,spiner_storage_location_to;
     List<STO_Header> STo_headerlist;
     List<STo_Search> STo_searchlist;
@@ -140,10 +140,10 @@ String FromSite,ToSite,Department;
                                 , spiner_storage_location_to.getSelectedItem().toString()
                                 , Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
                     }else
-                         STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
-                            spiner_storage_location_from.getSelectedItem().toString()
-                            , spiner_storage_location_to.getSelectedItem().toString()
-                            , editbarcodeforsoap.getText().toString());
+                        STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
+                                spiner_storage_location_from.getSelectedItem().toString()
+                                , spiner_storage_location_to.getSelectedItem().toString()
+                                , editbarcodeforsoap.getText().toString());
                     Log.e("spiner_storage_lsi", "" + STo_searchlist_btn.size());
                     if (STo_searchlist_btn.size() != 0) {
                         txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
@@ -182,10 +182,10 @@ String FromSite,ToSite,Department;
                                 , Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
                     }else
                         STo_searchlist_btn = databaseHelperForTransfer.Search_if_Barcode_in_localDataBase(
-                            spiner_storage_location_from.getSelectedItem().toString()
-                            , spiner_storage_location_to.getSelectedItem().toString()
-                            , editbarcodeforsoap.getText().toString());
-                        Log.e("spiner_storage_lsi", "" + STo_searchlist_btn.size());
+                                spiner_storage_location_from.getSelectedItem().toString()
+                                , spiner_storage_location_to.getSelectedItem().toString()
+                                , editbarcodeforsoap.getText().toString());
+                    Log.e("spiner_storage_lsi", "" + STo_searchlist_btn.size());
 
                     if (STo_searchlist_btn.size() != 0) {
                         txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
@@ -235,7 +235,7 @@ String FromSite,ToSite,Department;
     }
 
     public void SearchBarCodeFromSoap(View view) {
-       // edit_asked_from_site_search.setEnabled(false);
+        // edit_asked_from_site_search.setEnabled(false);
         edit_asked_from_site_search.setHint("المطلوب تحويله");
 
         if (editbarcodeforsoap.getText().toString().isEmpty()){
@@ -285,7 +285,7 @@ String FromSite,ToSite,Department;
                                 android.R.layout.simple_spinner_item, Iss_Site_Log_list);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spiner_storage_location_from.setAdapter(adapter);
-                       // spiner_storage_location_from.setSelection(Integer.valueOf(STo_headerlist.get(0).getIss_Strg_Log1()));
+                        // spiner_storage_location_from.setSelection(Integer.valueOf(STo_headerlist.get(0).getIss_Strg_Log1()));
 
                         List<String> Rec_Site_Log_list = new ArrayList<>();
                         Rec_Site_Log_list.add(STo_headerlist.get(0).getRec_Site_log1());
@@ -294,7 +294,7 @@ String FromSite,ToSite,Department;
                                 android.R.layout.simple_spinner_item, Rec_Site_Log_list);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spiner_storage_location_to.setAdapter(adapter2);
-                       // spiner_storage_location_to.setSelection(Integer.valueOf(STo_headerlist.get(0).getRec_Site_log1()));
+                        // spiner_storage_location_to.setSelection(Integer.valueOf(STo_headerlist.get(0).getRec_Site_log1()));
 
                         spiner_storage_location_from.setEnabled(false);
                         spiner_storage_location_to.setEnabled(false);
@@ -308,10 +308,10 @@ String FromSite,ToSite,Department;
                             }
                         }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
-                            android.R.layout.simple_spinner_item, Iss_Site_Log_list);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spiner_storage_location_from.setAdapter(adapter);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                android.R.layout.simple_spinner_item, Iss_Site_Log_list);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spiner_storage_location_from.setAdapter(adapter);
 
                         List<String> Rec_Site_Log_list = new ArrayList<>();
 
@@ -321,10 +321,10 @@ String FromSite,ToSite,Department;
                                 Log.e("getISS_STG",""+ STo_searchlist_btn.get(i).getREC_SITE_LOG1());
                             }
                         }
-                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
-                            android.R.layout.simple_spinner_item, Rec_Site_Log_list);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spiner_storage_location_to.setAdapter(adapter2);
+                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                android.R.layout.simple_spinner_item, Rec_Site_Log_list);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spiner_storage_location_to.setAdapter(adapter2);
                     }
                     edit_asked_from_site_search.setEnabled(true);
                     edit_asked_from_site_search.requestFocus();
@@ -389,111 +389,104 @@ String FromSite,ToSite,Department;
                     SoapObject soapObject_All_response = (SoapObject) envelope.bodyIn;
 //                    Log.d("getPropertyCoun", String.valueOf(soapObject_All_response.getPropertyCount()));
 
-                for (int i = 0; i < soapObject_All_response.getPropertyCount(); i++) {
+                    for (int i = 0; i < soapObject_All_response.getPropertyCount(); i++) {
 
-                            Log.d("soapObject", String.valueOf(soapObject_All_response.getProperty(i)));
+                        Log.d("soapObject", String.valueOf(soapObject_All_response.getProperty(i)));
 
-                            SoapObject soapObject_items = (SoapObject) soapObject_All_response.getProperty(i);
-                             RETURN = (String) soapObject_All_response.getProperty(0).toString();
+                        SoapObject soapObject_items = (SoapObject) soapObject_All_response.getProperty(i);
+                        RETURN = (String) soapObject_All_response.getProperty(0).toString();
                         //    Log.d("getPropertyCounitems", String.valueOf(soapObject_items.getPropertyCount()));
 
-                            for (int j = 0; j < soapObject_items.getPropertyCount(); j++) {
+                        for (int j = 0; j < soapObject_items.getPropertyCount(); j++) {
 
-                                SoapObject soapObject_items_detials = (SoapObject) soapObject_items.getProperty(j);
+                            SoapObject soapObject_items_detials = (SoapObject) soapObject_items.getProperty(j);
 
-                                for (int k = 0; k < soapObject_items_detials.getPropertyCount(); k++) {
-                                    // SoapObject soapObject_For_each_item= (SoapObject) soapObject_All_Return.getProperty(k);
-                                    Log.d("For_each_itemwith_k", String.valueOf(soapObject_items_detials.getProperty(k)));
-                                    if (i == 0) {
-                                        Log.d("for_each_item_for", String.valueOf(soapObject_items.getProperty(j)));
+                            for (int k = 0; k < soapObject_items_detials.getPropertyCount(); k++) {
+                                // SoapObject soapObject_For_each_item= (SoapObject) soapObject_All_Return.getProperty(k);
+                                Log.d("For_each_itemwith_k", String.valueOf(soapObject_items_detials.getProperty(k)));
+                                if (i == 0) {
+                                    Log.d("for_each_item_for", String.valueOf(soapObject_items.getProperty(j)));
                                       /*  Log.d("for_each_item_for",editbarcodeforsoap.getText().toString()+
                                                 FromSite+ToSite+ReturnSearchList.get(0)+ReturnSearchList.get(1)+
                                                 ReturnSearchList.get(2)+ReturnSearchList.get(8)+ReturnSearchList.get(3)+
                                                 ReturnSearchList.get(4)+ReturnSearchList.get(5)+ReturnSearchList.get(6)+
                                                 ReturnSearchList.get(7));*/
-                                        MESSAGE=soapObject_items_detials.getProperty(1).toString();
-                                        //RETURN = (String) soapObject_All_response.getProperty(0).toString();
+                                    MESSAGE=soapObject_items_detials.getProperty(1).toString();
+                                    //RETURN = (String) soapObject_All_response.getProperty(0).toString();
                                        /* if(RETURN.contains("anyType{}")){
 
                                         }*/
-                                    }if (i==1 && RETURN.contains("anyType{}")){
-                                        ReturnSearchList.add(String.valueOf(soapObject_items_detials.getProperty(k)));
-                                        Log.d("for_each_item_for_Def", String.valueOf(soapObject_items_detials.getProperty(9)));
-                                        if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")
-                                                &&String.valueOf(soapObject_items_detials.getProperty(9)).contains("X")){
-                                            if (editbarcodeforsoap.getText().toString().startsWith("23")) {
-                                                long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
-                                                        FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
-                                                        ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
-                                                        ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
-                                                        ReturnSearchList.get(7), "0.0");
+                                }if (i==1 && RETURN.contains("anyType{}")){
+                                    ReturnSearchList.add(String.valueOf(soapObject_items_detials.getProperty(k)));
+                                    if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
+                                        if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                                            long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                    FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
+                                                    ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
+                                                    ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
+                                                    ReturnSearchList.get(7), "0.0");
+                                        }else {
+                                            long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
+                                                    FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
+                                                    ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
+                                                    ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
+                                                    ReturnSearchList.get(7), "0.0");
+                                        }
+                                        //databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log(ReturnSearchList.get(4));
+                                        Log.e("ReturnSearchList",""+ReturnSearchList.get(4));
+
+                                        Log.d("For_each_itemk=1=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
+                                        ReturnSearchList.clear();
+                                    }else if (k ==9 && !String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
+                                        CheckItemssize = databaseHelperForTransfer.selectSto_Search();
+
+                                        Log.e("CheckItemssizeelseif",""+CheckItemssize.size());
+                                        Log.e("CheckItemssizeevvv",""+CheckItemssize.size() *2);
+                                        Log.e("CheckItemssizeelvvitv",""+soapObject_items.getPropertyCount());
+
+                                        if (soapObject_items.getPropertyCount() > (CheckItemssize.size() *2)){
+                                            if (j < (CheckItemssize.size())){
+                                                long id= databaseHelperForTransfer.Update_Sto_search_For_Rec_Site(ReturnSearchList.get(5));
+                                                Log.e("itemkif(j",""+id);
+                                                Log.d("For_each_itemk=2=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
                                             }else {
-                                                Log.d("Insert_item_for_Def", String.valueOf(soapObject_items_detials.getProperty(9)));
 
-                                                long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
-                                                        FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
-                                                        ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
-                                                        ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
-                                                        ReturnSearchList.get(7), "0.0");
-                                            }
-                                            //databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log(ReturnSearchList.get(4));
-                                            Log.e("ReturnSearchList",""+ReturnSearchList.get(4));
-
-                                            Log.d("For_each_itemk=1=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
-                                            ReturnSearchList.clear();
-                                        }else if (k ==9 && !String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")
-                                                &&String.valueOf(soapObject_items_detials.getProperty(9)).contains("X")){
-                                            Log.d("update_item_for_Def", String.valueOf(soapObject_items_detials.getProperty(9)));
-
-                                            CheckItemssize = databaseHelperForTransfer.selectSto_Search();
-
-                                            Log.e("CheckItemssizeelseif",""+CheckItemssize.size());
-                                            Log.e("CheckItemssizeevvv",""+CheckItemssize.size() *2);
-                                            Log.e("CheckItemssizeelvvitv",""+soapObject_items.getPropertyCount());
-
-                                            if (soapObject_items.getPropertyCount() > (CheckItemssize.size() *2)){
-                                                if (j < (CheckItemssize.size())){
-                                                    long id= databaseHelperForTransfer.Update_Sto_search_For_Rec_Site(ReturnSearchList.get(5));
-                                                    Log.e("itemkif(j",""+id);
-                                                    Log.d("For_each_itemk=2=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
+                                                if (editbarcodeforsoap.getText().toString().startsWith("23")){
+                                                    long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                            FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
+                                                            ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
+                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                            ReturnSearchList.get(7),"0.0");
                                                 }else {
+                                                    long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
+                                                            FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
+                                                            ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
+                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                            ReturnSearchList.get(7),"0.0");
 
-                                                    if (editbarcodeforsoap.getText().toString().startsWith("23")){
-                                                        long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
-                                                                FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
-                                                                ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                                ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
-                                                                ReturnSearchList.get(7),"0.0");
-                                                    }else {
-                                                        long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
-                                                                FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
-                                                                ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                                ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
-                                                                ReturnSearchList.get(7),"0.0");
-
-                                                    }
-
-
-
-                                                    Log.d("For_each_itemk=3=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
-                                                    Log.e("itemkif(jelse",""+id);
-                                                    ReturnSearchList.clear();
                                                 }
 
-                                            }else {
-                                                long id= databaseHelperForTransfer.Update_Sto_search_For_Rec_Site(ReturnSearchList.get(5));
-                                                Log.d("For_each_itemk=4=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
-                                               // databaseHelperForTransfer.Update_Sto_Header_For_Rec_Site(ReturnSearchList.get(5));
-                                                Log.e("elseount()>(C",""+id);
-                                                Log.d("elseount()>(C", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
 
+
+                                                Log.d("For_each_itemk=3=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
+                                                Log.e("itemkif(jelse",""+id);
+                                                ReturnSearchList.clear();
                                             }
-                                          }
+
+                                        }else {
+                                            long id= databaseHelperForTransfer.Update_Sto_search_For_Rec_Site(ReturnSearchList.get(5));
+                                            Log.d("For_each_itemk=4=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
+                                            // databaseHelperForTransfer.Update_Sto_Header_For_Rec_Site(ReturnSearchList.get(5));
+                                            Log.e("elseount()>(C",""+id);
+                                            Log.d("elseount()>(C", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
+
+                                        }
                                     }
                                 }
                             }
-                         }
+                        }
                     }
+                }
                 return null;
             }
         };
@@ -514,9 +507,9 @@ String FromSite,ToSite,Department;
         Log.e("zzzbarodd",""+odd);
         Log.e("zzzbareveen",""+eveen);
         if ((((odd * 3) + eveen) % 10) != 0 )
-                 chkdigit = 10 - (((odd * 3) + eveen) % 10) ;
+            chkdigit = 10 - (((odd * 3) + eveen) % 10) ;
         else
-                chkdigit = 0 ;
+            chkdigit = 0 ;
 
         Barcode=toString +chkdigit;
         Log.e("zzzbarcode",""+Barcode);
@@ -603,11 +596,11 @@ String FromSite,ToSite,Department;
             startActivity(Go_To_ScanRecieving);
             btn_loading_purchase_order.setEnabled(true);*/
         }else {
-           // Toast.makeText(TransferSearchActivity.this,MESSAGE,Toast.LENGTH_LONG).show();
+            // Toast.makeText(TransferSearchActivity.this,MESSAGE,Toast.LENGTH_LONG).show();
             edit_asked_from_site_search.setEnabled(false);
             editbarcodeforsoap.setError(MESSAGE);
             MESSAGE=" ";
-          //  btn_loading_purchase_order.setEnabled(true);
+            //  btn_loading_purchase_order.setEnabled(true);
         }
     }
 
@@ -798,7 +791,7 @@ String FromSite,ToSite,Department;
             }
 
         }
-      //  txt_available_to_site_search.getText().toString()
+        //  txt_available_to_site_search.getText().toString()
     }
 
     public void Go_To_Upload_Form(View view) {

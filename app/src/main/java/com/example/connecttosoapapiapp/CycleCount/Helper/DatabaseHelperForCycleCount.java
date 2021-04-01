@@ -20,7 +20,7 @@ import java.util.List;
 public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";

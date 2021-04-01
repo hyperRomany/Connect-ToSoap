@@ -76,8 +76,9 @@ public class ScanItemAvailabilityActivity extends AppCompatActivity
     Spinner spiner_site;
     private int LOADER_ID = 1;
     public final static String CHANNEL_ID ="1";
-    String EnvelopeBodyInConstant,EnvelopeBodyInConstant2 , EnvelopeBodyInCurrent , RETURN, MESSAGE,MATERIALDOCUMENT="Empty"
+    String EnvelopeBodyInConstant,EnvelopeBodyInConstant2 , EnvelopeBodyInCurrent , RETURN, MESSAGE="Empty",MATERIALDOCUMENT="Empty"
             ,GL,CS,Site,REC_SITE_LOG1="";
+    String SiteForEcomerceTable="SAEC";
     ArrayAdapter<String> adapterForSites;
     List<String> site_list;
     String check_of_UserCode;
@@ -171,8 +172,11 @@ Button btn_export;
             Toast.makeText(this, "أختر الموقع أولا", Toast.LENGTH_SHORT).show();
         }else {
             ReturnSearchList.clear();
-            getLoaderManager().initLoader(LOADER_ID, null, ScanItemAvailabilityActivity.this);
-
+            if (spiner_site.getSelectedItem().toString().contains(SiteForEcomerceTable)) {
+                CheckBarcodeInEcomerceTableinSqlServer();
+            }else {
+                getLoaderManager().initLoader(LOADER_ID, null, ScanItemAvailabilityActivity.this);
+            }
 
 //            txt_available_minus_sales.setText(String.valueOf(Double.valueOf(txt_available_in_site.getText().toString())-
 //                    Double.valueOf(txt_sales_today.getText().toString())));
@@ -197,9 +201,15 @@ Button btn_export;
 
                     SoapObject request = new SoapObject(Constant.NAMESPACE_For_Search_Barcode, Constant.METHOD_For_Search_Barcode);
                     request.addProperty("GTIN", edt_barcode.getText().toString());
-                    request.addProperty("ISS_SITE", spiner_site.getSelectedItem().toString());
-                    request.addProperty("REC_SITE",  spiner_site.getSelectedItem().toString());
-
+                    if (spiner_site.getSelectedItem().toString().contains(SiteForEcomerceTable)) {
+                        request.addProperty("ISS_SITE", spiner_site.getSelectedItem().toString().substring(0,
+                                spiner_site.getSelectedItem().toString() .indexOf("EC")));
+                        request.addProperty("REC_SITE", spiner_site.getSelectedItem().toString().substring(0,
+                                spiner_site.getSelectedItem().toString() .indexOf("EC")));
+                    }else {
+                        request.addProperty("ISS_SITE", spiner_site.getSelectedItem().toString());
+                        request.addProperty("REC_SITE", spiner_site.getSelectedItem().toString());
+                    }
                     RETURN = "Empty";
                     MESSAGE = "Empty";
                     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER12);
@@ -313,6 +323,7 @@ Button btn_export;
             }
         }else {
                 edt_barcode.setError(MESSAGE);
+                Log.e("TAG", "onLoadFinished: "+MESSAGE+"  "+ edt_barcode.getText().toString());
                 itemAvailabilityModuleList.clear();
                 itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
                 if (itemAvailabilityModuleList.size() ==0) {
@@ -389,8 +400,18 @@ Button btn_export;
                 params.put("Date",Date);
                 params.put("Site",spiner_site.getSelectedItem().toString());
 
+                Log.e("WriteInLogOf_sapTableofundefinedinSqlServer", "getParams: !MESSAGE.contains(\"Empty\")"+MESSAGE );
+            if (!MESSAGE.contains("Empty")) {
+                itemAvailabilityModuleList.clear();
+                itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
+                if (itemAvailabilityModuleList.size() ==0) {
+                    databaseHelperForItemAvailability.insert_ItemsAvai(edt_barcode.getText().toString(), MESSAGE,
+                            userdataList.get(0).getUser_Name1().trim(), "",
+                            "");
+                }
+            }
 
-                databaseHelperForItemAvailability.insert_ItemsAvai(edt_barcode.getText().toString(), MESSAGE, userdataList.get(0).getUser_Name1().trim());
+
 
                 return params;
             }
@@ -405,6 +426,76 @@ Button btn_export;
         queue.add(request);
 
     }
+
+    public void CheckBarcodeInEcomerceTableinSqlServer(){
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // String URL = Constant.LoginURL;
+        request = new StringRequest(Request.Method.POST, Constant.CheckForEcomerceTable,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("onResponse", response);
+                        Log.d("onResponse", ""+request);
+
+                        try {
+
+                            JSONObject object = new JSONObject(response);
+                            String status = object.getString("status");
+                            Log.d("onResponse", status);
+
+                            String message = object.getString("message");
+                            Log.d("onResponse", message);
+
+                                if (status.equalsIgnoreCase("1")){
+                                    getLoaderManager().initLoader(LOADER_ID, null, ScanItemAvailabilityActivity.this);
+                                }else {
+                                    MESSAGE="Barcode not found in 01EC Table" ;
+                                    databaseHelperForItemAvailability.insert_ItemsAvai(edt_barcode.getText().toString(), MESSAGE,
+                                            userdataList.get(0).getUser_Name1().trim(), "",
+                                            "");
+                                    edt_barcode.setError("الباركود غير موجود على 01EC");
+                                }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                        }
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Barcode", edt_barcode.getText().toString());
+                params.put("Site",spiner_site.getSelectedItem().toString().replace("SA","") );
+                Log.e("CheckBarcodeInEcomerceTableinSqlServer", "getParams: "+spiner_site.getSelectedItem().toString().replace("SA","") );
+                return params;
+            }
+
+        };
+
+
+        // Add the realibility on the connection.
+        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+
+        // Start the request immediately
+        queue.add(request);
+
+    }
+
 
     public void getlistfromsqlserver(){
         //TAG_TRIP_PRICE + Uri.encode(tripFromSelected, "utf-8").toString() + "/" +
@@ -570,9 +661,6 @@ Button btn_export;
                                     Log.d("onResponse", status);
 
                                     if (status.equalsIgnoreCase("1")) {
-
-                                         edt_barcode.setText(null);
-                                            edt_barcode.requestFocus();
                                         txt_sales_today.setText(object.getString("qty"));
                                         txt_price.setText(object.getString("price"));
                                         if (Integer.valueOf(object.getString("status_for_barcode")) == 0) {
@@ -585,6 +673,16 @@ Button btn_export;
                                             // edit_current_deliver.setText(null);
 //                                            CreateORUpdateRecycleView(postionForsave);
                                             Toast.makeText(ScanItemAvailabilityActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                                        itemAvailabilityModuleList.clear();
+                                        itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
+                                        if (itemAvailabilityModuleList.size() ==0) {
+                                            databaseHelperForItemAvailability.insert_ItemsAvai(edt_barcode.getText().toString(), MESSAGE,
+                                                    userdataList.get(0).getUser_Name1().trim(), txt_sales_today.getText().toString(),
+                                                    txt_available_in_site.getText().toString());
+                                        }
+
+                                        edt_barcode.setText(null);
+                                        edt_barcode.requestFocus();
                                     } else {
                                        // Toast.makeText(ScanItemAvailabilityActivity.this, , Toast.LENGTH_SHORT).show();
                                   //      edt_barcode.setError("الباركود غير موجود");
@@ -696,12 +794,16 @@ Button btn_export;
 //            "PLANT""STGE_LOC""ENTRY_QNT""ENTRY_UOM""EAN_UPC""SERNP"
 
             itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModule();
-           /* writer.append("BarCode");
+            writer.append("BarCode");
             writer.append(',');
-            writer.append("QTY");
+            writer.append("Username");
             writer.append(',');
-            writer.append("Zone");
-            writer.append('\n');*/
+            writer.append("todaysales");
+            writer.append(',');
+            writer.append("availability stock");
+            writer.append(',');
+            writer.append("Message");
+            writer.append('\n');
 
             if (itemAvailabilityModuleList.size() ==0){
                 Log.e("envelope", "Po_Item_For_ftp_Upload.size() ==0");
@@ -713,6 +815,10 @@ Button btn_export;
                     writer.append(itemAvailabilityModuleList.get(i).getBarCode1());
                     writer.append(',');
                     writer.append(itemAvailabilityModuleList.get(i).getUserName1());
+                    writer.append(',');
+                    writer.append(itemAvailabilityModuleList.get(i).getTodaysales());
+                    writer.append(',');
+                    writer.append(itemAvailabilityModuleList.get(i).getAvaliblestock());
                     writer.append(',');
                     writer.append(itemAvailabilityModuleList.get(i).getMessage1());
                     writer.append('\n');

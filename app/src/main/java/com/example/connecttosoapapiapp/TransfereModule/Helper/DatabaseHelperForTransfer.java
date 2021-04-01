@@ -17,9 +17,9 @@ import java.util.List;
  */
 
 public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
-
+    private static final String TAG = "DatabaseHelperForTransf";
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";
@@ -44,8 +44,8 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + STO_Header.TABLE_STO_HEADER_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + STo_Search.TABLE_STO_Search_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + STO_Header.TABLE_STO_HEADER_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS " + STo_Search.TABLE_STO_Search_NAME);
 
         // Create tables again
         onCreate(db);
@@ -114,7 +114,7 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
         //values.put(STo_Search.NO_MORE_GR, NO_MORE_GR);
         // insert row
         long id = db.insert(STo_Search.TABLE_STO_Search_NAME, null, values);
-
+        Log.e(TAG, "insert_Sto_Search:insert "+ AVAILABLE_STOCK1);
         // close db connection
         db.close();
         db.close();

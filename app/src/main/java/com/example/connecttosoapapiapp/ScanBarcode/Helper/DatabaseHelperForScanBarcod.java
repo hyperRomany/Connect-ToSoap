@@ -20,7 +20,7 @@ import java.util.List;
 public class DatabaseHelperForScanBarcod extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";
@@ -44,7 +44,7 @@ public class DatabaseHelperForScanBarcod extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + ScanBarcodeModule.TABLE_ScanBarcode_NAME);
+       // db.execSQL("DROP TABLE IF EXISTS " + ScanBarcodeModule.TABLE_ScanBarcode_NAME);
 
         // Create tables again
         onCreate(db);

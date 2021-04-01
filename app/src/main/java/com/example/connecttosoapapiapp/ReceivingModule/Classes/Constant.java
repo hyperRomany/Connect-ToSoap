@@ -92,6 +92,8 @@ public class Constant {
 
     /// constant to connect to server on login activity
     public final static String LoginURL = "http://10.2.1.220:8080/PPCModules/LoginPPC.php";
+    public final static String RecievingAuthorizationURL = "http://10.2.1.220:8080/PPCModules/RecievingAuthorization.php";
+
     public static final String WriteInLogOf_sapTableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_saptable.php";
     public static final String WriteInLogs_sap_ITEMStableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_sap_ITEMStable.php";
 
@@ -112,9 +114,11 @@ public class Constant {
     //public static final String UploadToCSVFtp = "https://translationapp.000webhostapp.com/ChatServerFiles/UploadCSVFile.php";
     //public final static String LoginURL ="http://http://12.34.56.78:81/PhpProject1/MainForm.php";
 
-    //for transfer
+
+    //for transfer  $$ itemavalability
     public final static String ListfortransferFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist.php";
 
+    //For GI
     public final static String ListforGIFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectTablesforlistforGI.php";
 
     //for transfer and search in GI
@@ -172,6 +176,8 @@ public class Constant {
     public static final String WriteInLogs_sap_ITEMStableofcyclecountURL = "http://10.2.1.220:8080/PPCModules/CyclecountUpload/writeinLogs_sap_ITEMStable.php";
 
     public static final String WriteInLogOf_sapTableofundefined = "http://10.2.1.220:8080/PPCModules/writeinLogs_sap_ofundefined.php";
+
+    public static final String CheckForEcomerceTable = "http://10.2.1.220:8080/PPCModules/CheckEcomerceBarcodes.php";
 
     public static final String Details_for_Update = "http://10.2.1.220:8080/PPCModules/Details.php";
     //for qas

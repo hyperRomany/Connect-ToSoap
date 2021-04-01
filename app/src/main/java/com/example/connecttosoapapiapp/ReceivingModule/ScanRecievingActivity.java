@@ -14,18 +14,36 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.connecttosoapapiapp.R;
+import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Header;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
+import com.google.gson.JsonObject;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,7 +58,8 @@ public class ScanRecievingActivity extends AppCompatActivity {
     Button btnsearchbarcode;
 LinearLayout linear_parent;
     List<Po_Header> Po_HeaderList;
-
+    public StringRequest request = null;
+    private static final int REQUEST_WRITE_PERMISSION = 786;
     Double AskaedQuantity=0.0;
     View view;
     List<Po_Item> Po_Item_List;
@@ -156,9 +175,11 @@ LinearLayout linear_parent;
         }else {
             txt_comp_code.setText("لم يتم تحميل PO_Item");
         }
-
+        Log.e("TAG", "onCreate:plant "+Po_Item_List_ForPlant.get(0).getPLANT1() );
         if (user_List.size() !=0 && Po_Item_List_ForPlant.size() !=0) {
-            if (user_List.get(0).getCompany1().equalsIgnoreCase("h010")
+
+            Authorization();
+           /* if (user_List.get(0).getCompany1().equalsIgnoreCase("h010")
                     && Po_Item_List_ForPlant.get(0).getPLANT1().contains("01")) {
                 //          Toast.makeText(this,"المستخدم من نفس مكان تسجل أمر الشراء",Toast.LENGTH_SHORT).show();
             } else if (user_List.get(0).getCompany1().equalsIgnoreCase("h020")
@@ -169,6 +190,9 @@ LinearLayout linear_parent;
                 //         Toast.makeText(this,"المستخدم من نفس مكان تسجل أمر الشراء",Toast.LENGTH_SHORT).show();
             } else if (user_List.get(0).getCompany1().equalsIgnoreCase("h040")
                     && Po_Item_List_ForPlant.get(0).getPLANT1().contains("04")) {
+                //        Toast.makeText(this,"المستخدم من نفس مكان تسجل أمر الشراء",Toast.LENGTH_SHORT).show();
+            }else if (user_List.get(0).getCompany1().equalsIgnoreCase("h100")
+                    && Po_Item_List_ForPlant.get(0).getPLANT1().contains("01")) {
                 //        Toast.makeText(this,"المستخدم من نفس مكان تسجل أمر الشراء",Toast.LENGTH_SHORT).show();
             } else {
                 new AlertDialog.Builder(this)
@@ -184,20 +208,135 @@ LinearLayout linear_parent;
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.cancel();
                             }
-                        })*/
+                        })
                         .show();
                 linear_parent.setVisibility(View.GONE);
-            }
+            }*/
         }else {
-            Toast.makeText(this, "لم يتم الحصول على بيانات المستخدم او بيانات امر الشراء فارغه", Toast.LENGTH_SHORT).show();
-        }
-            boolean Check_If_This_Is_First_Time = getIntent().getExtras().getBoolean("This Is First Time");
-            Log.e("This Is First TimeFSC", "" + Check_If_This_Is_First_Time);
+            new AlertDialog.Builder(this)
+                    .setTitle("لم يتم الحصول على بيانات المستخدم او بيانات امر الشراء فارغه")
+                    .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Intent Go_Back = new Intent(ScanRecievingActivity.this, ReceivingActivity.class);
+                            Go_Back.putExtra("UserName", Po_HeaderList.get(0).getDelievered_BY1());
+                            startActivity(Go_Back);
+                        }
+                    })
+                    /*.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            dialog.cancel();
+                        }
+                    })*/
+                    .show();
+                    Toast.makeText(this, "لم يتم الحصول على بيانات المستخدم او بيانات امر الشراء فارغه", Toast.LENGTH_SHORT).show();
+                    linear_parent.setVisibility(View.GONE);
+    }
+        boolean Check_If_This_Is_First_Time = getIntent().getExtras().getBoolean("This Is First Time");
+        Log.e("This Is First TimeFSC", "" + Check_If_This_Is_First_Time);
 // this to update vendor name from null to it's name and PDNEWQTY
 //            if (Check_If_This_Is_First_Time == true) {
 //                int ID = databaseHelper.update_Vendor_PDNEWQTY_Date("0.0", "", txtvendorname.getText().toString());
 //                Log.e("This Is First TimeID", "" + ID);
 //            }
+}
+
+
+public void Authorization() {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            request = new StringRequest(Request.Method.POST, Constant.RecievingAuthorizationURL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+                            String encodedstring = null;
+                            try {
+                                encodedstring = URLEncoder.encode(response, "ISO-8859-1");
+                                response = URLDecoder.decode(encodedstring, "UTF-8");
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            JsonObject object1 = new JsonObject().getAsJsonObject(response);
+                            Log.e("onResponseresoo", "object" + object1);
+                            try {
+
+                                JSONObject object = new JSONObject(response);
+                                Log.e("onResponse", "object" + object);
+
+                                String status = object.getString("status");
+                                Log.d("onResponse:status", status);
+
+                                String message = object.getString("message");
+                                Log.d("onResponse:message ", message);
+
+                                if (status.equalsIgnoreCase("1")) {
+
+                                } else {
+                                    new AlertDialog.Builder(ScanRecievingActivity.this)
+                                            .setTitle(getString(R.string.text_not_same_cop_cod))
+                                            .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int whichButton) {
+                                                    Intent Go_Back = new Intent(ScanRecievingActivity.this, ReceivingActivity.class);
+                                                    Go_Back.putExtra("UserName", Po_HeaderList.get(0).getDelievered_BY1());
+                                                    startActivity(Go_Back);
+                                                }
+                                            })
+                                            /*.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int whichButton) {
+                                                    dialog.cancel();
+                                                }
+                                            })*/
+                                                .show();
+                                        linear_parent.setVisibility(View.GONE);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Log.i("log erroree", String.valueOf(e));
+                                    Toast.makeText(ScanRecievingActivity.this, "" + e, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                NetworkResponse response = error.networkResponse;
+                                String errorMsg = "";
+                                if (response != null && response.data != null) {
+                                    String errorString = new String(response.data);
+                                    Log.i("log error", errorString);
+                                    Toast.makeText(ScanRecievingActivity.this, "" + errorString, Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("Company", user_List.get(0).getCompany1());
+                        params.put("Plant", Po_Item_List_ForPlant.get(0).getPLANT1());
+                        //params.put("key_1","value_1");
+                        // params.put("key_2", "value_2");
+
+                        Log.i("sending ", params.toString());
+                        Log.e("onResponser", "response" + request);
+
+                        return params;
+                    }
+
+                };
+
+
+                // Add the realibility on the connection.
+                request.setRetryPolicy(new DefaultRetryPolicy(30000, 3, 1.0f));
+
+                // Start the request immediately
+                queue.add(request);
+
+
+
+
     }
 
     public void SearchBarCode(View view) {
