@@ -102,7 +102,7 @@ int Repeat_On_log=0;
     List<Po_Items_For_Logs_Items_SqlServer> Po_Items_For_LogsArray;
 Button btn_export,btn_Get_Document;
     List<Users> userList;
-    String Date;
+    String Date, UserComp = "01";
     String ExportORGetdocument="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +164,18 @@ Button btn_export,btn_Get_Document;
 
         Device_id_Instance_of_MacAdress = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
         Log.e("onCreateU", "Map"+Device_id_Instance_of_MacAdress);
+
+        // TODO Auto-generated catch block
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        List<Users> userdataList = new ArrayList<>();
+//
+
+        userdataList = databaseHelper.getUserData();
+        if (userdataList.size() > 0) {
+            UserComp = userdataList.get(0).getCompany1();
+            UserComp = UserComp.substring(1, 3);
+            Log.e("zzzz", "" + UserComp);
+        }
 
     }
 
@@ -420,46 +432,13 @@ Button btn_export,btn_Get_Document;
                       Log.e("VERSION.SDK_INT " ,"Not API 26 or higher");
 
               }
-             /* Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-              NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,CHANNEL_ID)
-//                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                      .setSmallIcon(R.drawable.logo)
-                      //.setLargeIcon(largeIcon(context))
-                      .setContentTitle(getString(R.string.app_name))
-                      .setContentText(getString(R.string.app_name))
-                      // .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.charging_reminder_notification_body)))
-                      .setDefaults(Notification.DEFAULT_VIBRATE)
-                      //.setContentIntent(contentIntent(context))
-                      .setAutoCancel(true)
-                      //.setLargeIcon(bitmap)
-                      .setAutoCancel(true)
-                      .setSound(defaultSoundUri)
-                      .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                      .setCategory(NotificationCompat.CATEGORY_MESSAGE);
-
-              // COMPLETED (9) If the build version is greater than JELLY_BEAN, set the notification's priority
-              // to PRIORITY_HIGH.
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                  notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
-              }
-
-              // COMPLETED (11) Get a NotificationManager, using context.getSystemService(Context.NOTIFICATION_SERVICE);
-              NotificationManager notificationManager = (NotificationManager)
-                      getSystemService(Context.NOTIFICATION_SERVICE);
-
-              // COMPLETED (12) Trigger the notification by calling notify on the NotificationManager.
-              // Pass in a unique ID of your choosing for the notification and notificationBuilder.build()
-              notificationManager.notify(WATER_REMINDER_NOTIFICATION_ID, notificationBuilder.build());
-              Log.e("pdfupload",""+filePath.getPath());
-              Log.e("pdfupload",""+UploadCycleCountActivity.this.getFilesDir());*/
-
-              MultipartUploadRequest multipartUploadRequest=  new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp);
+              MultipartUploadRequest multipartUploadRequest=  new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp_recieving);
               multipartUploadRequest.addFileToUpload(filePath.getPath(), "pdf");
 
               Log.e("bbbbbb","nm,.,mcgvbnjmkl,"+filePath.getPath());
               // name & room_id & user_id & user_name &  type  this is key between android and php only
-
+              multipartUploadRequest.addParameter("UserType", UserComp);
               multipartUploadRequest.addParameter("name", CSVName);
 
               // .addParameter("type", String.valueOf(3))
@@ -471,23 +450,13 @@ Button btn_export,btn_Get_Document;
 //                  Log.e("bbbbbb","nmelsemcgvbnjmkl,");
 //              }
               multipartUploadRequest.setAutoDeleteFilesAfterSuccessfulUpload(true);
-
               multipartUploadRequest .setMaxRetries(2);
               multipartUploadRequest .startUpload();
               txt_response.setText("تم الرفع بهذا الأسم\n"+CSVName);
+              btn_export.setVisibility(View.VISIBLE);
 
 
-
-             /*  new MultipartUploadRequest(this, PdfID, Constant.UploadToCSVFtp)
-                  .addFileToUpload(filePath.getPath(), "pdf")
-                 // name & room_id & user_id & user_name &  type  this is key between android and php only
-                                  .addParameter("name", CSVName)
-                 // .addParameter("type", String.valueOf(3))
-                  .setNotificationConfig(new UploadNotificationConfig())
-                  .setAutoDeleteFilesAfterSuccessfulUpload(true)
-                  .startUpload();*/
-
-      } catch (
+          } catch (
     MalformedURLException e) {
         e.printStackTrace();
     } catch (FileNotFoundException e) {
