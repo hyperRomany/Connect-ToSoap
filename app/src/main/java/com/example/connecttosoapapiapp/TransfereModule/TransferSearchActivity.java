@@ -252,84 +252,89 @@ public class TransferSearchActivity extends AppCompatActivity
             }
             Log.e("STo_searchlist is","size"+STo_searchlist_btn.size());
             if (STo_searchlist_btn.size() > 0) {
-                if(STo_searchlist_btn.get(0).getSTATUS1().equalsIgnoreCase("1")){
-                    editbarcodeforsoap.setError("هذا الباركود غير فعال");
-                }else if ((STo_searchlist_btn.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
-                        && !(FromSite.equalsIgnoreCase("01MW")
-                        || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
-                    Log.d("getISSbbbbb_STG", "zz " + STo_searchlist_btn.get(0).getAVAILABLE_STOCK1());
-                    Log.d("getISSbbbbb_STG", "z" + FromSite);
-                    editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
-                    edit_asked_from_site_search.setEnabled(false);
-                } else {
-                    txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
-                    txt_code_item_search.setText(STo_searchlist_btn.get(0).getMAT_CODE1().subSequence(6,18));
-                    txt_state_item_search.setText(STo_searchlist_btn.get(0).getSTATUS1());
-                    Double total = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
-                    txt_available_to_site_search.setText(String.valueOf(
-                            new DecimalFormat("###.##").format(Double.valueOf(total))));
-                    txt_from_site_search.setText(STo_searchlist_btn.get(0).getISS_SITE1());
-                    txt_to_site_search.setText(STo_searchlist_btn.get(0).getREC_SITE1());
-
-
-                    STo_headerlist = new ArrayList<>();
-
-                    STo_headerlist = databaseHelperForTransfer.selectSto_Header();
-                    Toast.makeText(this, "intent is null", Toast.LENGTH_SHORT).show();
-                    if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")){ //anyType{}
-                        List<String> Iss_Site_Log_list = new ArrayList<>();
-
-                        Iss_Site_Log_list.add(STo_headerlist.get(0).getIss_Strg_Log1());
-
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
-                                android.R.layout.simple_spinner_item, Iss_Site_Log_list);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spiner_storage_location_from.setAdapter(adapter);
-                        // spiner_storage_location_from.setSelection(Integer.valueOf(STo_headerlist.get(0).getIss_Strg_Log1()));
-
-                        List<String> Rec_Site_Log_list = new ArrayList<>();
-                        Rec_Site_Log_list.add(STo_headerlist.get(0).getRec_Site_log1());
-                        Log.e("getISS_STG",""+ STo_headerlist.get(0).getRec_Site_log1());
-                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
-                                android.R.layout.simple_spinner_item, Rec_Site_Log_list);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spiner_storage_location_to.setAdapter(adapter2);
-                        // spiner_storage_location_to.setSelection(Integer.valueOf(STo_headerlist.get(0).getRec_Site_log1()));
-
-                        spiner_storage_location_from.setEnabled(false);
-                        spiner_storage_location_to.setEnabled(false);
-                    }else {
-                        List<String> Iss_Site_Log_list = new ArrayList<>();
-
-                        for (int i=0;i<STo_searchlist_btn.size();i++){
-                            if (!Iss_Site_Log_list.contains(STo_searchlist_btn.get(i).getISS_STG_LOG1())){
-                                Iss_Site_Log_list.add(STo_searchlist_btn.get(i).getISS_STG_LOG1());
-                                Log.e("getISS_STG",""+ STo_searchlist_btn.get(i).getISS_STG_LOG1());
-                            }
+                for (int j = 0; j < STo_searchlist_btn.size(); j++){
+                    if (STo_searchlist_btn.get(j).getSTATUS1().equalsIgnoreCase("1")) {
+                        editbarcodeforsoap.setError("هذا الباركود غير فعال");
+                    } else if ((STo_searchlist_btn.get(j).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
+                            && !(FromSite.equalsIgnoreCase("01MW")
+                            || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
+                        Log.d("getISSbbbbb_STG_AVAILABLE_STO_j", j + "zz " + STo_searchlist_btn.get(j).getAVAILABLE_STOCK1());
+                        if (j == STo_searchlist_btn.size()-1) {
+                            Log.d("getISSbbbbb_STG_AVAILABLE_STO", "zz " + STo_searchlist_btn.get(j).getAVAILABLE_STOCK1());
+                            Log.d("getISSbbbbb_STG_FromSite", "z" + FromSite);
+                            editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
+                            edit_asked_from_site_search.setEnabled(false);
                         }
+                    } else {
+                        txt_descripation_search.setText(STo_searchlist_btn.get(j).getUOM_DESC1());
+                        txt_code_item_search.setText(STo_searchlist_btn.get(j).getMAT_CODE1().subSequence(6, 18));
+                        txt_state_item_search.setText(STo_searchlist_btn.get(j).getSTATUS1());
+                        Double total = Double.valueOf(STo_searchlist_btn.get(j).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(j).getQTY1());
+                        txt_available_to_site_search.setText(String.valueOf(
+                                new DecimalFormat("###.##").format(Double.valueOf(total))));
+                        txt_from_site_search.setText(STo_searchlist_btn.get(j).getISS_SITE1());
+                        txt_to_site_search.setText(STo_searchlist_btn.get(j).getREC_SITE1());
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
-                                android.R.layout.simple_spinner_item, Iss_Site_Log_list);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spiner_storage_location_from.setAdapter(adapter);
 
-                        List<String> Rec_Site_Log_list = new ArrayList<>();
+                        STo_headerlist = new ArrayList<>();
 
-                        for (int i=0;i<STo_searchlist_btn.size();i++){
-                            if (!Rec_Site_Log_list.contains(STo_searchlist_btn.get(i).getREC_SITE_LOG1())){
-                                Rec_Site_Log_list.add(STo_searchlist_btn.get(i).getREC_SITE_LOG1());
-                                Log.e("getISS_STG",""+ STo_searchlist_btn.get(i).getREC_SITE_LOG1());
+                        STo_headerlist = databaseHelperForTransfer.selectSto_Header();
+                        Toast.makeText(this, "intent is null", Toast.LENGTH_SHORT).show();
+                        if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")) { //anyType{}
+                            List<String> Iss_Site_Log_list = new ArrayList<>();
+
+                            Iss_Site_Log_list.add(STo_headerlist.get(0).getIss_Strg_Log1());
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                    android.R.layout.simple_spinner_item, Iss_Site_Log_list);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spiner_storage_location_from.setAdapter(adapter);
+                            // spiner_storage_location_from.setSelection(Integer.valueOf(STo_headerlist.get(0).getIss_Strg_Log1()));
+
+                            List<String> Rec_Site_Log_list = new ArrayList<>();
+                            Rec_Site_Log_list.add(STo_headerlist.get(0).getRec_Site_log1());
+                            Log.e("getISS_STG", "" + STo_headerlist.get(0).getRec_Site_log1());
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                    android.R.layout.simple_spinner_item, Rec_Site_Log_list);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spiner_storage_location_to.setAdapter(adapter2);
+                            // spiner_storage_location_to.setSelection(Integer.valueOf(STo_headerlist.get(0).getRec_Site_log1()));
+
+                            spiner_storage_location_from.setEnabled(false);
+                            spiner_storage_location_to.setEnabled(false);
+                        } else {
+                            List<String> Iss_Site_Log_list = new ArrayList<>();
+
+                            for (int i = 0; i < STo_searchlist_btn.size(); i++) {
+                                if (!Iss_Site_Log_list.contains(STo_searchlist_btn.get(i).getISS_STG_LOG1())) {
+                                    Iss_Site_Log_list.add(STo_searchlist_btn.get(i).getISS_STG_LOG1());
+                                    Log.e("getISS_STG", "" + STo_searchlist_btn.get(i).getISS_STG_LOG1());
+                                }
                             }
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                    android.R.layout.simple_spinner_item, Iss_Site_Log_list);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spiner_storage_location_from.setAdapter(adapter);
+
+                            List<String> Rec_Site_Log_list = new ArrayList<>();
+
+                            for (int i = 0; i < STo_searchlist_btn.size(); i++) {
+                                if (!Rec_Site_Log_list.contains(STo_searchlist_btn.get(i).getREC_SITE_LOG1())) {
+                                    Rec_Site_Log_list.add(STo_searchlist_btn.get(i).getREC_SITE_LOG1());
+                                    Log.e("getISS_STG", "" + STo_searchlist_btn.get(i).getREC_SITE_LOG1());
+                                }
+                            }
+                            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                    android.R.layout.simple_spinner_item, Rec_Site_Log_list);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spiner_storage_location_to.setAdapter(adapter2);
                         }
-                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
-                                android.R.layout.simple_spinner_item, Rec_Site_Log_list);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spiner_storage_location_to.setAdapter(adapter2);
+                        edit_asked_from_site_search.setEnabled(true);
+                        edit_asked_from_site_search.requestFocus();
+
                     }
-                    edit_asked_from_site_search.setEnabled(true);
-                    edit_asked_from_site_search.requestFocus();
-
-                }
+            }
             } else {
                 Toast.makeText(this, "this else", Toast.LENGTH_SHORT).show();
                 edit_asked_from_site_search.setText("");
@@ -532,69 +537,77 @@ public class TransferSearchActivity extends AppCompatActivity
             Log.e("This Is First Time", "" + RETURN);
             Toast.makeText(TransferSearchActivity.this, RETURN, Toast.LENGTH_LONG).show();
             if (editbarcodeforsoap.getText().toString().startsWith("23")) {
-                STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
-            }else {
+                STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0, 7) + "00000"));
+            } else {
                 STo_searchlist_bg = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
             }
 //            Log.e("ZZONFINISHTime", "ZZ" + (STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0")));
+            if (STo_searchlist_bg.size() > 0) {
+                for (int j = 0; j < STo_searchlist_bg.size(); j++) {
+                    if (STo_searchlist_bg.get(j).getSTATUS1().equalsIgnoreCase("1")) {
+                        editbarcodeforsoap.setError("هذا الباركود غير فعال");
+                        edit_asked_from_site_search.setEnabled(false);
 
-            if (STo_searchlist_bg.get(0).getSTATUS1().equalsIgnoreCase("1")) {
-                editbarcodeforsoap.setError("هذا الباركود غير فعال");
-                edit_asked_from_site_search.setEnabled(false);
+                    } else if ((STo_searchlist_bg.get(j).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
+                            && !(FromSite.equalsIgnoreCase("01MW")
+                            || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
+                        Log.d("getISSbbbbb_STG_AVAILABLE_STO_j", j + "zz " + STo_searchlist_bg.get(j).getAVAILABLE_STOCK1());
+                        if (j == STo_searchlist_bg.size()-1) {
+                            Log.d("getISSbbbbb_STG_AVAILABLE_STO", "zz " + STo_searchlist_bg.get(j).getAVAILABLE_STOCK1());
+                            Log.d("getISSbbbbb_STG_FromSite", "z" + FromSite);
+                            editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
+                            edit_asked_from_site_search.setEnabled(false);
+                        }
+                    } else {
+                        txt_descripation_search.setText(STo_searchlist_bg.get(j).getUOM_DESC1());
+                        txt_code_item_search.setText(STo_searchlist_bg.get(j).getMAT_CODE1().subSequence(6, 18));
+                        txt_state_item_search.setText(STo_searchlist_bg.get(j).getSTATUS1());
+                        txt_available_to_site_search.setText(STo_searchlist_bg.get(j).getAVAILABLE_STOCK1());
 
-            } else if ((STo_searchlist_bg.get(0).getAVAILABLE_STOCK1().equalsIgnoreCase("0.0"))
-                    && !(FromSite.equalsIgnoreCase("01MW")
-                    || ToSite.equalsIgnoreCase("01MW"))) { //TODO check qty
-                Log.d("getISSbbbbb_STG", "zz " + STo_searchlist_bg.get(0).getAVAILABLE_STOCK1());
-                Log.d("getISSbbbbb_STG", "z" + FromSite);
-                editbarcodeforsoap.setError("لا يوجد كميه متاحه للتحويل");
-                edit_asked_from_site_search.setEnabled(false);
-            } else {
-                txt_descripation_search.setText(STo_searchlist_bg.get(0).getUOM_DESC1());
-                txt_code_item_search.setText(STo_searchlist_bg.get(0).getMAT_CODE1().subSequence(6, 18));
-                txt_state_item_search.setText(STo_searchlist_bg.get(0).getSTATUS1());
-                txt_available_to_site_search.setText(STo_searchlist_bg.get(0).getAVAILABLE_STOCK1());
+                        Long id = databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log_if_has_anytypevalue(STo_searchlist_bg.get(j).getISS_STG_LOG1());
+                        Log.e("getISSbbbbb_STG", "" + STo_searchlist_bg.get(j).getISS_STG_LOG1());
+                        Log.e("getISSbbbbb_STG", "" + id);
 
-                Long id = databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log_if_has_anytypevalue(STo_searchlist_bg.get(0).getISS_STG_LOG1());
-                Log.e("getISSbbbbb_STG", "" + STo_searchlist_bg.get(0).getISS_STG_LOG1());
-                Log.e("getISSbbbbb_STG", "" + id);
+                        List<String> Iss_Site_Log_list = new ArrayList<>();
+                        for (int i = 0; i < STo_searchlist_bg.size(); i++) {
+                            if (!Iss_Site_Log_list.contains(STo_searchlist_bg.get(i).getISS_STG_LOG1())) {
+                                Iss_Site_Log_list.add(STo_searchlist_bg.get(i).getISS_STG_LOG1());
+                                Log.e("getISS_STG", "" + STo_searchlist_bg.get(i).getISS_STG_LOG1());
+                            }
+                        }
 
-                List<String> Iss_Site_Log_list = new ArrayList<>();
-                for (int i = 0; i < STo_searchlist_bg.size(); i++) {
-                    if (!Iss_Site_Log_list.contains(STo_searchlist_bg.get(i).getISS_STG_LOG1())) {
-                        Iss_Site_Log_list.add(STo_searchlist_bg.get(i).getISS_STG_LOG1());
-                        Log.e("getISS_STG", "" + STo_searchlist_bg.get(i).getISS_STG_LOG1());
+                        Iss_Site_Log_list.remove("anyType{}");
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                android.R.layout.simple_spinner_item, Iss_Site_Log_list);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spiner_storage_location_from.setAdapter(adapter);
+
+                        List<String> Rec_Site_Log_list = new ArrayList<>();
+
+                        for (int i = 0; i < STo_searchlist_bg.size(); i++) {
+                            if (!Rec_Site_Log_list.contains(STo_searchlist_bg.get(i).getREC_SITE_LOG1())) {
+                                Rec_Site_Log_list.add(STo_searchlist_bg.get(i).getREC_SITE_LOG1());
+                                Log.e("getISS_STG", "" + STo_searchlist_bg.get(i).getREC_SITE_LOG1());
+                            }
+                        }
+                        Rec_Site_Log_list.remove("anyType{}");
+                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
+                                android.R.layout.simple_spinner_item, Rec_Site_Log_list);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spiner_storage_location_to.setAdapter(adapter2);
+
+                        edit_asked_from_site_search.setEnabled(true);
+                        edit_asked_from_site_search.requestFocus();
+
+                        spiner_storage_location_from.setSelection(j);
                     }
                 }
-
-                Iss_Site_Log_list.remove("anyType{}");
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
-                        android.R.layout.simple_spinner_item, Iss_Site_Log_list);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spiner_storage_location_from.setAdapter(adapter);
-
-                List<String> Rec_Site_Log_list = new ArrayList<>();
-
-                for (int i = 0; i < STo_searchlist_bg.size(); i++) {
-                    if (!Rec_Site_Log_list.contains(STo_searchlist_bg.get(i).getREC_SITE_LOG1())) {
-                        Rec_Site_Log_list.add(STo_searchlist_bg.get(i).getREC_SITE_LOG1());
-                        Log.e("getISS_STG", "" + STo_searchlist_bg.get(i).getREC_SITE_LOG1());
-                    }
-                }
-                Rec_Site_Log_list.remove("anyType{}");
-                ArrayAdapter<String> adapter2=new ArrayAdapter<String>(TransferSearchActivity.this,
-                        android.R.layout.simple_spinner_item,Rec_Site_Log_list);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spiner_storage_location_to.setAdapter(adapter2);
-
-                edit_asked_from_site_search.setEnabled(true);
-                edit_asked_from_site_search.requestFocus();
-            }
             /*Go_To_ScanRecieving.putExtra("This Is First Time",This_Is_First_Time);
             Log.e("This Is First Time","true");
             startActivity(Go_To_ScanRecieving);
             btn_loading_purchase_order.setEnabled(true);*/
+            }
         }else {
             // Toast.makeText(TransferSearchActivity.this,MESSAGE,Toast.LENGTH_LONG).show();
             edit_asked_from_site_search.setEnabled(false);
@@ -694,6 +707,7 @@ public class TransferSearchActivity extends AppCompatActivity
                 txt_available_to_site_search.setText("" + String.valueOf(
                         new DecimalFormat("###.##").format(Double.valueOf(AvaliableQty))));
                 edit_asked_from_site_search.setText("");
+                edit_asked_from_site_search.setError(null);
                 edit_asked_from_site_search.setHint("Done");
                 editbarcodeforsoap.setText("");
                 editbarcodeforsoap.requestFocus();
