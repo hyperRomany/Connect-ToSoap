@@ -266,14 +266,7 @@ public class TransferSearchActivity extends AppCompatActivity
                             edit_asked_from_site_search.setEnabled(false);
                         }
                     } else {
-                        txt_descripation_search.setText(STo_searchlist_btn.get(j).getUOM_DESC1());
-                        txt_code_item_search.setText(STo_searchlist_btn.get(j).getMAT_CODE1().subSequence(6, 18));
-                        txt_state_item_search.setText(STo_searchlist_btn.get(j).getSTATUS1());
-                        Double total = Double.valueOf(STo_searchlist_btn.get(j).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(j).getQTY1());
-                        txt_available_to_site_search.setText(String.valueOf(
-                                new DecimalFormat("###.##").format(Double.valueOf(total))));
-                        txt_from_site_search.setText(STo_searchlist_btn.get(j).getISS_SITE1());
-                        txt_to_site_search.setText(STo_searchlist_btn.get(j).getREC_SITE1());
+
 
 
                         STo_headerlist = new ArrayList<>();
@@ -283,7 +276,8 @@ public class TransferSearchActivity extends AppCompatActivity
                         if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")) { //anyType{}
                             List<String> Iss_Site_Log_list = new ArrayList<>();
 
-                            Iss_Site_Log_list.add(STo_headerlist.get(0).getIss_Strg_Log1());
+//                            STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
+                            Iss_Site_Log_list.add(databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString()).get(0).getISS_STG_LOG1());
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
                                     android.R.layout.simple_spinner_item, Iss_Site_Log_list);
@@ -302,6 +296,25 @@ public class TransferSearchActivity extends AppCompatActivity
 
                             spiner_storage_location_from.setEnabled(false);
                             spiner_storage_location_to.setEnabled(false);
+                            Log.e("TAG", "SearchBarCodeFromSoap: "+Iss_Site_Log_list.get(0) );
+                            if (Iss_Site_Log_list.get(0).equalsIgnoreCase(databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1())
+                                    || databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1() == null) {
+                                txt_descripation_search.setText(STo_searchlist_btn.get(j).getUOM_DESC1());
+                                txt_code_item_search.setText(STo_searchlist_btn.get(j).getMAT_CODE1().subSequence(6, 18));
+                                txt_state_item_search.setText(STo_searchlist_btn.get(j).getSTATUS1());
+                                Double total = Double.valueOf(STo_searchlist_btn.get(j).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(j).getQTY1());
+                                txt_available_to_site_search.setText(String.valueOf(
+                                        new DecimalFormat("###.##").format(Double.valueOf(total))));
+                                txt_from_site_search.setText(STo_searchlist_btn.get(j).getISS_SITE1());
+                                txt_to_site_search.setText(STo_searchlist_btn.get(j).getREC_SITE1());
+
+                                edit_asked_from_site_search.setEnabled(true);
+                                edit_asked_from_site_search.requestFocus();
+                            }else {
+                                editbarcodeforsoap.setError("تم تغيير storage location");
+                                editbarcodeforsoap.requestFocus();
+                                edit_asked_from_site_search.setEnabled(false);
+                            }
                         } else {
                             List<String> Iss_Site_Log_list = new ArrayList<>();
 
@@ -329,10 +342,33 @@ public class TransferSearchActivity extends AppCompatActivity
                                     android.R.layout.simple_spinner_item, Rec_Site_Log_list);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spiner_storage_location_to.setAdapter(adapter2);
-                        }
-                        edit_asked_from_site_search.setEnabled(true);
-                        edit_asked_from_site_search.requestFocus();
 
+
+                            if (Iss_Site_Log_list.get(j).equalsIgnoreCase(databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1())
+                                    || databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1() == null) {
+                                txt_descripation_search.setText(STo_searchlist_btn.get(j).getUOM_DESC1());
+                                txt_code_item_search.setText(STo_searchlist_btn.get(j).getMAT_CODE1().subSequence(6, 18));
+                                txt_state_item_search.setText(STo_searchlist_btn.get(j).getSTATUS1());
+                                Double total = Double.valueOf(STo_searchlist_btn.get(j).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(j).getQTY1());
+                                txt_available_to_site_search.setText(String.valueOf(
+                                        new DecimalFormat("###.##").format(Double.valueOf(total))));
+                                txt_from_site_search.setText(STo_searchlist_btn.get(j).getISS_SITE1());
+                                txt_to_site_search.setText(STo_searchlist_btn.get(j).getREC_SITE1());
+
+
+                                edit_asked_from_site_search.setEnabled(true);
+                                edit_asked_from_site_search.requestFocus();
+
+                            }else {
+                                editbarcodeforsoap.setError("تم تغيير storage location");
+                                editbarcodeforsoap.requestFocus();
+                                edit_asked_from_site_search.setEnabled(false);
+                            }
+                        }
+
+
+
+                        break;
                     }
             }
             } else {
@@ -559,14 +595,8 @@ public class TransferSearchActivity extends AppCompatActivity
                             edit_asked_from_site_search.setEnabled(false);
                         }
                     } else {
-                        txt_descripation_search.setText(STo_searchlist_bg.get(j).getUOM_DESC1());
-                        txt_code_item_search.setText(STo_searchlist_bg.get(j).getMAT_CODE1().subSequence(6, 18));
-                        txt_state_item_search.setText(STo_searchlist_bg.get(j).getSTATUS1());
-                        txt_available_to_site_search.setText(STo_searchlist_bg.get(j).getAVAILABLE_STOCK1());
 
-                        Long id = databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log_if_has_anytypevalue(STo_searchlist_bg.get(j).getISS_STG_LOG1());
-                        Log.e("getISSbbbbb_STG", "" + STo_searchlist_bg.get(j).getISS_STG_LOG1());
-                        Log.e("getISSbbbbb_STG", "" + id);
+
 
                         List<String> Iss_Site_Log_list = new ArrayList<>();
                         for (int i = 0; i < STo_searchlist_bg.size(); i++) {
@@ -596,12 +626,31 @@ public class TransferSearchActivity extends AppCompatActivity
                                 android.R.layout.simple_spinner_item, Rec_Site_Log_list);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spiner_storage_location_to.setAdapter(adapter2);
+                        Log.e("TAG", "onLoadFinished: "+ databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1());
+                        Log.e("TAG", "onLoadFinished: "+ Iss_Site_Log_list.get(j));
 
-                        edit_asked_from_site_search.setEnabled(true);
-                        edit_asked_from_site_search.requestFocus();
+                        if (Iss_Site_Log_list.get(j).equalsIgnoreCase(databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1())
+                        || databaseHelperForTransfer.selectSto_Header().get(0).getIss_Strg_Log1() == null) {
 
-                        spiner_storage_location_from.setSelection(j);
+                            txt_descripation_search.setText(STo_searchlist_bg.get(j).getUOM_DESC1());
+                            txt_code_item_search.setText(STo_searchlist_bg.get(j).getMAT_CODE1().subSequence(6, 18));
+                            txt_state_item_search.setText(STo_searchlist_bg.get(j).getSTATUS1());
+                            txt_available_to_site_search.setText(STo_searchlist_bg.get(j).getAVAILABLE_STOCK1());
+
+                            Long id = databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log_if_has_anytypevalue(STo_searchlist_bg.get(j).getISS_STG_LOG1());
+                            Log.e("getISSbbbbb_STG", "" + STo_searchlist_bg.get(j).getISS_STG_LOG1());
+                            Log.e("getISSbbbbb_STG_update_id ", "" + id);
+                            edit_asked_from_site_search.setEnabled(true);
+                            edit_asked_from_site_search.requestFocus();
+                            spiner_storage_location_from.setSelection(j);
+                        }else {
+                            editbarcodeforsoap.setError("تم تغيير storage location");
+                            editbarcodeforsoap.requestFocus();
+                            edit_asked_from_site_search.setEnabled(false);
+                        }
+                        break;
                     }
+
                 }
             /*Go_To_ScanRecieving.putExtra("This Is First Time",This_Is_First_Time);
             Log.e("This Is First Time","true");
@@ -684,8 +733,12 @@ public class TransferSearchActivity extends AppCompatActivity
                         , spiner_storage_location_to.getSelectedItem().toString()
                         , editbarcodeforsoap.getText().toString());
             }
+            Log.e("TAG", "SaveDelivered: STo_searchlist_btneditba "+ editbarcodeforsoap.getText().toString());
+            Log.e("TAG", "SaveDelivered: STo_searchlist_btnstro "+ spiner_storage_location_from.getSelectedItem().toString());
 
             if (STo_searchlist_btn.size() == 0) {
+                Log.e("TAG", "SaveDelivered: STo_searchlist_btn.size() == 0 "+ spiner_storage_location_from.getSelectedItem().toString());
+                Log.e("TAG", "SaveDelivered: STo_searchlist_btn.size() == 0 "+ spiner_storage_location_to.getSelectedItem().toString());
 
                 if (editbarcodeforsoap.getText().toString().startsWith("23")) {
                     databaseHelperForTransfer.Update_Sto_search_For_QTY(edit_asked_from_site_search.getText().toString(),

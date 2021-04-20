@@ -415,7 +415,8 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
         return STo_searchlist;
     }
 
-    public List<STo_Search> Search_if_Barcode_in_localDataBase_For_save_QTY_in_transfersearchactivity(String iss_stg_log ,String rec_stg_log , String Barcode ){
+    public List<STo_Search> Search_if_Barcode_in_localDataBase_For_save_QTY_in_transfersearchactivity(String iss_stg_log
+            ,String rec_stg_log , String Barcode ){
         List<STo_Search> STo_searchlist = new ArrayList<>();
 
         // get writable database as we want to write data
@@ -594,7 +595,8 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
 
         // updating row
         //return db.update(STo_Search.TABLE_STO_Search_NAME, values, STo_Search.REC_SITE_LOG + " = ?", new String[]{"anyType{}"});
-        return db.update(STo_Search.TABLE_STO_Search_NAME, values, STo_Search.ISS_STG_LOG+ " = ? and "+STo_Search.REC_SITE_LOG+" = ? and "+STo_Search.GTIN+" = ? ", new String[]{iss_stg_log ,Res_stg_log, Barcod});
+        return db.update(STo_Search.TABLE_STO_Search_NAME, values, STo_Search.ISS_STG_LOG+
+                " = ? and "+STo_Search.REC_SITE_LOG+" = ? and "+STo_Search.GTIN+" = ? ", new String[]{iss_stg_log ,Res_stg_log, Barcod});
     }
 
 
