@@ -10,7 +10,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -44,11 +43,12 @@ import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class MainActivity extends AppCompatActivity {
 
     TextView txt_module_recieving,txt_module_transafer,txt_module_cyclecount
             ,txt_module_GI,txt_ScanBarCode,txt_ReturnItem,txt_item_availabilty,
-            txt_promotion;
+            txt_promotion,txt_item_stock;
     DatabaseHelper databaseHelper;
     public StringRequest request = null;
     List<Users> userdataList;
@@ -78,6 +78,7 @@ ArrayList<String> arrayList_po_header;
         txt_ReturnItem=findViewById(R.id.txt_ReturnItem);
         txt_item_availabilty=findViewById(R.id.txt_item_availabilty);
         txt_promotion=findViewById(R.id.txt_promotion);
+        txt_item_stock=findViewById(R.id.txt_item_stock);
 
         //new myAsyncTask().execute("gfffffffffff");
         userdataList = databaseHelper.getUserData();
@@ -111,9 +112,9 @@ ArrayList<String> arrayList_po_header;
                 txt_promotion.setVisibility(View.VISIBLE);
             }else if (modulesID.get(i).getGroup_ID1().equalsIgnoreCase("19")){
                 txt_module_GI.setVisibility(View.VISIBLE);
+            }else if (modulesID.get(i).getGroup_ID1().equalsIgnoreCase("21")){
+                txt_item_stock.setVisibility(View.VISIBLE);
             }/*else if (modulesID.get(i).getGroup_ID1().equalsIgnoreCase("2")){
-                txt_module_recieving.setVisibility(View.GONE);
-            }else if (modulesID.get(i).getGroup_ID1().equalsIgnoreCase("2")){
                 txt_module_recieving.setVisibility(View.GONE);
             }else if (modulesID.get(i).getGroup_ID1().equalsIgnoreCase("2")){
                 txt_module_recieving.setVisibility(View.GONE);
@@ -181,6 +182,11 @@ ArrayList<String> arrayList_po_header;
 
     public void go_promotion(View view) {
         Intent GoToPromotion=new Intent(MainActivity.this, MainPromotionActivity.class);
+        startActivity(GoToPromotion);
+    }
+
+    public void go_stock(View view) {
+        Intent GoToPromotion=new Intent(MainActivity.this, com.example.connecttosoapapiapp.StockAvailable.ScanItemAvailabilityActivity.class);
         startActivity(GoToPromotion);
     }
     public void Details(final String userName)

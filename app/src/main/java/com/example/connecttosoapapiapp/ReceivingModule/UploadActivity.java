@@ -1065,9 +1065,9 @@ Button btn_export,btn_Get_Document;
                         Log.d("Build.MODELMacRCV", "RCV");
 
                     Po_Items_For_LogsArray.add(po_items_for_logs_items_sqlServer);
-
                 }
                 Log.e("list",Po_Items_For_LogsArray.toString());
+                Log.e("list","size"+Po_Items_For_LogsArray.size());
                 /*Gson gson=new Gson();
 
                 String newDataArray=gson.toJson(Po_Items_For_LogsArray); // dataarray is list aaray

@@ -131,5 +131,19 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/txt_item_stock"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/module_bg_items"
+        android:gravity="center"
+        android:onClick="go_stock"
+        android:padding="15dp"
+        android:text="Item_Stock"
+        android:textSize="@dimen/font_size_for_text_of_app"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
 </LinearLayout>
 </ScrollView>

@@ -138,6 +138,8 @@
         <activity
             android:name=".CycleCount.UploadCycleCountActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".StockAvailable.ScanItemAvailabilityActivity" />
+
 
         <provider
             android:name="androidx.core.content.FileProvider"
