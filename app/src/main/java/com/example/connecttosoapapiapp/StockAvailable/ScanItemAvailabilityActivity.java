@@ -171,8 +171,6 @@ ArrayList<String> storage=new ArrayList<>();
 
         if (edt_barcode.getText().toString().isEmpty()){
             edt_barcode.setError("من فضلك ادخل الباركود");
-        }else if (site_list.size() ==0){
-            Toast.makeText(this, "أختر الموقع أولا", Toast.LENGTH_SHORT).show();
         }else {
             ReturnSearchList.clear();
 
