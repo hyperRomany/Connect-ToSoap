@@ -114,9 +114,9 @@ public class Constant {
     //public static final String UploadToCSVFtp = "https://translationapp.000webhostapp.com/ChatServerFiles/UploadCSVFile.php";
     //public final static String LoginURL ="http://http://12.34.56.78:81/PhpProject1/MainForm.php";
 
-
-    //for transfer  $$ itemavalability
-    public final static String ListfortransferFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist.php";
+//TODO change SelectThreeTablesforlist_V1 to SelectThreeTablesforlist
+    //for transfer  $$ itemavalability  $$ return item
+    public final static String ListfortransferFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist_V1.php";
 
     //For GI
     public final static String ListforGIFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectTablesforlistforGI.php";

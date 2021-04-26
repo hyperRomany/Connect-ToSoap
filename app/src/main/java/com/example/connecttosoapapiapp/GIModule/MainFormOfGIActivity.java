@@ -303,15 +303,15 @@ Spinner spiner_department,spiner_site;
                 // TODO Auto-generated catch block
           //      params.put("CompanyCode", txt_user_code.getText().toString());
                 Log.i("zzzsendinguser_code ", txt_user_code.getText().toString());
-                if (txt_user_code.getText().toString().equalsIgnoreCase("H010")) {
-                    params.put("CompanyCode", "H010");
-                }else if (txt_user_code.getText().toString().equalsIgnoreCase("H020")){
-                    params.put("CompanyCode", "H020");
-                }else if (txt_user_code.getText().toString().equalsIgnoreCase("H030")){
-                    params.put("CompanyCode", "H030");
-                }else if (txt_user_code.getText().toString().equalsIgnoreCase("H040")){
-                    params.put("CompanyCode", "H040");
-                }
+//                if (txt_user_code.getText().toString().equalsIgnoreCase("H010")) {
+//                    params.put("CompanyCode", "H010");
+//                }else if (txt_user_code.getText().toString().equalsIgnoreCase("H020")){
+//                    params.put("CompanyCode", "H020");
+//                }else if (txt_user_code.getText().toString().equalsIgnoreCase("H030")){
+//                    params.put("CompanyCode", "H030");
+//                }else if (txt_user_code.getText().toString().equalsIgnoreCase("H040")){
+                    params.put("CompanyCode", txt_user_code.getText().toString() );
+//                }
                 //params.put("key_1","value_1");
                 // params.put("key_2", "value_2");
 

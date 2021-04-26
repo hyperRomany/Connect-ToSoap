@@ -81,7 +81,7 @@ public class ScanItemAvailabilityActivity extends AppCompatActivity
     String SiteForEcomerceTable="SAEC";
     ArrayAdapter<String> adapterForSites;
     List<String> site_list;
-    String check_of_UserCode;
+    String check_of_UserCode,Company;
     EditText edt_barcode;
     List<String> ReturnSearchList ;
     String Depart,KQTY,GQTY,TotalQTYFor23,BarcodeFor23,editbarcode;
@@ -125,6 +125,7 @@ Button btn_export;
         databaseHelperForItemAvailability=new DatabaseHelperForItemAvailability(this);
         databaseHelper=new DatabaseHelper(this);
         userdataList = databaseHelper.getUserData();
+        Company=userdataList.get(0).getCompany1();
         check_of_UserCode=userdataList.get(0).getCompany1().toString().substring(1,3);
 
         Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
@@ -529,9 +530,9 @@ Button btn_export;
 
                                 String pgrp_description= object.getString("pgrp_description"+i);
                                 Log.e("pgrp_description"+i, pgrp_description);
-                                if (pgrp_description.contains(check_of_UserCode)) {
+                              //  if (pgrp_description.contains(check_of_UserCode)) {
                                     site_list.add(pgrp_description);
-                                }
+                              //  }
                             }
                             adapterForSites=new ArrayAdapter<String>(ScanItemAvailabilityActivity.this,
                                     android.R.layout.simple_spinner_item,site_list);
@@ -565,6 +566,7 @@ Button btn_export;
                 //params.put("key_1","value_1");
                 // params.put("key_2", "value_2");
                 params.put("type","STO1");
+                params.put("Company",Company);
                 Log.i("sending ", params.toString());
                 Log.e("onResponser", "response"+request);
 
@@ -742,7 +744,7 @@ Button btn_export;
 //                        }else if (check_of_UserCode.equalsIgnoreCase("03")) {
 //                            params.put("Branch", "00003");
 //                        }else {
-                            params.put("Branch", check_of_UserCode);
+                            params.put("Branch", Company);
 //                        }
                         Log.i("sending ", editbarcode);
                         // Log.i("sending ", ""+request);
@@ -771,7 +773,7 @@ Button btn_export;
         boolean var = false;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy-HHmmMM-a");
 
-         CSVName = sdf.format(new Date()) + "_H" + check_of_UserCode +"0" ;
+         CSVName = sdf.format(new Date()) + "_" + Company  ;
          Log.e("zzzz", "" + CSVName);
 
         if (!folder.exists()) {
@@ -872,7 +874,7 @@ Button btn_export;
             Log.e("bbbbbb","nm,.,mcgvbnjmkl,"+filePath.getPath());
             // name & room_id & user_id & user_name &  type  this is key between android and php only
 
-            multipartUploadRequest.addParameter("UserType", check_of_UserCode);
+            multipartUploadRequest.addParameter("UserType", Company);
             multipartUploadRequest.addParameter("name", CSVName);
 
             // .addParameter("type", String.valueOf(3))

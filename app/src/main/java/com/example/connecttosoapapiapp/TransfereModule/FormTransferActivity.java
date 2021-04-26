@@ -56,7 +56,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
     List<STO_Header> STo_headerlist;
     ArrayAdapter<String> adapterForSites;
     int FromPostion,ToPostion;
-    String StatusNU, check_of_UserCode;
+    String StatusNU, check_of_UserCode ,Company;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +82,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
 
         userdataList = databaseHelper.getUserData();
         txt_user_code.setText(userdataList.get(0).getCompany1());
+        Company=userdataList.get(0).getCompany1();
         check_of_UserCode=txt_user_code.getText().toString().substring(1,3);
         Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
 
@@ -170,9 +171,9 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
 
                                     String pgrp_description= object.getString("pgrp_description"+i);
                                     Log.e("pgrp_description"+i, pgrp_description);
-                                    if (pgrp_description.contains(check_of_UserCode)) {
+                                   // if (pgrp_description.contains(check_of_UserCode)) {
                                         site_list.add(pgrp_description);
-                                    }
+                                    //}
                                 }
                                 adapterForSites=new ArrayAdapter<String>(FormTransferActivity.this,
                                         android.R.layout.simple_spinner_item,site_list);
@@ -221,6 +222,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
                     //params.put("key_1","value_1");
                     // params.put("key_2", "value_2");
                     params.put("type","STO1");
+                    params.put("Company",Company);
                     Log.i("sending ", params.toString());
                     Log.e("onResponser", "response"+request);
 

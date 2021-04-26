@@ -1,7 +1,5 @@
 package com.example.connecttosoapapiapp.ItemReturn;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,7 +26,6 @@ import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
-import com.example.connecttosoapapiapp.TransfereModule.FormTransferActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,12 +38,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainItemReturnActivity extends AppCompatActivity {
     public StringRequest request=null;
     List<String> pur_org_list ,pur_grp_list;
     List<Item_Return_Header> headerList;
     List<Users> userdataList;
-    String check_of_UserCode;
+    String check_of_UserCode ,Company;
 
 EditText edt_vendor;
 TextView txt_user_code;
@@ -75,11 +74,19 @@ databaseHelperForItemReturn=new DatabaseHelperForItemReturn(this);
 
         userdataList = databaseHelper.getUserData();
 //        txt_user_code.setText(userdataList.get(0).getCompany1());
+        Company=userdataList.get(0).getCompany1();
         check_of_UserCode=userdataList.get(0).getCompany1().toString().substring(1,3);
         Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
 //        txt_user_code.setText("01RT");
-        txt_user_code.setText(check_of_UserCode+"RT");
-
+        if (check_of_UserCode.equalsIgnoreCase("10")) {
+            txt_user_code.setText("01RT");
+        }/*else if (check_of_UserCode.equalsIgnoreCase("20")) {
+            txt_user_code.setText("02RT");
+        }else if (check_of_UserCode.equalsIgnoreCase("30")) {
+            txt_user_code.setText("03RT");
+        }*/else{
+            txt_user_code.setText(check_of_UserCode + "RT");
+        }
         headerList = databaseHelperForItemReturn.selectReturn_Header();
         if (headerList.size() !=0){
             edt_vendor.setText(headerList.get(0).getVendor1());
@@ -216,7 +223,7 @@ databaseHelperForItemReturn=new DatabaseHelperForItemReturn(this);
                 //params.put("key_1","value_1");
                 // params.put("key_2", "value_2");
                 params.put("type","1");
-
+                params.put("Company",Company);
                 Log.i("sending ", params.toString());
                 Log.e("onResponser", "response"+request);
 
