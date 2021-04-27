@@ -140,7 +140,7 @@
         android:gravity="center"
         android:onClick="go_stock"
         android:padding="15dp"
-        android:text="Item_Stock"
+        android:text="All Site Availability"
         android:textSize="@dimen/font_size_for_text_of_app"
         android:textStyle="bold"
         android:visibility="gone" />
