@@ -173,7 +173,7 @@ public class Constant {
 
     //write in log tables
     public static final String WriteInLogOf_sapTableofcyclecountURL = "http://10.2.1.220:8080/PPCModules/CyclecountUpload/writeinLogs_saptable.php";
-    public static final String WriteInLogs_sap_ITEMStableofcyclecountURL = "http://10.2.1.220:8080/PPCModules/CyclecountUpload/writeinLogs_sap_ITEMStable.php";
+    public static final String WriteInLogs_sap_ITEMStableofcyclecountURL = "http://10.2.1.220:8080/PPCModules/CyclecountUpload/writeinLogs_sap_ITEMStable_test.php";
 
     public static final String WriteInLogOf_sapTableofundefined = "http://10.2.1.220:8080/PPCModules/writeinLogs_sap_ofundefined.php";
 
