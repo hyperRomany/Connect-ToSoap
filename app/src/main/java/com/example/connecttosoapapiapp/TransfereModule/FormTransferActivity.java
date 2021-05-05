@@ -83,7 +83,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
         userdataList = databaseHelper.getUserData();
         txt_user_code.setText(userdataList.get(0).getCompany1());
         Company=userdataList.get(0).getCompany1();
-        check_of_UserCode=txt_user_code.getText().toString().substring(1,3);
+        check_of_UserCode=txt_user_code.getText().toString().substring(2,3);
         Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
 
 
@@ -91,7 +91,6 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
 
         STo_headerlist = new ArrayList<>();
         STo_headerlist = databaseHelperForTransfer.selectSto_Header();
-
     }
 
     public void getlistfromsqlserver(){

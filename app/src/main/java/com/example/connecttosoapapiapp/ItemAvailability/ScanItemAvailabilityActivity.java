@@ -744,7 +744,8 @@ Button btn_export;
 //                        }else if (check_of_UserCode.equalsIgnoreCase("03")) {
 //                            params.put("Branch", "00003");
 //                        }else {
-                            params.put("Branch", Company);
+                            params.put("Branch", Company.substring(1,3));
+                            Log.e("branch",Company.substring(1,3));
 //                        }
                         Log.i("sending ", editbarcode);
                         // Log.i("sending ", ""+request);
