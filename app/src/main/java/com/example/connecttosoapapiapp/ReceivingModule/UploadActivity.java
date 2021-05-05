@@ -746,9 +746,9 @@ Button btn_export,btn_Get_Document;
 //            btn_Get_Document.setVisibility(View.VISIBLE);
             if (ExportORGetdocument.equalsIgnoreCase("Export")) {
                 if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
-                    txt_response.setText("" + EnvelopeBodyInCurrent);
+                    txt_response.setText("" + EnvelopeBodyInCurrent+"\n");
                 } else if (envelopebodyInIsNull.equalsIgnoreCase("null")) {
-                    txt_response.setText("لم يتم رفع البيانات المطلوبه null");
+                    txt_response.setText("\nلم يتم رفع البيانات المطلوبه null");
                     Get_Document(view);
                     WriteInLogOf_sapTableOfSqlServer();
                     WriteInLogs_sap_ITEMStableOfSqlServer();
@@ -817,7 +817,7 @@ Button btn_export,btn_Get_Document;
             }
             else if (ExportORGetdocument.equalsIgnoreCase("GETDocument")) {
                 if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
-                    txt_response.setText("" + EnvelopeBodyInCurrent);
+                    txt_response.append("\n" + EnvelopeBodyInCurrent+"\n");
                 } else if (envelopebodyInIsNull.equalsIgnoreCase("null")) {
                     txt_response.setText("لم يتم وصول الرد null");
                     //////////waiting///////////////////
@@ -835,7 +835,7 @@ Button btn_export,btn_Get_Document;
                                 }
                             }).show();
                 }else {
-                    txt_response.setText(MESSAGE);
+                    txt_response.append(MESSAGE);
                     //Upload(view);
                 }
             }
@@ -1074,13 +1074,14 @@ Button btn_export,btn_Get_Document;
 
                 Log.e("Requestparams",""+newDataArray);*/
 
-                Gson gson = new GsonBuilder().create();
-                JsonArray equipmentJsonArray = gson.toJsonTree(Po_Items_For_LogsArray).getAsJsonArray();
-
+//                Gson gson = new GsonBuilder().create();
+//                JsonArray equipmentJsonArray = gson.toJsonTree(Po_Items_For_LogsArray).getAsJsonArray();
+              String  list= new Gson().toJson( Po_Items_For_LogsArray);
                 //From_Sap_Or_Not=false;
-                params.put("RequestArray", equipmentJsonArray.toString());
+                params.put("RequestArray", list);
 
-                //Log.e("Requestparams",""+obj);
+                Log.e("Requestparams",""+list);
+                Log.e("Requestparams",""+Po_Items_For_LogsArray.size());
 
                 return params;
             }
