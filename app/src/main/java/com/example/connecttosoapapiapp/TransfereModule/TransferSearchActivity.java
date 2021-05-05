@@ -276,9 +276,14 @@ public class TransferSearchActivity extends AppCompatActivity
                         if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")) { //anyType{}
                             List<String> Iss_Site_Log_list = new ArrayList<>();
 
+                            if (editbarcodeforsoap.getText().toString().startsWith("23")) {
 //                            STo_searchlist_btn = databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString());
-                            Iss_Site_Log_list.add(databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString()).get(0).getISS_STG_LOG1());
+                                Iss_Site_Log_list.add(databaseHelperForTransfer.Search__Barcode(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0, 7) + "00000")).get(0).getISS_STG_LOG1());
+                            }
+                            else {
+                                Iss_Site_Log_list.add(databaseHelperForTransfer.Search__Barcode(editbarcodeforsoap.getText().toString()).get(0).getISS_STG_LOG1());
 
+                            }
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
                                     android.R.layout.simple_spinner_item, Iss_Site_Log_list);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
