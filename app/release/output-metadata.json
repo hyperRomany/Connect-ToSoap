@@ -1,19 +1,17 @@
 {
-  "version": 1,
+  "version": 2,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
   },
   "applicationId": "com.example.connecttosoapapiapp",
-  "variantName": "release",
+  "variantName": "processReleaseResources",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
-      "properties": [],
-      "versionCode": 14,
-      "versionName": "2.0",
-      "enabled": true,
+      "versionCode": 21,
+      "versionName": "2.8",
       "outputFile": "app-release.apk"
     }
   ]

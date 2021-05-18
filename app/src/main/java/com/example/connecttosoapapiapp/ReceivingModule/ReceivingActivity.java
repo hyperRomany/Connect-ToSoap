@@ -7,7 +7,11 @@ import android.content.AsyncTaskLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.connecttosoapapiapp.GIModule.Modules.GIModule;
 import com.example.connecttosoapapiapp.MainActivity;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
@@ -22,15 +27,23 @@ import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Header;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
+import com.example.connecttosoapapiapp.StockAvailable.ScanItemAvailabilityActivity;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ReceivingActivity extends AppCompatActivity
@@ -40,7 +53,7 @@ public class ReceivingActivity extends AppCompatActivity
     private int LOADER_ID = 1;
 ProgressBar prog_loading_purchesorder;
     EditText edit_purchaseorder;
-    Button btn_loading_last_purchase_order,btn_loading_new_purchase_order;
+    Button btn_loading_last_purchase_order,btn_loading_new_purchase_order,btn_print_purchase_order;
     private DatabaseHelper databaseHelper;
     //private DatabaseHelperForPoItem databaseHelperForPoItem;
     String EnvelopeBodyInConstant,EnvelopeBodyInCurrent , RETURN, MESSAGE , envelopebodyInIsNull="";
@@ -104,6 +117,17 @@ Boolean This_Is_First_Time;
             edit_purchaseorder.setHint("قاعده البيانات فارغه");
         }
         prog_loading_purchesorder=findViewById(R.id.prog_loading_purchesorder);
+        btn_print_purchase_order=findViewById(R.id.btn_print_purchase_order);
+        if (users.get(0).getCompany1().equals("H010"))
+        {
+            btn_print_purchase_order.setVisibility(View.VISIBLE);
+        }
+        btn_print_purchase_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLoaderManager().restartLoader(2, null, new ReceivingActivity.MyLoaderCallbacks03SA());
+            }
+        });
         btn_loading_last_purchase_order= findViewById(R.id.btn_loading_last_purchase_order);
         btn_loading_last_purchase_order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -477,6 +501,138 @@ Boolean This_Is_First_Time;
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    private class MyLoaderCallbacks03SA implements LoaderManager.LoaderCallbacks<List<String>> {
+        @Override
+        public Loader<List<String>> onCreateLoader(int id, Bundle args) {
+            @SuppressLint("StaticFieldLeak")
+            AsyncTaskLoader asyncTaskLoader = null;
+
+            asyncTaskLoader = new AsyncTaskLoader(ReceivingActivity.this) {
+                @Override
+                protected void onReset() {
+                    super.onReset();
+                }
+
+                @Override
+                protected void onStartLoading() {
+                    super.onStartLoading();
+                    forceLoad();
+                }
+
+                @Override
+                public Object loadInBackground() {
+
+                    SoapObject request = new SoapObject(Constant.NAMESPACE_For_print, Constant.METHOD_For_print);
+                    request.addProperty("EBELN", edit_purchaseorder.getText().toString());
+                    MESSAGE = "Empty";
+                    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER12);
+                    //envelope.dotNet=true;
+                    envelope.setOutputSoapObject(request);
+
+                    HttpTransportSE httpTransport = new HttpTransportSE(Constant.URL_For_print);
+                    try {
+                        httpTransport.call(Constant.SOAP_ACTION_For_print, envelope);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("envelope", "" + envelope.bodyIn);
+                    Log.d("envelope", "" + envelope.bodyOut);
+                    EnvelopeBodyInConstant = "Code: env:Receiver, Reason: Web service processing error; more details in the web service error log on provider side";
+                    EnvelopeBodyInCurrent = String.valueOf(envelope.bodyIn);
+
+                    if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
+                        // edit_purchaseorder.setError("Your PURCHASE ORDER Is Wrong");
+                    } else {
+                        SoapObject soapObject_All_response = (SoapObject) envelope.bodyIn;
+                        Log.d("getPropertyCoun", String.valueOf(soapObject_All_response.getPropertyCount()));
+
+                        for (int i = 0; i < soapObject_All_response.getPropertyCount(); i++) {
+
+                            Log.e("Return",""+soapObject_All_response.getProperty(0).toString().length());
+
+
+                            File dwldsPath = new File(Environment.getExternalStorageDirectory(), "/test.txt");
+                            try {
+                                FileOutputStream os = new FileOutputStream(dwldsPath, false);
+                                os.write(soapObject_All_response.getProperty(0).toString().getBytes());
+                                os.flush();
+                                os.close();
+
+                                File sdcard = Environment.getExternalStorageDirectory();
+                                File file1 = new File(sdcard,"test.txt");
+
+                                StringBuilder text = new StringBuilder();
+
+                                try {
+                                    BufferedReader br = new BufferedReader(new FileReader(file1));
+                                    String line;
+
+                                    while ((line = br.readLine()) != null) {
+                                        text.append(line);
+                                        text.append('\n');
+                                    }
+
+
+                                    br.close();
+                                    dwldsPath = new File(Environment.getExternalStorageDirectory(), "/Hyperone.pdf");
+                                    byte[] pdfAsBytes = Base64.decode(String.valueOf(text), 0);
+                                    os = new FileOutputStream(dwldsPath, false);
+                                    os.write(pdfAsBytes);
+                                    os.flush();
+                                    os.close();
+                                } catch (IOException e) {
+                                    Log.d("File", "File.toByteArray() error");
+                                    e.printStackTrace();
+
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Intent objIntent = new Intent(Intent.ACTION_VIEW);
+                            objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
+                            objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(objIntent);//Starting the pdf viewer
+
+                        }
+                    }
+                    return null;
+                }
+            };
+            return asyncTaskLoader;
+        }
+        @Override
+        public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
+            Toast.makeText(ReceivingActivity.this, "finished ", Toast.LENGTH_LONG).show();
+            getLoaderManager().destroyLoader(LOADER_ID);
+            Log.d("soaMESSAGE4", "" + MESSAGE);
+            Log.e("This Is First Time", "" + RETURN);
+
+            if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
+
+                edit_purchaseorder.setError("" + EnvelopeBodyInCurrent);
+//            edit_asked_from_site_search.setEnabled(false);
+                // btn_loading_purchase_order.setEnabled(true);
+            } else if (MESSAGE.contains("Empty")) {
+                List<GIModule> GIModulelist_bg = new ArrayList<>();
+                Log.e("This Is First Time", "" + RETURN);
+                Toast.makeText(ReceivingActivity.this, RETURN, Toast.LENGTH_LONG).show();
+
+
+            } else {
+                edit_purchaseorder.setError(MESSAGE);
+                Log.e("TAG", "onLoadFinished: " + MESSAGE + "  " + edit_purchaseorder.getText().toString());
+
+            }
+
+        }
+        @Override
+        public void onLoaderReset(Loader<List<String>> loader) {
+        }
+
     }
 
 }
