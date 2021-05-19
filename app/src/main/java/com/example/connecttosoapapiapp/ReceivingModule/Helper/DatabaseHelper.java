@@ -13,6 +13,7 @@ import com.example.connecttosoapapiapp.ItemAvailability.Module.ItemAvailabilityM
 import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Header;
 import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Search;
 import com.example.connecttosoapapiapp.Promotion.Modules.Prom_item_Module;
+import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Groups;
 import com.example.connecttosoapapiapp.ReceivingModule.model.PO_SERIAL;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Header;
@@ -32,7 +33,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = Constant.Constant_DATABASE_VERSION;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";

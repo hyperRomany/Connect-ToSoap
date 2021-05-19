@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Header;
 import com.example.connecttosoapapiapp.ItemReturn.modules.Item_Return_Search;
+import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STO_Header;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
 public class DatabaseHelperForItemReturn extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = Constant.Constant_DATABASE_VERSION;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";

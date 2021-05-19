@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STO_Header;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STo_Search;
 
@@ -19,7 +21,7 @@ import java.util.List;
 public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelperForTransf";
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = Constant.Constant_DATABASE_VERSION;
 
     // Database Name
     public static final String DATABASE_NAME = "Import1.db";

@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class Constant {
-
+    public static final int Constant_DATABASE_VERSION = 3;
     //String URL = "http://<>:8000/sap/bc/srt/rfc/sap/z_sample_webservice_add_number/750/z_sample_webservice_add_number/z_sample_webservice_add_number?sap-client=750";
     //public final static String URL = "http://10.1.1.155:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_po_getdetail/200/zws_ppc_po/zws_ppc_po?wsdl&sap-client=200&sap-user=test&sap-password=123456789";
     //public final static String URL = "http://10.1.1.155:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_po_getdetail/200/zws_ppc_po/zws_ppc_po?&sap-client=200";
