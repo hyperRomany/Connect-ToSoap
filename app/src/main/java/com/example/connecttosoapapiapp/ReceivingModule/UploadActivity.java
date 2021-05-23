@@ -12,10 +12,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings.Secure;
+import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +36,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.connecttosoapapiapp.GIModule.Modules.GIModule;
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
@@ -56,9 +61,11 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -71,6 +78,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -239,6 +247,9 @@ Button btn_export,btn_Get_Document;
                         MATERIALDOCUMENT=" ";
                         MESSAGE="";
                         getLoaderManager().initLoader(LOADER_ID, null, UploadActivity.this);
+                        if (userList.get(0).getCompany1().equals("H010")) {
+                            getLoaderManager().restartLoader(2, null, new UploadActivity.MyLoaderCallbacks03SA());
+                        }
                         From_Sap_Or_Not = true;
 //                      databaseHelper.DeleteDataOfThreeTables();
 
@@ -1160,6 +1171,142 @@ Button btn_export,btn_Get_Document;
             btn_export.setVisibility(View.VISIBLE);
 //            txt_response.setText(String.valueOf("عدد العناصر التى سيتم رفعها   "+Po_Item_For_ftp_Upload.size()));
         }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    private class MyLoaderCallbacks03SA implements LoaderManager.LoaderCallbacks<List<String>> {
+
+
+        @Override
+        public Loader<List<String>> onCreateLoader(int id, Bundle args) {
+            @SuppressLint("StaticFieldLeak")
+            AsyncTaskLoader asyncTaskLoader = null;
+
+            asyncTaskLoader = new AsyncTaskLoader(UploadActivity.this) {
+                @Override
+                protected void onReset() {
+                    super.onReset();
+                }
+
+                @Override
+                protected void onStartLoading() {
+                    super.onStartLoading();
+                    forceLoad();
+                }
+
+                @Override
+                public Object loadInBackground() {
+
+                    SoapObject request = new SoapObject(Constant.NAMESPACE_For_print, Constant.METHOD_For_print);
+                    request.addProperty("EBELN", Po_HeaderList.get(0).getPO_NUMBER1());
+                    MESSAGE = "Empty";
+                    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER12);
+                    //envelope.dotNet=true;
+                    envelope.setOutputSoapObject(request);
+
+                    HttpTransportSE httpTransport = new HttpTransportSE(Constant.URL_For_print);
+                    try {
+                        httpTransport.call(Constant.SOAP_ACTION_For_print, envelope);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("envelope", "" + envelope.bodyIn);
+                    Log.d("envelope", "" + envelope.bodyOut);
+                    EnvelopeBodyInConstant = "Code: env:Receiver, Reason: Web service processing error; more details in the web service error log on provider side";
+                    EnvelopeBodyInCurrent = String.valueOf(envelope.bodyIn);
+
+                    if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
+                        // edit_purchaseorder.setError("Your PURCHASE ORDER Is Wrong");
+                    } else {
+                        SoapObject soapObject_All_response = (SoapObject) envelope.bodyIn;
+                        Log.d("getPropertyCoun", String.valueOf(soapObject_All_response.getPropertyCount()));
+
+                        for (int i = 0; i < soapObject_All_response.getPropertyCount(); i++) {
+
+                            Log.e("Return",""+soapObject_All_response.getProperty(0).toString().length());
+
+
+                            File dwldsPath = new File(Environment.getExternalStorageDirectory(), "/test.txt");
+                            try {
+                                FileOutputStream os = new FileOutputStream(dwldsPath, false);
+                                os.write(soapObject_All_response.getProperty(0).toString().getBytes());
+                                os.flush();
+                                os.close();
+
+                                File sdcard = Environment.getExternalStorageDirectory();
+                                File file1 = new File(sdcard,"test.txt");
+
+                                StringBuilder text = new StringBuilder();
+
+                                try {
+                                    BufferedReader br = new BufferedReader(new FileReader(file1));
+                                    String line;
+
+                                    while ((line = br.readLine()) != null) {
+                                        text.append(line);
+                                        text.append('\n');
+                                    }
+
+
+                                    br.close();
+                                    dwldsPath = new File(Environment.getExternalStorageDirectory(), "/Hyperone.pdf");
+                                    byte[] pdfAsBytes = Base64.decode(String.valueOf(text), 0);
+                                    os = new FileOutputStream(dwldsPath, false);
+                                    os.write(pdfAsBytes);
+                                    os.flush();
+                                    os.close();
+                                } catch (IOException e) {
+                                    Log.d("File", "File.toByteArray() error");
+                                    e.printStackTrace();
+
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Intent objIntent = new Intent(Intent.ACTION_VIEW);
+                            objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
+                            objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(objIntent);//Starting the pdf viewer
+
+                        }
+                    }
+                    return null;
+                }
+            };
+
+            return asyncTaskLoader;
+
+        }
+
+        @Override
+        public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
+            Toast.makeText(UploadActivity.this, "finished ", Toast.LENGTH_LONG).show();
+            getLoaderManager().destroyLoader(LOADER_ID);
+            Log.d("soaMESSAGE4", "" + MESSAGE);
+
+            if (EnvelopeBodyInCurrent.contains(EnvelopeBodyInConstant)) {
+
+                Toast.makeText(UploadActivity.this, EnvelopeBodyInCurrent,Toast.LENGTH_SHORT).show();
+//            edit_asked_from_site_search.setEnabled(false);
+                // btn_loading_purchase_order.setEnabled(true);
+            } else if (MESSAGE.contains("Empty")) {
+                List<GIModule> GIModulelist_bg = new ArrayList<>();
+
+
+
+            } else {
+               Toast.makeText(UploadActivity.this,MESSAGE,Toast.LENGTH_SHORT).show();
+                Log.e("TAG", "onLoadFinished: " + MESSAGE + "  " + Po_HeaderList.get(0).getPO_NUMBER1());
+
+            }
+
+        }
+
+        @Override
+        public void onLoaderReset(Loader<List<String>> loader) {
+
+        }
+
     }
 
 }

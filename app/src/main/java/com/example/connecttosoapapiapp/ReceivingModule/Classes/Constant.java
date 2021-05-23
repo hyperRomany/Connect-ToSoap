@@ -127,6 +127,13 @@ public class Constant {
     public static String URL_For_Search_Barcode="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_sales/300/zws_ppc_search_sales_sn/zws_ppc_search_sales_bn";
     public static String SOAP_ACTION_For_Search_Barcode="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_SEARCH_SALES:ZBAPI_PPC_SEARCH_SALESRequest";
 
+    public static String NAMESPACE_For_print="urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_print="ZFA_MM_GR2";
+    public static String URL_For_print="http://prd-erp-pri.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_mm_gr2/300/zws_mm_gr2/zws_mm_gr2";
+    public static String SOAP_ACTION_For_print="urn:sap-com:document:sap:rfc:functions:ZWS_MM_GR2:ZWS_MM_GR2Request";
+
+
+
     public static String NAMESPACE_For_Upload_transfere ="urn:sap-com:document:sap:rfc:functions";
     public static String METHOD_For_Upload_transfere="ZBAPI_PPC_CREATE_STO";
    // http://QAS-ERP:8001/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_create_sto/200/zws_ppc_create_sto/zws_ppc_create_sto

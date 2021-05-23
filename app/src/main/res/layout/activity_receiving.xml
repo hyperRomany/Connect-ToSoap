@@ -53,6 +53,19 @@
             android:paddingStart="20dp"
             android:textSize="@dimen/font_size_for_text_of_app"
             />
+        <Button
+            android:id="@+id/btn_print_purchase_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="طباعه امر شراء قديم"
+            android:background="@color/first_blue"
+            android:textColor="@color/third_white"
+            android:layout_marginTop="50dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:visibility="gone"
+            />
         <ProgressBar
             android:id="@+id/prog_loading_purchesorder"
             android:layout_width="wrap_content"
