@@ -247,9 +247,7 @@ Button btn_export,btn_Get_Document;
                         MATERIALDOCUMENT=" ";
                         MESSAGE="";
                         getLoaderManager().initLoader(LOADER_ID, null, UploadActivity.this);
-                        if (userList.get(0).getCompany1().equals("H010")) {
-                            getLoaderManager().restartLoader(2, null, new UploadActivity.MyLoaderCallbacks03SA());
-                        }
+
                         From_Sap_Or_Not = true;
 //                      databaseHelper.DeleteDataOfThreeTables();
 
@@ -798,6 +796,9 @@ Button btn_export,btn_Get_Document;
                     WriteInLogOf_sapTableOfSqlServer();
                     WriteInLogs_sap_ITEMStableOfSqlServer();
                     //databaseHelper.DeleteDataOfThreeTables();
+                    if (userList.get(0).getCompany1().equals("H010")) {
+                        getLoaderManager().restartLoader(2, null, new UploadActivity.MyLoaderCallbacks03SA());
+                    }
 
                     new AlertDialog.Builder(this)
                             .setTitle("تم الرفع برقم\n" + MATERIALDOCUMENT)
@@ -808,6 +809,7 @@ Button btn_export,btn_Get_Document;
                                     startActivity(GoToUpload);
                                 }
                             }).show();
+
 //                    if (Po_Item_For_Log_only_Has_value.size() > 0) {
                         // for (int i = 0; i < Po_Item_For_Log_only_Has_value.size();i++) {
 
