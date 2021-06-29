@@ -179,6 +179,7 @@ LinearLayout linear_parent;
         if (user_List.size() !=0 && Po_Item_List_ForPlant.size() !=0) {
 
             Authorization();
+            AuthorizationExcluded();
            /* if (user_List.get(0).getCompany1().equalsIgnoreCase("h010")
                     && Po_Item_List_ForPlant.get(0).getPLANT1().contains("01")) {
                 //          Toast.makeText(this,"المستخدم من نفس مكان تسجل أمر الشراء",Toast.LENGTH_SHORT).show();
@@ -756,5 +757,97 @@ public void Authorization() {
         onBackPressed();
         return true;
     }
+
+    public void AuthorizationExcluded() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        request = new StringRequest(Request.Method.POST, Constant.RecievingAuthorizationURLExcluded,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        String encodedstring = null;
+                        try {
+                            encodedstring = URLEncoder.encode(response, "ISO-8859-1");
+                            response = URLDecoder.decode(encodedstring, "UTF-8");
+
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        JsonObject object1 = new JsonObject().getAsJsonObject(response);
+                        Log.e("onResponseresoo", "object" + object1);
+                        try {
+
+                            JSONObject object = new JSONObject(response);
+                            Log.e("onResponse", "object" + object);
+
+                            String status = object.getString("status");
+                            Log.d("onResponse:status", status);
+
+                            String message = object.getString("message");
+                            Log.d("onResponse:message ", message);
+
+                            if (status.equalsIgnoreCase("1")) {
+                                new AlertDialog.Builder(ScanRecievingActivity.this)
+                                        .setTitle("تم منع الاستلام علي هذا المخزن")
+                                        .setCancelable(false)
+                                        .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                Intent Go_Back = new Intent(ScanRecievingActivity.this, ReceivingActivity.class);
+                                                Go_Back.putExtra("UserName", Po_HeaderList.get(0).getDelievered_BY1());
+                                                startActivity(Go_Back);
+                                            }
+                                        })
+                                        .show();
+                                linear_parent.setVisibility(View.GONE);
+
+                            } else {
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.i("log erroree", String.valueOf(e));
+                            Toast.makeText(ScanRecievingActivity.this, "" + e, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        NetworkResponse response = error.networkResponse;
+                        String errorMsg = "";
+                        if (response != null && response.data != null) {
+                            String errorString = new String(response.data);
+                            Log.i("log error", errorString);
+                            Toast.makeText(ScanRecievingActivity.this, "" + errorString, Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Plant", Po_Item_List_ForPlant.get(0).getPLANT1());
+                Log.i("sending ", params.toString());
+                Log.e("onResponser", "response" + request);
+
+                return params;
+            }
+
+        };
+
+
+        // Add the realibility on the connection.
+        request.setRetryPolicy(new DefaultRetryPolicy(30000, 3, 1.0f));
+
+        // Start the request immediately
+        queue.add(request);
+
+
+
+
+    }
+
 
 }
