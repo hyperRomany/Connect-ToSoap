@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.connecttosoapapiapp"
 
@@ -9,7 +9,7 @@ android {
         //TODO downgrate Api from 21 to 16 for test on my old phone
 
         minSdkVersion 27
-        targetSdkVersion 30
+        targetSdkVersion 28
         versionCode 23
         versionName "3.0"
          //versionName "2.1"0
