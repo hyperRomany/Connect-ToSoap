@@ -25,10 +25,8 @@ import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
 import com.example.connecttosoapapiapp.TransfereModule.Helper.DatabaseHelperForTransfer;
-import com.example.connecttosoapapiapp.TransfereModule.modules.Companies;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STO_Header;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,16 +50,13 @@ TextView txt_user_code,txt_sto_type;
 List<String>  pur_org_list ,pur_grp_list,site_list;
 DatabaseHelper databaseHelper;
 List<Users> userdataList;
-ArrayList<Companies> arrayitems;
-StringBuilder company;
 DatabaseHelperForTransfer databaseHelperForTransfer;
 
     String FromSite,ToSite;
     List<STO_Header> STo_headerlist;
     ArrayAdapter<String> adapterForSites;
     int FromPostion,ToPostion;
-    String StatusNU, check_of_UserCode ,Company,textComp;
-
+    String StatusNU, check_of_UserCode ,Company;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,20 +76,21 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
         pur_org_list =new ArrayList<>();
         pur_grp_list = new ArrayList<>();
         site_list = new ArrayList<>();
-        arrayitems=new ArrayList<Companies>();
+
         databaseHelper=new DatabaseHelper(this);
         userdataList=new ArrayList<>();
+
         userdataList = databaseHelper.getUserData();
         txt_user_code.setText(userdataList.get(0).getCompany1());
         Company=userdataList.get(0).getCompany1();
         check_of_UserCode=txt_user_code.getText().toString().substring(2,3);
         Toast.makeText(this, ""+check_of_UserCode, Toast.LENGTH_SHORT).show();
 
-        getlistcompanies();
+
+        getlistfromsqlserver();
+
         STo_headerlist = new ArrayList<>();
         STo_headerlist = databaseHelperForTransfer.selectSto_Header();
-
-
     }
 
     public void getlistfromsqlserver(){
@@ -102,7 +98,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
             //        Uri.encode(tripToSelected, "utf-8").toString()
             RequestQueue queue = Volley.newRequestQueue(this);
             // String URL = Constant.LoginURL;
-            request = new StringRequest(Request.Method.POST, Constant.ListfortransferFromSqlServerURL2,
+            request = new StringRequest(Request.Method.POST, Constant.ListfortransferFromSqlServerURL,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -135,7 +131,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
                                 Log.e("onResponse", PGRP_PORsize);
 
                                 String Sites_LOCATIONS = object.getString("Sites_LOCATIONS");
-                                Log.e("onResponse Sites_LOCATIONS", Sites_LOCATIONS);
+                                Log.e("onResponse", Sites_LOCATIONS);
 
                                 String Sto_Type = object.getString("STO_TYPEsize");
                                 Log.e("onResponse", Sto_Type);
@@ -143,6 +139,7 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
                                         txt_sto_type.setText(object.getString("STO_TYPE0"));
                                         Log.e("STO_TYPE0", ""+object.getString("STO_TYPE0"));
                                     }
+
 
                                 for (int i=0 ; i<Integer.valueOf(p_orgsize);i++){
 
@@ -223,20 +220,8 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
                  //   params.put("Password", editpassword.getText().toString());
                     //params.put("key_1","value_1");
                     // params.put("key_2", "value_2");
-                    String name = arrayitems.get(0).getCompany();
-                    company = new StringBuilder("'"+name+"'");
-                    for (int i = 0; i < arrayitems.size(); i++) {
-                        if (i == 0) {
-                            continue;
-                        } else {
-                            String z = String.valueOf(arrayitems.get(i).getCompany());
-                            company.append("," + "'"+z+"'");
-                            textComp=company.toString();
-                            Log.e("Allcompany",company.toString());
-                        }
-                    }
                     params.put("type","STO1");
-                    params.put("Company",textComp);
+                    params.put("Company",Company);
                     Log.i("sending ", params.toString());
                     Log.e("onResponser", "response"+request);
 
@@ -481,86 +466,4 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
 
         }
     }
-
-    public void getlistcompanies(){
-        //TAG_TRIP_PRICE + Uri.encode(tripFromSelected, "utf-8").toString() + "/" +
-        //        Uri.encode(tripToSelected, "utf-8").toString()
-        RequestQueue queue = Volley.newRequestQueue(this);
-        // String URL = Constant.LoginURL;
-        request = new StringRequest(Request.Method.POST, Constant.Listforcompanies,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        String encodedstring = null;
-                        try {
-                            encodedstring = URLEncoder.encode(response,"ISO-8859-1");
-                            response = URLDecoder.decode(encodedstring,"UTF-8");
-
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-                        Log.e("onResponser", "response"+response);
-                        //  Log.e("onResponse", "response"+Uri.encode(response, "utf-8").toString());
-                        Log.e("onResponse", "request"+request);
-                        try {
-
-                            JSONObject object = new JSONObject(response);
-
-                            JSONArray jarray = object.getJSONArray("Modules");
-                            for (int i = 0; i < jarray.length(); i++) {
-                                JSONObject object2 = jarray.getJSONObject(i);
-                                Companies item = new Companies();
-                                try {
-                                    item.setCompany(object2.getString("Company"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                arrayitems.add(item);
-
-                            }
-                            getlistfromsqlserver();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        NetworkResponse response = error.networkResponse;
-                        String errorMsg = "";
-                        if (response != null && response.data != null) {
-                            String errorString = new String(response.data);
-                            Log.i("log error", errorString);
-                        }
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-
-                Map<String, String> params = new HashMap<String, String>();;
-                params.put("User_Name",userdataList.get(0).getUser_Name1());
-                Log.i("sending ", params.toString());
-                Log.e("onResponser", "response"+request);
-
-                return params;
-            }
-
-        };
-
-        // Add the realibility on the connection.
-        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
-
-        // Start the request immediately
-        queue.add(request);
-
-
-
-
-    }
-
 }
