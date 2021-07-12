@@ -230,13 +230,12 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
                             continue;
                         } else {
                             String z = String.valueOf(arrayitems.get(i).getCompany());
-                            company.append("," + "'"+z+"'");
-                            textComp=company.toString();
-                            Log.e("Allcompany",company.toString());
+                            company.append("," + "'" + z + "'");
+                            Log.e("Allcompany", company.toString());
                         }
                     }
                     params.put("type","STO1");
-                    params.put("Company",textComp);
+                    params.put("Company",company.toString());
                     Log.i("sending ", params.toString());
                     Log.e("onResponser", "response"+request);
 
@@ -482,7 +481,8 @@ DatabaseHelperForTransfer databaseHelperForTransfer;
         }
     }
 
-    public void getlistcompanies(){
+    public void
+    getlistcompanies(){
         //TAG_TRIP_PRICE + Uri.encode(tripFromSelected, "utf-8").toString() + "/" +
         //        Uri.encode(tripToSelected, "utf-8").toString()
         RequestQueue queue = Volley.newRequestQueue(this);
