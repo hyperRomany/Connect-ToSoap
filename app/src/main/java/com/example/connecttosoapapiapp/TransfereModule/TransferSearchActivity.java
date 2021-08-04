@@ -48,7 +48,7 @@ public class TransferSearchActivity extends AppCompatActivity
             txt_from_site_search,txt_available_to_site_search,txt_to_site_search;
     Spinner spiner_storage_location_from,spiner_storage_location_to;
     List<STO_Header> STo_headerlist;
-    List<STo_Search> STo_searchlist;
+    //List<STo_Search> STo_searchlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class TransferSearchActivity extends AppCompatActivity
         edit_asked_from_site_search=findViewById(R.id.edit_asked_from_site_search);
 
         databaseHelperForTransfer=new DatabaseHelperForTransfer(this);
-        STo_searchlist = databaseHelperForTransfer.selectSto_Search();
+        //STo_searchlist = databaseHelperForTransfer.selectSto_Search();
 
         STo_headerlist = new ArrayList<>();
         STo_headerlist = databaseHelperForTransfer.selectSto_Header();
@@ -100,6 +100,7 @@ public class TransferSearchActivity extends AppCompatActivity
             txt_to_site_search.setText(ToSite);
         }
         if (STo_headerlist.size()>0) {
+            //TODO ccccccccccccccccccccccccccccc
             if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")) { //anyType{}
                 List<String> Iss_Site_Log_list = new ArrayList<>();
 
@@ -466,7 +467,8 @@ public class TransferSearchActivity extends AppCompatActivity
                                     ReturnSearchList.add(String.valueOf(soapObject_items_detials.getProperty(k)));
                                     if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
                                         if (editbarcodeforsoap.getText().toString().startsWith("23")) {
-                                            long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                            long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(
+                                                    editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
                                                     FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
                                                     ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
                                                     ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
@@ -484,7 +486,7 @@ public class TransferSearchActivity extends AppCompatActivity
                                         Log.d("For_each_itemk=1=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
                                         ReturnSearchList.clear();
                                     }else if (k ==9 && !String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
-                                        CheckItemssize = databaseHelperForTransfer.selectSto_Search();
+                                        CheckItemssize = databaseHelperForTransfer.selectSto_Search(editbarcodeforsoap.getText().toString());
 
                                         Log.e("CheckItemssizeelseif",""+CheckItemssize.size());
                                         Log.e("CheckItemssizeevvv",""+CheckItemssize.size() *2);
@@ -498,7 +500,8 @@ public class TransferSearchActivity extends AppCompatActivity
                                             }else {
 
                                                 if (editbarcodeforsoap.getText().toString().startsWith("23")){
-                                                    long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                    long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(
+                                                            editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
                                                             FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
                                                             ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
                                                             ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),

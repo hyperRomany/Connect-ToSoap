@@ -117,6 +117,8 @@ public class Constant {
 //TODO change SelectThreeTablesforlist_V1 to SelectThreeTablesforlist
     //for transfer  $$ itemavalability  $$ return item
     public final static String ListfortransferFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist_V1.php";
+    public final static String ListfortransferFromSqlServerURL2 ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist_V2.php";
+    public final static String Listforcompanies ="http://10.2.1.220:8080/PPCModules/LoginPPCCopy.php";
 
     //For GI
     public final static String ListforGIFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectTablesforlistforGI.php";

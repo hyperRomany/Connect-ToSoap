@@ -181,13 +181,14 @@ public class DatabaseHelperForTransfer extends SQLiteOpenHelper {
     }
 
 
-    public List<STo_Search> selectSto_Search(){
+    public List<STo_Search> selectSto_Search(String Barcode){
         List<STo_Search> STo_searchlist = new ArrayList<>();
 
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME ;
+        String selectQuery = "SELECT *FROM " + STo_Search.TABLE_STO_Search_NAME+
+        " WHERE " +STo_Search.GTIN+" = "+Barcode;
         // +" ORDER BY " + Po_Header.COLUMN_PASSWORD + " DESC";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
