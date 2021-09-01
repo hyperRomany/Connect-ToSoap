@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class Constant {
-    public static final int Constant_DATABASE_VERSION = 3;
+    public static final int Constant_DATABASE_VERSION = 4;
     //String URL = "http://<>:8000/sap/bc/srt/rfc/sap/z_sample_webservice_add_number/750/z_sample_webservice_add_number/z_sample_webservice_add_number?sap-client=750";
     //public final static String URL = "http://10.1.1.155:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_po_getdetail/200/zws_ppc_po/zws_ppc_po?wsdl&sap-client=200&sap-user=test&sap-password=123456789";
     //public final static String URL = "http://10.1.1.155:8000/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_po_getdetail/200/zws_ppc_po/zws_ppc_po?&sap-client=200";
@@ -91,7 +91,7 @@ public class Constant {
     public final static String GetVersionURL = "http://10.2.1.220:8080/PPCModules/GetVersionPPC.php";
 
     /// constant to connect to server on login activity
-    public final static String LoginURL = "http://10.2.1.220:8080/PPCModules/LoginPPC.php";
+    public final static String LoginURL = "http://10.2.1.220:8080/PPCModules/LoginPPCtest.php";
     public final static String RecievingAuthorizationURL = "http://10.2.1.220:8080/PPCModules/RecievingAuthorization.php";
 
     public static final String WriteInLogOf_sapTableURL = "http://10.128.6.160:81/PhpProject1/writeinLogs_saptable.php";

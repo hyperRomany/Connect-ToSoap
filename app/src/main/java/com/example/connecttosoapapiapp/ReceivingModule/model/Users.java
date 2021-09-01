@@ -13,6 +13,7 @@ public class Users {
     public static final String Company="Company";
     public static final String Group_ID="Group_ID";
     public static final String ComplexID="ComplexID";
+    public static final String Print="Print";
 
     public static final String TABLE_User_Name = "User";
 
@@ -28,18 +29,19 @@ public class Users {
                     +User_Department  + " VARCHAR(15),"
                     +Company  + " VARCHAR(15),"
                     +Group_ID  + " VARCHAR(15),"
-                    + ComplexID + " VARCHAR(15)"
+                    +ComplexID + " VARCHAR(15),"
+                    +Print  + " VARCHAR(15)"
                     + ")";
 
 
     private   String User_ID1,User_Name1,User_Describtion1,Group_Name1,User_status1
-            ,User_Department1,Company1,Group_ID1,ComplexID1;
+            ,User_Department1,Company1,Group_ID1,ComplexID1,Print1;
 
     public Users() {
     }
 
     public Users(String user_ID, String user_Name, String user_Describtion, String group_Name,
-                 String user_status, String user_Department, String company, String group_ID, String complexID) {
+                 String user_status, String user_Department, String company, String group_ID, String complexID,String print) {
         User_ID1 = user_ID;
         User_Name1 = user_Name;
         User_Describtion1 = user_Describtion;
@@ -49,6 +51,7 @@ public class Users {
         Company1 = company;
         Group_ID1 = group_ID;
         ComplexID1 = complexID;
+        Print1=print;
     }
 
     public String getUser_ID1() {
@@ -121,5 +124,13 @@ public class Users {
 
     public void setComplexID1(String complexID1) {
         ComplexID1 = complexID1;
+    }
+
+    public String getPrint() {
+        return Print1;
+    }
+
+    public void setPrint(String print) {
+        Print1 = print;
     }
 }

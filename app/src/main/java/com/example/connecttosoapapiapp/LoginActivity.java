@@ -464,13 +464,16 @@ public class LoginActivity extends AppCompatActivity {
                                         String groupsize = object.getString("groupsize");
                                         Log.d("onResponse", "groupsize" + groupsize);
 
+                                        String Print = object.getString("Print");
+                                        Log.d("onResponse", "message" + Print);
+
                                         databaseHelper.DeleteUserDataAndGroupsTables();
 
                                         if (User_status.equalsIgnoreCase("0")) {
                                             Intent gotomain = new Intent(LoginActivity.this, MainActivity.class);
                                             gotomain.putExtra("UserName", editusername.getText().toString());
                                             databaseHelper.insertuser(User_ID, username, User_Description, Group_Name, User_status,
-                                                    User_Department, company, GroupID, ComplexID);
+                                                    User_Department, company, GroupID, ComplexID, Print);
 
                                             for (int i = 0; i < Integer.valueOf(groupsize); i++) {
                                                 String groupsize0 = object.getString("groupsize" + i);

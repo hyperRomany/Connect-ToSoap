@@ -118,7 +118,8 @@ Boolean This_Is_First_Time;
         }
         prog_loading_purchesorder=findViewById(R.id.prog_loading_purchesorder);
         btn_print_purchase_order=findViewById(R.id.btn_print_purchase_order);
-        if (users.get(0).getCompany1().equals("H010"))
+        Log.e("print", String.valueOf(databaseHelper.getUserData().get(0).getPrint()));
+        if (String.valueOf(databaseHelper.getUserData().get(0).getPrint()).equals("1"))
         {
             btn_print_purchase_order.setVisibility(View.VISIBLE);
         }
