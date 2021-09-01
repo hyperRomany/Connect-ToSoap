@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public long insertuser(String User_ID, String User_Name, String User_Describtion,
                            String Group_Name, String User_status,
-                                String User_Department , String Company, String Group_ID, String ComplexID
+                                String User_Department , String Company, String Group_ID, String ComplexID,String print
                                 //, String NO_MORE_GR
     ) {
         // get writable database as we want to write data
@@ -144,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Users.Company, Company);
         values.put(Users.Group_ID, Group_ID);
         values.put(Users.ComplexID, ComplexID);
+        values.put(Users.Print, print);
         //values.put(Users.NO_MORE_GR, NO_MORE_GR);
 
         // insert row
@@ -251,6 +252,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 users.setUser_Describtion1(cursor.getString(cursor.getColumnIndex(Users.User_Describtion)));
 
                 users.setGroup_ID1(cursor.getString(cursor.getColumnIndex(Users.Group_ID)));
+                users.setPrint(cursor.getString(cursor.getColumnIndex(Users.Print)));
+
                 /*Po_Headerlist.add(new Po_Header(cursor.getString(cursor.getColumnIndex(Po_Header.PO_NUMBER)),
                         cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR)),
                         cursor.getString(cursor.getColumnIndex(Po_Header.VENDOR_NAME))));*/
