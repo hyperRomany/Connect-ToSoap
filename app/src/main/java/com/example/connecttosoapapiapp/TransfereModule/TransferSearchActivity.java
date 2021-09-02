@@ -192,7 +192,8 @@ public class TransferSearchActivity extends AppCompatActivity
                         txt_descripation_search.setText(STo_searchlist_btn.get(0).getUOM_DESC1());
                         txt_code_item_search.setText(STo_searchlist_btn.get(0).getMAT_CODE1().subSequence(6, 18));
                         txt_state_item_search.setText(STo_searchlist_btn.get(0).getSTATUS1());
-                        Double total = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1()) - Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
+                        Double total = Double.valueOf(STo_searchlist_btn.get(0).getAVAILABLE_STOCK1()) -
+                                Double.valueOf(STo_searchlist_btn.get(0).getQTY1());
                         txt_available_to_site_search.setText(String.valueOf(
                                 new DecimalFormat("###.##").format(Double.valueOf(total))));
                         txt_from_site_search.setText(STo_searchlist_btn.get(0).getISS_SITE1());
@@ -267,9 +268,6 @@ public class TransferSearchActivity extends AppCompatActivity
                             edit_asked_from_site_search.setEnabled(false);
                         }
                     } else {
-
-
-
                         STo_headerlist = new ArrayList<>();
 
                         STo_headerlist = databaseHelperForTransfer.selectSto_Header();
@@ -466,6 +464,8 @@ public class TransferSearchActivity extends AppCompatActivity
                                 }if (i==1 && RETURN.contains("anyType{}")){
                                     ReturnSearchList.add(String.valueOf(soapObject_items_detials.getProperty(k)));
                                     if (k ==9 &&String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
+                                        Log.e("String.valueOf(soapObject_items_detials.getProperty(5)).contains()",soapObject_items_detials.getProperty(5).toString());
+
                                         if (editbarcodeforsoap.getText().toString().startsWith("23")) {
                                             long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(
                                                     editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
@@ -486,8 +486,12 @@ public class TransferSearchActivity extends AppCompatActivity
                                         Log.d("For_each_itemk=1=9", ReturnSearchList.get(3)+ReturnSearchList.get(4)+ReturnSearchList.get(5));
                                         ReturnSearchList.clear();
                                     }else if (k ==9 && !String.valueOf(soapObject_items_detials.getProperty(5)).contains("anyType{}")){
-                                        CheckItemssize = databaseHelperForTransfer.selectSto_Search(editbarcodeforsoap.getText().toString());
-
+                                        Log.e("!String.valueOf(soapObject_items_detials.getProperty(5))",String.valueOf(soapObject_items_detials.getProperty(5)).toString());
+                                        if (editbarcodeforsoap.getText().toString().startsWith("23")) {
+                                            CheckItemssize = databaseHelperForTransfer.selectSto_Search_weightBarcoe(editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
+                                        }else {
+                                            CheckItemssize = databaseHelperForTransfer.selectSto_Search(editbarcodeforsoap.getText().toString());
+                                        }
                                         Log.e("CheckItemssizeelseif",""+CheckItemssize.size());
                                         Log.e("CheckItemssizeevvv",""+CheckItemssize.size() *2);
                                         Log.e("CheckItemssizeelvvitv",""+soapObject_items.getPropertyCount());
@@ -504,13 +508,13 @@ public class TransferSearchActivity extends AppCompatActivity
                                                             editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
                                                             FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
                                                             ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),CheckItemssize.get(0).getAVAILABLE_STOCK1(),
                                                             ReturnSearchList.get(7),"0.0");
                                                 }else {
                                                     long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
                                                             FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
                                                             ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),CheckItemssize.get(0).getAVAILABLE_STOCK1(),
                                                             ReturnSearchList.get(7),"0.0");
 
                                                 }
