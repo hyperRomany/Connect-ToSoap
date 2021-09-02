@@ -796,7 +796,7 @@ Button btn_export,btn_Get_Document;
                     WriteInLogOf_sapTableOfSqlServer();
                     WriteInLogs_sap_ITEMStableOfSqlServer();
                     //databaseHelper.DeleteDataOfThreeTables();
-                    if (userList.get(0).getCompany1().equals("H010")) {
+                    if (userList.get(0).getPrint().equals("1")) {
                         getLoaderManager().restartLoader(2, null, new UploadActivity.MyLoaderCallbacks03SA());
                     }
 
