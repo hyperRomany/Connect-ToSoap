@@ -1265,10 +1265,7 @@ Button btn_export,btn_Get_Document;
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Intent objIntent = new Intent(Intent.ACTION_VIEW);
-                            objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
-                            objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(objIntent);//Starting the pdf viewer
+
 
                         }
                     }
@@ -1295,12 +1292,18 @@ Button btn_export,btn_Get_Document;
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
 
 
+                Intent objIntent = new Intent(Intent.ACTION_VIEW);
+                objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
+                objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(objIntent);//Starting the pdf viewer
 
             } else {
                Toast.makeText(UploadActivity.this,MESSAGE,Toast.LENGTH_SHORT).show();
                 Log.e("TAG", "onLoadFinished: " + MESSAGE + "  " + Po_HeaderList.get(0).getPO_NUMBER1());
 
             }
+
+
 
         }
 

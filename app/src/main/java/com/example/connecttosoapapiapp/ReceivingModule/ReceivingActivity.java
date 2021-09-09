@@ -593,10 +593,7 @@ Boolean This_Is_First_Time;
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Intent objIntent = new Intent(Intent.ACTION_VIEW);
-                            objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
-                            objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(objIntent);//Starting the pdf viewer
+
 
                         }
                     }
@@ -621,6 +618,11 @@ Boolean This_Is_First_Time;
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
                 Log.e("This Is First Time", "" + RETURN);
                 Toast.makeText(ReceivingActivity.this, RETURN, Toast.LENGTH_LONG).show();
+
+                Intent objIntent = new Intent(Intent.ACTION_VIEW);
+                objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
+                objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(objIntent);//Starting the pdf viewer
 
 
             } else {
