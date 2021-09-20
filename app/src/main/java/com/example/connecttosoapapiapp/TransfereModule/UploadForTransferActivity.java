@@ -387,7 +387,6 @@ int Repeat_On_log=0;
         switch (RC) {
 
             case 1:
-
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
                     Toast.makeText(UploadForTransferActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();

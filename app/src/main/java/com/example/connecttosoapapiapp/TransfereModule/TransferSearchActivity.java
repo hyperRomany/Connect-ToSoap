@@ -504,18 +504,36 @@ public class TransferSearchActivity extends AppCompatActivity
                                             }else {
 
                                                 if (editbarcodeforsoap.getText().toString().startsWith("23")){
-                                                    long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(
-                                                            editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
-                                                            FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
-                                                            ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),CheckItemssize.get(0).getAVAILABLE_STOCK1(),
-                                                            ReturnSearchList.get(7),"0.0");
+                                                    if(CheckItemssize.size() >0) {
+                                                        long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(
+                                                                editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                                FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
+                                                                ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
+                                                                ReturnSearchList.get(4),ReturnSearchList.get(5),CheckItemssize.get(0).getAVAILABLE_STOCK1(),
+                                                                ReturnSearchList.get(7),"0.0");
+                                                    }else {
+                                                        long id = databaseHelperForTransfer.insert_Sto_Search(Calculatcheckdigitforscales(
+                                                                editbarcodeforsoap.getText().toString().substring(0,7)+"00000"),
+                                                                FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
+                                                                ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
+                                                                ReturnSearchList.get(4),ReturnSearchList.get(5),ReturnSearchList.get(6),
+                                                                ReturnSearchList.get(7),"0.0");
+                                                    }
+
                                                 }else {
-                                                    long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
-                                                            FromSite,ToSite,ReturnSearchList.get(0),ReturnSearchList.get(1),
-                                                            ReturnSearchList.get(2),ReturnSearchList.get(8),ReturnSearchList.get(3),
-                                                            ReturnSearchList.get(4),ReturnSearchList.get(5),CheckItemssize.get(0).getAVAILABLE_STOCK1(),
-                                                            ReturnSearchList.get(7),"0.0");
+                                                    if(CheckItemssize.size() >0) {
+                                                        long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
+                                                                FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
+                                                                ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
+                                                                ReturnSearchList.get(4), ReturnSearchList.get(5), CheckItemssize.get(0).getAVAILABLE_STOCK1(),
+                                                                ReturnSearchList.get(7), "0.0");
+                                                    }else {
+                                                        long id = databaseHelperForTransfer.insert_Sto_Search(editbarcodeforsoap.getText().toString(),
+                                                                FromSite, ToSite, ReturnSearchList.get(0), ReturnSearchList.get(1),
+                                                                ReturnSearchList.get(2), ReturnSearchList.get(8), ReturnSearchList.get(3),
+                                                                ReturnSearchList.get(4), ReturnSearchList.get(5), ReturnSearchList.get(6),
+                                                                ReturnSearchList.get(7), "0.0");
+                                                    }
 
                                                 }
 
