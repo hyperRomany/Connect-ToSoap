@@ -84,7 +84,8 @@ public class ScanItemAvailabilityActivity extends AppCompatActivity {
     String Depart,KQTY,GQTY,TotalQTYFor23,BarcodeFor23,editbarcode;
     VolleyError volleyErrorPublic;
     TextView txt_descripation,txt_code_item,txt_state_item, txt_available_in_site1,txt_available_in_site2, txt_available_in_site3,txt_unite,txt_grp,
-            txt_sales_today1,txt_sales_today2,txt_sales_today3,txt_price, txt_state_barcode;
+            txt_sales_today1,txt_sales_today2,txt_sales_today3,txt_price, txt_state_barcode,
+            txt_delivery_date_1,txt_delivery_date_2, txt_delivery_date_3;
     Button btn_search_barcode;
     String Article="";
     List<Users> userdataList;
@@ -112,6 +113,11 @@ ArrayList<String> storage=new ArrayList<>();
         txt_available_in_site1 =findViewById(R.id.txt_available_in_site01);
         txt_available_in_site2 =findViewById(R.id.txt_available_in_site02);
         txt_available_in_site3 =findViewById(R.id.txt_available_in_site03);
+
+        txt_delivery_date_1 =findViewById(R.id.txt_delivery_date_01);
+        txt_delivery_date_2 =findViewById(R.id.txt_delivery_date_02);
+        txt_delivery_date_3 =findViewById(R.id.txt_delivery_date_03);
+
         txt_unite=findViewById(R.id.txt_unite);
         txt_grp=findViewById(R.id.txt_grp);
         txt_state_barcode=findViewById(R.id.txt_state_barcode);
@@ -446,6 +452,13 @@ ArrayList<String> storage=new ArrayList<>();
                                             textView.setText(String.valueOf(Float.valueOf(object.getString("qty"))));
                                         }
                                         txt_price.setText(object.getString("price"));
+                                        if (branch.equalsIgnoreCase("01")){
+                                            txt_delivery_date_1.setText(object.getString("DeliveryDate"));
+                                        }else if (branch.equalsIgnoreCase("02")){
+                                            txt_delivery_date_2.setText(object.getString("DeliveryDate"));
+                                        }if (branch.equalsIgnoreCase("03")){
+                                            txt_delivery_date_3.setText(object.getString("DeliveryDate"));
+                                        }
                                         if (Integer.valueOf(object.getString("status_for_barcode")) == 0) {
                                             txt_state_barcode.setText("الباركود فعال");
                                         }else if (Integer.valueOf(object.getString("status_for_barcode")) == 1){
@@ -457,7 +470,8 @@ ArrayList<String> storage=new ArrayList<>();
 //                                            CreateORUpdateRecycleView(postionForsave);
                                             Toast.makeText(ScanItemAvailabilityActivity.this, "تم", Toast.LENGTH_SHORT).show();
                                         itemAvailabilityModuleList.clear();
-                                        itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
+                                        itemAvailabilityModuleList = databaseHelperForItemAvailability.
+                                                select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
                                         if (itemAvailabilityModuleList.size() ==0) {
                                             databaseHelperForItemAvailability.insert_ItemsAvai(edt_barcode.getText().toString(), MESSAGE,
                                                     userdataList.get(0).getUser_Name1().trim(), txt_sales_today1.getText().toString(),
@@ -536,7 +550,7 @@ ArrayList<String> storage=new ArrayList<>();
 
 
                 // Add the realibility on the connection.
-                request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+                request.setRetryPolicy(new DefaultRetryPolicy(50000, 1, 1.0f));
                 queue.add(request);
 
                 if (volleyErrorPublic != null) {
