@@ -173,6 +173,11 @@ ArrayList<String> storage=new ArrayList<>();
         txt_sales_today1.setText("مبيعات اليوم");
         txt_sales_today2.setText("مبيعات اليوم");
         txt_sales_today3.setText("مبيعات اليوم");
+
+        txt_delivery_date_1.setText("أخر استلامه");
+        txt_delivery_date_2.setText("أخر استلامه");
+        txt_delivery_date_3.setText("أخر استلامه");
+
         txt_price.setText("سعر القطعه");
 
         if (edt_barcode.getText().toString().isEmpty()){
