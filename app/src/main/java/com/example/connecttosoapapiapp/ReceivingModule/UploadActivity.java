@@ -18,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings.Secure;
-import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -46,8 +45,6 @@ import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Items_For_Logs_Items_SqlServer;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 
 import net.gotev.uploadservice.MultipartUploadRequest;
 import net.gotev.uploadservice.UploadNotificationConfig;
@@ -1200,6 +1197,8 @@ Button btn_export,btn_Get_Document;
 
                     SoapObject request = new SoapObject(Constant.NAMESPACE_For_print, Constant.METHOD_For_print);
                     request.addProperty("EBELN", Po_HeaderList.get(0).getPO_NUMBER1());
+                    request.addProperty("USERID",userList.get(0).getUser_Name1());
+                    request.addProperty("USERDESC",userList.get(0).getUser_Describtion1());
                     MESSAGE = "Empty";
                     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER12);
                     //envelope.dotNet=true;
@@ -1290,8 +1289,6 @@ Button btn_export,btn_Get_Document;
                 // btn_loading_purchase_order.setEnabled(true);
             } else if (MESSAGE.contains("Empty")) {
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
-
-
                 Intent objIntent = new Intent(Intent.ACTION_VIEW);
                 objIntent.setDataAndType(Uri.parse("content:///storage/emulated/0/HyperOne.pdf"), "application/pdf");
                 objIntent.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP);
@@ -1302,9 +1299,6 @@ Button btn_export,btn_Get_Document;
                 Log.e("TAG", "onLoadFinished: " + MESSAGE + "  " + Po_HeaderList.get(0).getPO_NUMBER1());
 
             }
-
-
-
         }
 
         @Override

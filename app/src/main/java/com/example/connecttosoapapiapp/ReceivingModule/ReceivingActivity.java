@@ -27,7 +27,6 @@ import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Header;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Po_Item;
 import com.example.connecttosoapapiapp.ReceivingModule.model.Users;
-import com.example.connecttosoapapiapp.StockAvailable.ScanItemAvailabilityActivity;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -36,7 +35,6 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -60,7 +58,7 @@ ProgressBar prog_loading_purchesorder;
     List<Po_Header> Po_HeaderList ;
     List<Po_Item> Po_itemList ;
     String Po_item_NoMore=" ";
-    List<Users> users;
+    List<Users> userList;
 Boolean This_Is_First_Time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +71,7 @@ Boolean This_Is_First_Time;
         databaseHelper =new DatabaseHelper(this);
         //databaseHelperForPoItem = new DatabaseHelperForPoItem(this);
 
-        users = databaseHelper.getUserData();
+        userList = databaseHelper.getUserData();
 
 
         Po_HeaderList = new ArrayList<>();
@@ -396,7 +394,7 @@ Boolean This_Is_First_Time;
 
                                 if (j == 8) {
                                     long id_of_po_header = databaseHelper.insertPo_Header(arrayList_Po_header.get(0), arrayList_Po_header.get(1),
-                                            arrayList_Po_header.get(2), arrayList_Po_header.get(3), arrayList_Po_header.get(4), users.get(0).getUser_Name1(),
+                                            arrayList_Po_header.get(2), arrayList_Po_header.get(3), arrayList_Po_header.get(4), userList.get(0).getUser_Name1(),
                                             arrayList_Po_header.get(5), arrayList_Po_header.get(6), arrayList_Po_header.get(7));
                                     //arrayList_Po_header.clear();
                                     Log.d("id_of_po_header", "" + id_of_po_header);
@@ -528,6 +526,8 @@ Boolean This_Is_First_Time;
 
                     SoapObject request = new SoapObject(Constant.NAMESPACE_For_print, Constant.METHOD_For_print);
                     request.addProperty("EBELN", edit_purchaseorder.getText().toString());
+                    request.addProperty("USERID",userList.get(0).getUser_Name1());
+                    request.addProperty("USERDESC",userList.get(0).getUser_Describtion1());
                     MESSAGE = "Empty";
                     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER12);
                     //envelope.dotNet=true;
