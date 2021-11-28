@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -97,7 +98,7 @@ public class ScanItemAvailabilityActivity extends AppCompatActivity
     File filePath;
     String CSVName="test";
     List<ItemAvailabilityModule> itemAvailabilityModuleList;
-Button btn_export;
+Button btn_export , btn_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +135,13 @@ Button btn_export;
 
         getlistfromsqlserver();
 
-
+        btn_search=findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GoToSearch();
+            }
+        });
         btn_export=findViewById(R.id.btn_export);
         btn_export.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -946,4 +953,8 @@ Button btn_export;
     }
 
 
+    public void GoToSearch() {
+        Intent Gotosearch=new Intent(this,ShowItemsItemavailabilityActivity.class);
+        startActivity(Gotosearch);
+    }
 }

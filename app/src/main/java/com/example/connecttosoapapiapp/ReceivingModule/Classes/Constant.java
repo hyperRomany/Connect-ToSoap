@@ -224,6 +224,8 @@ public class Constant {
     public static String SOAP_ACTION_For_create_returnitem = "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_RETURN_PO:ZBAPI_PPC_CREATE_RETURN_PORequest";
     // for item availability module
     public static String GetDetialsURL = "http://10.2.1.220:8080/PPCModules/SelectDataForBarcodeForViewItems.php";
+    // for searching in item availability
+    public static String GetDetialsforsearchingURL = "http://10.2.1.220:8080/PPCModules/SelectDataForSearchBarcodeInitemAvaliability.php";
     public static String GetExpiredPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Expired.php";
     public static String GetStopedPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Stopped.php";
     public static String GetTodayPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active.php";

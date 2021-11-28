@@ -50,34 +50,6 @@ public class CheckItemFormActivity extends AppCompatActivity {
 
         btn_edit=findViewById(R.id.btn_edit);
         btn_delete=findViewById(R.id.btn_delete);
-
-        /*Po_Item_For_Recycly.add(new Po_Item_of_cycleCount(true,"material","short text","quantity",
-                "pdnewqty1","Po_unite","ean111","vendor_name"));
-        Po_Item_For_Recycly.add(new Po_Item_of_cycleCount(false,"material","short text","quantity",
-                "pdnewqty1","Po_unite","ean111","vendor_name"));
-        Po_Item_For_Recycly.add(new Po_Item_of_cycleCount(false,"material","short text","quantity",
-                "pdnewqty1","Po_unite","ean111","vendor_name"));*/
-
-
-       /* databaseHelper =new DatabaseHelperForTransfer(this);
-
-        Po_Item_For_Recycly = databaseHelper.Get_Po_Item_That_Has_PDNewQTy();
-
-        itemDelieveredFormAdapter = new Itemtransfer_for_searchAdapter(Po_Item_For_Recycly);
-
-        recyclerView.setHasFixedSize(true);
-
-        // vertical RecyclerView
-        // keep movie_list_row.xml width to `match_parent`
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-
-        // horizontal RecyclerView
-        // keep movie_list_row.xml width to `wrap_content`
-        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(itemDelieveredFormAdapter);
-*/
     }
 
     @Override

@@ -22,10 +22,41 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_check_item_form.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_cycle_count.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_cyclecount_upload.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_edit_gi_item.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_edit_item.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_edit_item_for_cycle_count.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_edit_item_return.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_edit_manual__transfer__order_show_data.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_edit_serial.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_form_transfer.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_login.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_main.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_main_form_of_gi.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_main_item_return.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_main_promotion.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_manual__transfer__order_show_data.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_new_serial_form.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_prom_item_details.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_receiving.xml" value="0.20833333333333334" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_review.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan_barcod.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan_gi.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan_item_availability.xml" value="0.20833333333333334" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan_items_return.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan_recieving.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan_stock_availability.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_search_for_get_promotion.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_search_itemavailability.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_serial_view_form.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_show_items.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_show_items_cyclecount.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_transfer_search.xml" value="0.20833333333333334" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/recycle_item_for_po_item_cyclecount.xml" value="0.22239583333333332" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/recycle_item_for_searchingbarcodeinitemavailability.xml" value="0.22239583333333332" />
       </map>
     </option>
   </component>

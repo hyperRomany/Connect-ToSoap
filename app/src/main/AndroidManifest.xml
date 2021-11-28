@@ -43,6 +43,7 @@
         <activity android:name=".ItemReturn.MainItemReturnActivity" />
         <activity android:name=".ScanBarcode.ScanBarcodActivity" />
         <activity android:name=".GIModule.UploadGiActivity" />
+        <activity android:name=".ItemAvailability.ShowItemsItemavailabilityActivity"/>
         <activity
             android:name=".GIModule.EditGIItemActivity"
             android:windowSoftInputMode="stateHidden" />
