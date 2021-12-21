@@ -147,22 +147,22 @@ public class Constant {
     ////*******************    Cycle Count   ******************////////////////////
 
 //for qas
-//    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-//    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEADER";
-//    public static String URL_For_Check_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_header/200/zppc_cycle_count_header/zppc_cycle_count_header";
-//    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEADER:ZPPC_CYCLE_COUNT_HEADERRequest";
+    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEADER";
+    public static String URL_For_Check_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_header/200/zppc_cycle_count_header/zppc_cycle_count_header";
+    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEADER:ZPPC_CYCLE_COUNT_HEADERRequest";
 
     //for dev
-    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEAD";
-    public static String URL_For_Check_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_head_ws/300/zppc_cycle_count_head_ws/zppc_cycle_count_head_ws";
-    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEAD_WS:ZPPC_CYCLE_COUNT_HEADRequest";
+//    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+//    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEAD";
+//    public static String URL_For_Check_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_head_ws/300/zppc_cycle_count_head_ws/zppc_cycle_count_head_ws";
+//    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEAD_WS:ZPPC_CYCLE_COUNT_HEADRequest";
 
 //for QAS
-//    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-//    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT";
-//    public static String URL_For_Get_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_cycle_count/200/zws_ppc_cycle_count/zws_ppc_cycle_count";
-//    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CYCLE_COUNT:ZPPC_CYCLE_COUNTRequest";
+    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT";
+    public static String URL_For_Get_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_cycle_count/200/zws_ppc_cycle_count/zws_ppc_cycle_count";
+    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CYCLE_COUNT:ZPPC_CYCLE_COUNTRequest";
 
 // for  Dev
 //    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
@@ -170,10 +170,10 @@ public class Constant {
 //    public static String URL_For_Get_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_cycle_count/300/zws_ppc_cycle_count_sn/zws_ppc_cycle_count_bn";
 //    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CYCLE_COUNT:ZPPC_CYCLE_COUNTRequest";
 
-    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT2";
-    public static String URL_For_Get_Cycle_Count="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count2_ws/300/zppc_cycle_count2_ws/zppc_cycle_count2_ws";
-    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT2_WS:ZPPC_CYCLE_COUNT2Request";
+//    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+//    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT2";
+//    public static String URL_For_Get_Cycle_Count="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count2_ws/300/zppc_cycle_count2_ws/zppc_cycle_count2_ws";
+//    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT2_WS:ZPPC_CYCLE_COUNT2Request";
 
 
     //password for uploading

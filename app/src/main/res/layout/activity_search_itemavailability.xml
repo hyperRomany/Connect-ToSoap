@@ -2,7 +2,6 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,60 +12,71 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/main_background_color"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:layoutDirection="rtl">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text="الوصف"
-                android:textColor="@color/third_white"/>
             <EditText
                 android:id="@+id/edit_describtion"
                 android:layout_width="0dp"
-                android:layout_weight="1.5"
+                android:layout_weight="2.5"
                 android:layout_height="wrap_content"
                 android:textColor="@color/third_white"
-                />
-            <Button
-                android:id="@+id/btn_search_barcode"
+                tools:ignore="NestedWeights"
+                android:hint="@string/enter_description"
+                android:inputType="text"
+                android:autofillHints="" />
 
+            <Spinner
+                android:id="@+id/dep_spinner_item_availability"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text="بحث"
-                />
-
+                android:layout_height="45dp"
+                android:layout_weight="1.5"
+                android:layout_marginStart="15dp"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:textDirection="ltr"
+                android:textColor="@color/third_white"
+                android:backgroundTint="@color/third_white"
+                tools:ignore="SpUsage" />
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btn_search_barcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="@string/searchtxt"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="20dp"/>
 
         <HorizontalScrollView
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:orientation="horizontal"
-
+            android:layout_marginTop="20dp"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:background="@drawable/module_bg_items"
 
             >
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="6dp">
-
 
                 <include layout="@layout/recycle_item_for_searchingbarcodeinitemavailability"
                     android:visibility="visible"/>
@@ -77,7 +87,6 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"
                     />
-
             </LinearLayout>
         </HorizontalScrollView>
     </LinearLayout>

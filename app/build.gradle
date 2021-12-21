@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.example.connecttosoapapiapp"
 
@@ -9,9 +9,9 @@ android {
         //TODO downgrate Api from 21 to 16 for test on my old phone
 
         minSdkVersion 27
-        targetSdkVersion 28
-        versionCode 29
-        versionName "3.6"
+        targetSdkVersion 31
+        versionCode 30
+        versionName "3.7"
 
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

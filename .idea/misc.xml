@@ -55,8 +55,16 @@
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_show_items.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_show_items_cyclecount.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_transfer_search.xml" value="0.20833333333333334" />
+        <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/activity_upload_item_return.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/recycle_item_for_po_item_cyclecount.xml" value="0.22239583333333332" />
         <entry key="..\:/MustafaElsayed/Projects/ConnectToSoapApiApp/app/src/main/res/layout/recycle_item_for_searchingbarcodeinitemavailability.xml" value="0.22239583333333332" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/activity_cycle_count.xml" value="0.209375" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/activity_cyclecount_upload.xml" value="0.209375" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/activity_login.xml" value="0.16394927536231885" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/activity_main_item_return.xml" value="0.12864583333333332" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/activity_scan.xml" value="0.22" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/activity_search_itemavailability.xml" value="0.18" />
+        <entry key="..\:/foder/ConnectToSoapApiApp/app/src/main/res/layout/recycle_item_for_searchingbarcodeinitemavailability.xml" value="0.1" />
       </map>
     </option>
   </component>
@@ -66,7 +74,7 @@
     <option name="priority" value="Medium" />
     <option name="excludeFilter" value="" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

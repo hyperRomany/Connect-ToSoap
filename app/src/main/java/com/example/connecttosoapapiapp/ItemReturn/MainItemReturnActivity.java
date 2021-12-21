@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -38,8 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class MainItemReturnActivity extends AppCompatActivity {
     public StringRequest request=null;
     List<String> pur_org_list ,pur_grp_list;
@@ -47,8 +47,8 @@ public class MainItemReturnActivity extends AppCompatActivity {
     List<Users> userdataList;
     String check_of_UserCode ,Company;
 
-EditText edt_vendor;
-TextView txt_user_code;
+    EditText edt_vendor;
+    TextView txt_user_code;
     Spinner spiner_pur_org,spiner_pur_grp;
     DatabaseHelperForItemReturn databaseHelperForItemReturn;
     DatabaseHelper databaseHelper;
@@ -67,7 +67,7 @@ TextView txt_user_code;
         headerList=new ArrayList<>();
 
         getlistfromsqlserver();
-databaseHelperForItemReturn=new DatabaseHelperForItemReturn(this);
+        databaseHelperForItemReturn=new DatabaseHelperForItemReturn(this);
         // To get user code
         databaseHelper=new DatabaseHelper(this);
         userdataList=new ArrayList<>();

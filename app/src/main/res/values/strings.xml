@@ -33,4 +33,6 @@
     <string name="textcheckinternet">من فضلك افحص الشبكه</string>
     <string name="numberofitemstoupload">هل أنت متاكد من أنك تريد رفع</string>
     <string name="user_not_found">المستخدم غير موجود</string>
+    <string name="searchtxt">بحث</string>
+    <string name="enter_description">ادخل الوصف</string>
 </resources>

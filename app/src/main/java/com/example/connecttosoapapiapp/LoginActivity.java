@@ -24,6 +24,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -59,17 +63,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
-
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
     EditText editusername, editpassword;
     Button btnlogin;
     private DatabaseHelper databaseHelper;
-    // public static final String TAG = LoginActivity.class.getSimpleName();
-    // Tag used to cancel the request
     public StringRequest request = null;
     private static final int REQUEST_WRITE_PERMISSION = 786;
     private DownloadManager downloadManager;
@@ -99,24 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
         txt_version = findViewById(R.id.txt_version);
         txt_version.setText(" V " + GetVersionOfApp());
-        Log.e("onResponseres", "" + Build.VERSION.SDK_INT + "" + Build.VERSION_CODES.N);
 
-        /*editusername.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-
-                    //execute our method for searching
-
-                    Login();
-                }
-
-                return false;
-            }
-        });*/
         editpassword = findViewById(R.id.password);
 
         DatabaseHelperForCycleCount databaseHelperForCycleCount = new DatabaseHelperForCycleCount(this);
@@ -157,8 +137,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Constant.isOnline(LoginActivity.this)) {
-                    prog_loading_login.setVisibility(View.VISIBLE);
-                    btnlogin.setVisibility(View.GONE);
                     if (DateFromnServer != null) {
                         Login();
                     }else {
@@ -293,12 +271,12 @@ public class LoginActivity extends AppCompatActivity {
             PackageManager pm = getPackageManager();
             PackageInfo pInfo = pm.getPackageInfo(getPackageName(), 0);
             Version = pInfo.versionName;
-            Log.d(TAG, "checkVersion.DEBUG: App version: " + Version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return Version;
     }
+
 
     @Override
     public void onRequestPermissionsResult(int RC, String[] per, int[] Result) {
@@ -308,21 +286,14 @@ public class LoginActivity extends AppCompatActivity {
             case 1:
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
-//                    GetVersionFromServer();
 
                     Toast.makeText(LoginActivity.this, "تم أعطاء الأذن", Toast.LENGTH_LONG).show();
-                    Log.e("zzzVersionDataarray", "dfdf" + VersionDataarray.size());
-                    Log.e("zzzVersionDataarray", "  " + Double.valueOf(GetVersionOfApp()));
-                    Log.e("zzzVersionDataarray", "  " + Double.valueOf(VersionDataarray.get(0)));
+
                     if (VersionDataarray.size() != 0) {
-                        //TODO check more than
-                       //   if (!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))) {
+
                           if (Double.valueOf(GetVersionOfApp()) < Double.valueOf(VersionDataarray.get(0))) {
 
                            Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
-//                        DownloadData(Uri.parse(Constant.ApksURL));
-//                        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-//                        registerReceiver(downloadReceiver, filter);
 
                             if (!VersionDataarray.get(1).equalsIgnoreCase("")) {
                                 new DownloadFileFromURL().execute(Constant.ApksURL_ًWithoutName + VersionDataarray.get(1), VersionDataarray.get(1));
@@ -354,7 +325,6 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         s = p.applicationInfo.dataDir;
-        Log.e("zzapplication", "" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
 
         File toInstall = new File(Environment.getExternalStorageDirectory() + File.separator +  VersionDataarray.get(1));
 
@@ -397,18 +367,12 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.e("zzDateOfDevice",""+DateOfDevice);
-        Log.e("zzDateFromnServer",""+DateFromnServer);
 
-        Log.e("zzcompare","equale"+DateOfDevice.equals(DateFromnServer));
-        Log.e("zzcompare","after"+DateOfDevice.after(DateFromnServer));
-        Log.e("zzcompare","before"+DateOfDevice.before(DateFromnServer));
         if (editusername.getText().toString().isEmpty()) {
             editusername.setError("من فضلك أدخل الاسم");
         }else if (editpassword.getText().toString().isEmpty()) {
             editpassword.setError("من فضلك أدخل كلمه السر");
         }else if(VersionDataarray.size() !=0){
-        //    if(!GetVersionOfApp().equalsIgnoreCase(VersionDataarray.get(0))){
             if (Double.valueOf(GetVersionOfApp())< Double.valueOf(VersionDataarray.get(0))) {
                 Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
             }else if(!DateOfDevice.equals(DateFromnServer)){
@@ -429,43 +393,32 @@ public class LoginActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 JsonObject object1 = new JsonObject().getAsJsonObject(response);
-                                Log.e("onResponseresoo", "object" + object1);
                                 try {
 
                                     JSONObject object = new JSONObject(response);
-                                    Log.e("onResponse", "object" + object);
 
                                     String status = object.getString("status");
-                                    Log.d("onResponse", status);
 
                                     String message = object.getString("message");
-                                    Log.d("onResponse", message);
 
                                     if (status.equalsIgnoreCase("1")) {
                                         String User_ID = object.getString("User_ID");
-                                        Log.d("onResponse", "message" + User_ID);
+
                                         String username = object.getString("username");
-                                        Log.d("onResponse", "message" + username);
+
                                         String User_Description = object.getString("User_Description");
-                                        Log.d("onResponse", "message" + User_Description);
                                         String Group_Name = object.getString("Group_Name");
-                                        Log.d("onResponse", "message" + Group_Name);
                                         String User_status = object.getString("User_status");
-                                        Log.d("onResponse", "message" + User_status);
                                         String User_Department = object.getString("User_Department");
-                                        Log.d("onResponse", "message" + User_Department);
                                         String company = object.getString("company");
-                                        Log.d("onResponse", "message" + company);
                                         String GroupID = object.getString("GroupID");
-                                        Log.d("onResponse", "message" + GroupID);
                                         String ComplexID = object.getString("ComplexID");
-                                        Log.d("onResponse", "message" + ComplexID);
 
                                         String groupsize = object.getString("groupsize");
-                                        Log.d("onResponse", "groupsize" + groupsize);
 
                                         String Print = object.getString("Print");
-                                        Log.d("onResponse", "message" + Print);
+                                        prog_loading_login.setVisibility(View.VISIBLE);
+                                        btnlogin.setVisibility(View.GONE);
 
                                         databaseHelper.DeleteUserDataAndGroupsTables();
 
@@ -477,11 +430,12 @@ public class LoginActivity extends AppCompatActivity {
 
                                             for (int i = 0; i < Integer.valueOf(groupsize); i++) {
                                                 String groupsize0 = object.getString("groupsize" + i);
-                                                Log.d("onResponse", "groupsize0" + i + groupsize0);
                                                 databaseHelper.insertgroup(groupsize0);
                                             }
                                             startActivity(gotomain);
                                         } else {
+                                            prog_loading_login.setVisibility(View.GONE);
+                                            btnlogin.setVisibility(View.VISIBLE);
                                             Toast.makeText(LoginActivity.this, "هذا المستخدم غير فعال", Toast.LENGTH_SHORT).show();
 
                                         }
@@ -491,7 +445,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
-                                    Log.i("log erroree", String.valueOf(e));
                                     Toast.makeText(LoginActivity.this, "" + e, Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -504,7 +457,6 @@ public class LoginActivity extends AppCompatActivity {
                                 String errorMsg = "";
                                 if (response != null && response.data != null) {
                                     String errorString = new String(response.data);
-                                    Log.i("log error", errorString);
                                     Toast.makeText(LoginActivity.this, "" + errorString, Toast.LENGTH_SHORT).show();
 
                                 }
@@ -517,11 +469,7 @@ public class LoginActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("User_Name", editusername.getText().toString());
                         params.put("Password", editpassword.getText().toString());
-                        //params.put("key_1","value_1");
-                        // params.put("key_2", "value_2");
 
-                        Log.i("sending ", params.toString());
-                        Log.e("onResponser", "response" + request);
 
                         return params;
                     }
@@ -529,10 +477,8 @@ public class LoginActivity extends AppCompatActivity {
                 };
 
 
-                // Add the realibility on the connection.
                 request.setRetryPolicy(new DefaultRetryPolicy(30000, 3, 1.0f));
 
-                // Start the request immediately
                 queue.add(request);
 
             }
@@ -563,7 +509,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... f_url) {
             int count;
-            Log.e("zzzf_urldoInBac", "" + f_url[0]);
             try {
                 URL url = new URL(f_url[0]);
                 URLConnection conection = url.openConnection();
