@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    tools:context=".makeOrder.ChooseSiteActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/choose_site_create_order_sto_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginEnd="50dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"
+                />
+
+            <TextView
+                android:id="@+id/choose_site_create_order_user_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ZSTW"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="من المخزن"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            />
+
+        <Spinner
+            android:id="@+id/choose_site_from_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            android:textColor="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorPrimaryDark"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/choose_site_create_order"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:text="@string/create_order"
+        android:onClick="OpenNewOrder"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+</LinearLayout>

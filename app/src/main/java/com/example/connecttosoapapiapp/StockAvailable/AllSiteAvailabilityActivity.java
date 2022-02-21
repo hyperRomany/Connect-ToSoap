@@ -69,7 +69,7 @@ import java.util.UUID;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-public class ScanItemAvailabilityActivity extends AppCompatActivity {
+public class AllSiteAvailabilityActivity extends AppCompatActivity {
     public StringRequest request=null;
     private int LOADER_ID = 1;
     public final static String CHANNEL_ID ="1";
@@ -153,7 +153,7 @@ ArrayList<String> storage=new ArrayList<>();
                     InsertToCSVFile();
                     RequestRunTimePermission();
                 } else {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "لا يوجد بيانات للرفع", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this, "لا يوجد بيانات للرفع", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -323,7 +323,7 @@ ArrayList<String> storage=new ArrayList<>();
                                     site_list.add(pgrp_description);
                                 }
                             }
-                            adapterForSites=new ArrayAdapter<String>(ScanItemAvailabilityActivity.this,
+                            adapterForSites=new ArrayAdapter<String>(AllSiteAvailabilityActivity.this,
                                     android.R.layout.simple_spinner_item,site_list);
                             adapterForSites.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -473,7 +473,7 @@ ArrayList<String> storage=new ArrayList<>();
                                         }
                                             // edit_current_deliver.setText(null);
 //                                            CreateORUpdateRecycleView(postionForsave);
-                                            Toast.makeText(ScanItemAvailabilityActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AllSiteAvailabilityActivity.this, "تم", Toast.LENGTH_SHORT).show();
                                         itemAvailabilityModuleList.clear();
                                         itemAvailabilityModuleList = databaseHelperForItemAvailability.
                                                 select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
@@ -559,7 +559,7 @@ ArrayList<String> storage=new ArrayList<>();
                 queue.add(request);
 
                 if (volleyErrorPublic != null) {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "لم يتم الاتصال بالسيرفر", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this, "لم يتم الاتصال بالسيرفر", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -713,13 +713,13 @@ ArrayList<String> storage=new ArrayList<>();
     // Requesting run time permission method starts from here.
     public void RequestRunTimePermission(){
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(ScanItemAvailabilityActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE))
+        if (ActivityCompat.shouldShowRequestPermissionRationale(AllSiteAvailabilityActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE))
         {
-            Toast.makeText(ScanItemAvailabilityActivity.this,"أذن قراء من الكارت", Toast.LENGTH_LONG).show();
+            Toast.makeText(AllSiteAvailabilityActivity.this,"أذن قراء من الكارت", Toast.LENGTH_LONG).show();
             UplaodingToFtp();
         } else {
 
-            ActivityCompat.requestPermissions(ScanItemAvailabilityActivity.this,new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(AllSiteAvailabilityActivity.this,new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         }
     }
@@ -733,11 +733,11 @@ ArrayList<String> storage=new ArrayList<>();
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(ScanItemAvailabilityActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     UplaodingToFtp();
                 } else {
 
-                    Toast.makeText(ScanItemAvailabilityActivity.this,"تم إلغاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this,"تم إلغاء الأذن", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
@@ -754,7 +754,7 @@ ArrayList<String> storage=new ArrayList<>();
             @SuppressLint("StaticFieldLeak")
             AsyncTaskLoader asyncTaskLoader = null;
 
-            asyncTaskLoader = new AsyncTaskLoader(ScanItemAvailabilityActivity.this) {
+            asyncTaskLoader = new AsyncTaskLoader(AllSiteAvailabilityActivity.this) {
                 @Override
                 protected void onReset() {
                     super.onReset();
@@ -841,7 +841,7 @@ ArrayList<String> storage=new ArrayList<>();
 
         @Override
         public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
-            Toast.makeText(ScanItemAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
+            Toast.makeText(AllSiteAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
             getLoaderManager().destroyLoader(LOADER_ID);
             Log.d("soaMESSAGE4", "" + MESSAGE);
             Log.e("This Is First Time", "" + RETURN);
@@ -854,7 +854,7 @@ ArrayList<String> storage=new ArrayList<>();
             } else if (MESSAGE.contains("Empty")) {
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
                 Log.e("This Is First Time", "" + RETURN);
-                Toast.makeText(ScanItemAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
+                Toast.makeText(AllSiteAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
 
                 if (ReturnSearchList.get(8).equalsIgnoreCase("1")) {
                     edt_barcode.setError("هذا الصنف غير فعال");
@@ -883,7 +883,7 @@ ArrayList<String> storage=new ArrayList<>();
                     if (itemAvailabilityModuleList.size() == 0) {
                         WriteInLogOf_sapTableofundefinedinSqlServer();
                     } else {
-                        Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AllSiteAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                     }
                 }
@@ -895,7 +895,7 @@ ArrayList<String> storage=new ArrayList<>();
                 if (itemAvailabilityModuleList.size() == 0) {
                     WriteInLogOf_sapTableofundefinedinSqlServer();
                 } else {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                 }
             }
@@ -921,7 +921,7 @@ ArrayList<String> storage=new ArrayList<>();
             @SuppressLint("StaticFieldLeak")
             AsyncTaskLoader asyncTaskLoader = null;
 
-            asyncTaskLoader = new AsyncTaskLoader(ScanItemAvailabilityActivity.this) {
+            asyncTaskLoader = new AsyncTaskLoader(AllSiteAvailabilityActivity.this) {
                 @Override
                 protected void onReset() {
                     super.onReset();
@@ -1008,7 +1008,7 @@ ArrayList<String> storage=new ArrayList<>();
 
         @Override
         public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
-            Toast.makeText(ScanItemAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
+            Toast.makeText(AllSiteAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
             getLoaderManager().destroyLoader(LOADER_ID);
             Log.d("soaMESSAGE4", "" + MESSAGE);
             Log.e("This Is First Time", "" + RETURN);
@@ -1021,7 +1021,7 @@ ArrayList<String> storage=new ArrayList<>();
             } else if (MESSAGE.contains("Empty")) {
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
                 Log.e("This Is First Time", "" + RETURN);
-                Toast.makeText(ScanItemAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
+                Toast.makeText(AllSiteAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
 
                 if (ReturnSearchList.get(8).equalsIgnoreCase("1")) {
                     edt_barcode.setError("هذا الصنف غير فعال");
@@ -1050,7 +1050,7 @@ ArrayList<String> storage=new ArrayList<>();
                     if (itemAvailabilityModuleList.size() == 0) {
                         WriteInLogOf_sapTableofundefinedinSqlServer();
                     } else {
-                        Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AllSiteAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                     }
                 }
@@ -1062,7 +1062,7 @@ ArrayList<String> storage=new ArrayList<>();
                 if (itemAvailabilityModuleList.size() == 0) {
                     WriteInLogOf_sapTableofundefinedinSqlServer();
                 } else {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                 }
             }
@@ -1087,7 +1087,7 @@ ArrayList<String> storage=new ArrayList<>();
             @SuppressLint("StaticFieldLeak")
             AsyncTaskLoader asyncTaskLoader = null;
 
-            asyncTaskLoader = new AsyncTaskLoader(ScanItemAvailabilityActivity.this) {
+            asyncTaskLoader = new AsyncTaskLoader(AllSiteAvailabilityActivity.this) {
                 @Override
                 protected void onReset() {
                     super.onReset();
@@ -1174,7 +1174,7 @@ ArrayList<String> storage=new ArrayList<>();
 
         @Override
         public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
-            Toast.makeText(ScanItemAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
+            Toast.makeText(AllSiteAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
             getLoaderManager().destroyLoader(LOADER_ID);
             Log.d("soaMESSAGE4", "" + MESSAGE);
             Log.e("This Is First Time", "" + RETURN);
@@ -1187,7 +1187,7 @@ ArrayList<String> storage=new ArrayList<>();
             } else if (MESSAGE.contains("Empty")) {
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
                 Log.e("This Is First Time", "" + RETURN);
-                Toast.makeText(ScanItemAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
+                Toast.makeText(AllSiteAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
 
                 if (ReturnSearchList.get(8).equalsIgnoreCase("1")) {
                     edt_barcode.setError("هذا الصنف غير فعال");
@@ -1216,7 +1216,7 @@ ArrayList<String> storage=new ArrayList<>();
                     if (itemAvailabilityModuleList.size() == 0) {
                         WriteInLogOf_sapTableofundefinedinSqlServer();
                     } else {
-                        Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AllSiteAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                     }
                 }
@@ -1228,7 +1228,7 @@ ArrayList<String> storage=new ArrayList<>();
                 if (itemAvailabilityModuleList.size() == 0) {
                     WriteInLogOf_sapTableofundefinedinSqlServer();
                 } else {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AllSiteAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                 }
             }

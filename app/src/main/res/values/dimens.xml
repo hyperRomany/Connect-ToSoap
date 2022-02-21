@@ -4,4 +4,5 @@
     <dimen name="font_size_for_text_of_app">18dp</dimen>
     <dimen name="font_size_for_text_of_app_for_login_up">24dp</dimen>
     <dimen name="font_size_for_text_of_app_for_login_ed">21dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

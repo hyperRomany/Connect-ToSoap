@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".makeOrder.CreateOrderSearchActivity"
+    android:layoutDirection="rtl"
+    android:background="@color/main_background_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@color/main_background_color">
+
+
+        <LinearLayout
+            android:id="@+id/first_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical">
+
+
+            <EditText
+                android:id="@+id/add_order_search_barcode"
+                android:inputType="numberDecimal"
+                android:textColor="@color/third_white"
+                android:textColorHint="@color/third_white"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_barcode"
+                android:textDirection="rtl"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:backgroundTint="@color/colorAccent"
+                android:importantForAutofill="no"
+                tools:ignore="SpUsage" />
+
+            <Button
+                android:id="@+id/add_order_search_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1.3"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/secod_red"
+                android:text="@string/search"
+                android:onClick="SearchBarCodeFromSoap"
+                android:textColor="@color/third_white"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                tools:ignore="SpUsage" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/background_layout"
+            android:padding="5dp"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/items_desc"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+                <TextView
+                    android:id="@+id/add_order_item_desc"
+                    android:layout_width="0dp"
+                    android:layout_weight="3.5"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/items_desc"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textColor="@color/third_white"
+                    tools:ignore="SpUsage" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_barcode"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+                <TextView
+                    android:id="@+id/add_order_item_code"
+                    android:layout_width="0dp"
+                    android:layout_weight="3.5"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/item_barcode"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textColor="@color/third_white"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/item_status"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:id="@+id/add_order_item_status"
+                    android:layout_width="0dp"
+                    android:layout_weight="3.5"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/item_status"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textColor="@color/third_white"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/add_order_from_site_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from_site"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:id="@+id/add_order_from_site"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/from_site"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textColor="@color/third_white"
+                    tools:ignore="SpUsage" />
+
+                <Spinner
+                    android:id="@+id/add_order_from_site_spinner"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.6"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:backgroundTint="@color/third_white"
+                    android:textColor="@color/third_white"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content"
+                    android:text="@string/available_in_site"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:id="@+id/add_order_available_in_site"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/available_in_site"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:textColor="@color/third_white"
+                    tools:ignore="SpUsage" />
+
+                <TextView
+                    android:id="@+id/add_order_available_in_site_txt_number"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.6"
+                    android:layout_height="wrap_content"
+                    android:text="@string/amount_request"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    tools:ignore="SpUsage" />
+
+                <EditText
+                    android:id="@+id/add_order_requested_amount_edit"
+                    android:inputType="numberDecimal"
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:hint="@string/amount_request"
+                    android:textSize="@dimen/font_size_for_text_of_app"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textColorHint="@color/third_white"
+                    android:textColor="@color/third_white"
+                    android:enabled="false"
+                    tools:ignore="SpUsage"
+                    android:autofillHints="" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/liner_btn_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/add_order_save_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1.25"
+                android:layout_height="45dp"
+                android:text="@string/save"
+                android:textColor="@color/third_white"
+                android:background="@color/secod_red"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                tools:ignore="SpUsage"
+                android:onClick="SaveDelivered"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/add_order_show_buy_details"
+                android:layout_width="0dp"
+                android:layout_weight="1.4"
+                android:layout_height="45dp"
+                android:text="@string/show_order_detail"
+                android:textColor="@color/third_white"
+                android:background="@color/secod_red"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/font_size_for_text_of_app"
+                android:onClick="Show_Buy_Data"
+                style="?android:attr/buttonBarButtonStyle"
+                tools:ignore="SpUsage" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/add_order_create_btn"
+            android:layout_width="match_parent"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.25"
+            android:background="@color/secod_red"
+            android:text="@string/create_order"
+            android:textColor="@color/third_white"
+            android:layout_marginTop="30dp"
+            android:onClick="Go_To_Upload_Form"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:textSize="@dimen/font_size_for_text_of_app"
+            tools:ignore="SpUsage" />
+
+        <ProgressBar
+            android:id="@+id/search_pgb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</ScrollView>

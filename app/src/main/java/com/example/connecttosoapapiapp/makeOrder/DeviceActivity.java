@@ -1,0 +1,147 @@
+package com.example.connecttosoapapiapp.makeOrder;
+
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.connecttosoapapiapp.R;
+import com.zj.btsdk.BluetoothService;
+
+import java.util.Set;
+
+public class DeviceActivity extends AppCompatActivity {
+
+    ListView lvPairedDevice;
+    ListView lvNewDevice;
+    TextView tvNewDevice;
+    TextView tvPairedDevice;
+    Button scan_btn;
+    public static final String EXTRA_DEVICE_ADDRESS = "device_address";
+    private BluetoothService mService = null;
+    private ArrayAdapter<String> newDeviceAdapter;
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @SuppressLint("MissingPermission")
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+                    newDeviceAdapter.add(device.getName() + "\n" + device.getAddress());
+                } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                    setTitle("اختار الطابعة");
+                    if (newDeviceAdapter.getCount() == 0) {
+                        newDeviceAdapter.add("Device not found");
+                    }
+                }
+            }
+        }
+    };
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_device);
+        lvPairedDevice=findViewById(R.id.paired_devices);
+        lvNewDevice=findViewById(R.id.new_devices);
+        tvNewDevice=findViewById(R.id.title_new_devices);
+        tvPairedDevice=findViewById(R.id.title_paired_devices);
+        scan_btn=findViewById(R.id.button_scan);
+        scan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scan(v);
+            }
+        });
+
+        setTitle("Bluetooth devices");
+
+        ArrayAdapter<String> pairedDeviceAdapter = new ArrayAdapter<>(this, R.layout.device_name);
+        lvPairedDevice.setAdapter(pairedDeviceAdapter);
+        lvPairedDevice.setOnItemClickListener(mDeviceClickListener);
+
+        newDeviceAdapter = new ArrayAdapter<>(this, R.layout.device_name);
+        lvNewDevice.setAdapter(newDeviceAdapter);
+        lvNewDevice.setOnItemClickListener(mDeviceClickListener);
+
+        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mReceiver, intentFilter);
+
+        intentFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(mReceiver, intentFilter);
+
+        mService = new BluetoothService(this, null);
+
+        Set<BluetoothDevice> pairedDevice = mService.getPairedDev();
+
+        if (pairedDevice.size() > 0) {
+            tvPairedDevice.setVisibility(View.VISIBLE);
+            for (BluetoothDevice device : pairedDevice) {
+                pairedDeviceAdapter.add(device.getName() + "\n" + device.getAddress());
+            }
+        } else {
+            String noDevice = "لايوجد طابعة متصلة!";
+            pairedDeviceAdapter.add(noDevice);
+        }
+    }
+
+
+    public void scan(View view) {
+        doDiscovery();
+        view.setVisibility(View.GONE);
+    }
+
+    private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            mService.cancelDiscovery();
+
+            String info = ((TextView) view).getText().toString();
+            String address = info.substring(info.length() - 17);
+
+            Intent intent = new Intent();
+            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+
+            setResult(RESULT_OK, intent);
+            finish();
+
+        }
+    };
+
+    private void doDiscovery() {
+        setTitle("Looking for a device ...");
+        tvNewDevice.setVisibility(View.VISIBLE);
+
+        if (mService.isDiscovering()) {
+            mService.cancelDiscovery();
+        }
+
+        mService.startDiscovery();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mService != null) {
+            mService.cancelDiscovery();
+        }
+        mService = null;
+        unregisterReceiver(mReceiver);
+    }
+}

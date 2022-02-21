@@ -17,6 +17,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -65,19 +68,14 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
+public class UploadForTransferActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<String>>{
 
-public class UploadForTransferActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<List<String>>{
-
-TextView  txt_response;
-RadioButton radiohtp, radiosap;
-
-    View view;
-    String MATERIALDOCUMENT=" ", CSVName="test", MESSAGE;
-    private int LOADER_ID = 4;
+     TextView  txt_response;
+     RadioButton radiohtp, radiosap;
+     View view;
+     String MATERIALDOCUMENT=" ", CSVName="test", MESSAGE;
+     private int LOADER_ID = 4;
 
     public StringRequest request=null;
     public JsonObjectRequest requestitems=null;
@@ -91,8 +89,8 @@ RadioButton radiohtp, radiosap;
     DatabaseHelperForTransfer databaseHelperForTransfer;
     File filePath;
     String MachaineName,Device_id_Instance_of_MacAdress;
-Boolean From_Sap_Or_Not=false;
-int Repeat_On_log=0;
+    Boolean From_Sap_Or_Not=false;
+    int Repeat_On_log=0;
     List<Po_Items_For_Logs_Items_SqlServer> Po_Items_For_LogsArray;
 
     @Override
@@ -141,7 +139,7 @@ int Repeat_On_log=0;
 
     @Override
     public void onBackPressed() {
-        Intent Go_Back= new Intent(UploadForTransferActivity.this , TransferSearchActivity.class);
+        Intent Go_Back= new Intent(UploadForTransferActivity.this , FormTransferActivity.class);
         Go_Back.putExtra("This Is First Time",false);
         startActivity(Go_Back);
         super.onBackPressed();

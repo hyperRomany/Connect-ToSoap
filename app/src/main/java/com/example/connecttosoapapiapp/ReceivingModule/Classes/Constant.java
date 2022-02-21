@@ -22,7 +22,7 @@ public class Constant {
 //    public final static String NAMESPACE_For_Get_Detials = "urn:sap-com:document:sap:rfc:functions";
 //    public final static String SOAP_ACTION_For_Get_Detials= "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_PO_GETDETAIL:ZPPC_PO_GETDETAILRequest";
 
-//for pro For Recieving module
+    //for pro For Recieving module
     public final static String URL_For_Get_Detials = "http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_po_getdetail/300/zws_ppc_po_getdetail/zbn_ppc_po_getdetail";
     public final static String METHOD_For_Get_Detials = "ZPPC_PO_GETDETAIL";
     public final static String NAMESPACE_For_Get_Detials = "urn:sap-com:document:sap:rfc:functions";
@@ -82,7 +82,7 @@ public class Constant {
 
 
     //constant to download apk
-     //   public final static String ApksURL_ًWithoutName ="http://10.128.6.160:82/PhpQB/";
+    //   public final static String ApksURL_ًWithoutName ="http://10.128.6.160:82/PhpQB/";
 //    public final static String ApksURL ="http://192.168.1.50:8080/PPCAPK/app-debugV2.apk";
     //TODO Allways make sure that xampp apache is starting
     public final static String ApksURL_ًWithoutName ="http://10.2.1.220:82/PPCAPK/";
@@ -114,7 +114,7 @@ public class Constant {
     //public static final String UploadToCSVFtp = "https://translationapp.000webhostapp.com/ChatServerFiles/UploadCSVFile.php";
     //public final static String LoginURL ="http://http://12.34.56.78:81/PhpProject1/MainForm.php";
 
-//TODO change SelectThreeTablesforlist_V1 to SelectThreeTablesforlist
+    //TODO change SelectThreeTablesforlist_V1 to SelectThreeTablesforlist
     //for transfer  $$ itemavalability  $$ return item
     public final static String ListfortransferFromSqlServerURL ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist_V1.php";
     public final static String ListfortransferFromSqlServerURL2 ="http://10.2.1.220:8080/PPCModules/SelectThreeTablesforlist_V2.php";
@@ -126,7 +126,8 @@ public class Constant {
     //for transfer and search in GI
     public static String NAMESPACE_For_Search_Barcode="urn:sap-com:document:sap:rfc:functions";
     public static String METHOD_For_Search_Barcode="ZBAPI_PPC_SEARCH_SALES";
-    public static String URL_For_Search_Barcode="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_sales/300/zws_ppc_search_sales_sn/zws_ppc_search_sales_bn";
+    //public static String URL_For_Search_Barcode="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_search_sales/300/zws_ppc_search_sales_sn/zws_ppc_search_sales_bn";
+    public static String URL_For_Search_Barcode="http://QAS-ERP.hyperone.com:8001/sap/bc/srt/rfc/sap/zws_ppc_search_sales/200/zws_ppc_search_sales/zws_ppc_search_sales";
     public static String SOAP_ACTION_For_Search_Barcode="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_SEARCH_SALES:ZBAPI_PPC_SEARCH_SALESRequest";
 
     public static String NAMESPACE_For_print="urn:sap-com:document:sap:rfc:functions";
@@ -136,33 +137,41 @@ public class Constant {
 
 
 
-    public static String NAMESPACE_For_Upload_transfere ="urn:sap-com:document:sap:rfc:functions";
     public static String METHOD_For_Upload_transfere="ZBAPI_PPC_CREATE_STO";
-   // http://QAS-ERP:8001/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_create_sto/200/zws_ppc_create_sto/zws_ppc_create_sto
-   // public static String URL_For_Upload_transfere="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_sto/300/zws_ppc_create_sto_sn/zws_ppc_create_sto_bn";
+    public static String NAMESPACE_For_Upload_transfere ="urn:sap-com:document:sap:rfc:functions";
+    // http://QAS-ERP:8001/sap/bc/srt/wsdl/flv_10002A111AD1/bndg_url/sap/bc/srt/rfc/sap/zws_ppc_create_sto/200/zws_ppc_create_sto/zws_ppc_create_sto
+    // public static String URL_For_Upload_transfere="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_sto/300/zws_ppc_create_sto_sn/zws_ppc_create_sto_bn";
     public static String URL_For_Upload_transfere="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_sto/300/zws_ppc_create_sto_sn/zws_ppc_create_sto_bn";
     public static String SOAP_ACTION_For_Upload_transfere="urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_STO:ZBAPI_PPC_CREATE_STORequest";
 
 
+    ////*******************    Create DC Order   ******************////////////////////
+
+
+    public static String MAKE_ORDER_API = "ZFA_SO_CREATE_DC";
+    public static String URL_FOR_CREATE_ORDER ="http://QAS-ERP.hyperone.com:8001/sap/bc/srt/rfc/sap/zws_so_create_dc/200/zws_so_create_dc/zws_so_create_dc";
+    public static String NAMESPACE_For_MAKE_ORDER ="urn:sap-com:document:sap:rfc:functions";
+    public static String SOAP_ACTION_For_Upload_ORDER="urn:sap-com:document:sap:rfc:functions:ZWS_SO_CREATE_DC:ZFA_SO_CREATE_DCRequest";
+
     ////*******************    Cycle Count   ******************////////////////////
 
 //for qas
-    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEADER";
-    public static String URL_For_Check_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_header/200/zppc_cycle_count_header/zppc_cycle_count_header";
-    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEADER:ZPPC_CYCLE_COUNT_HEADERRequest";
+//    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+//    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEADER";
+//    public static String URL_For_Check_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_header/200/zppc_cycle_count_header/zppc_cycle_count_header";
+//    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEADER:ZPPC_CYCLE_COUNT_HEADERRequest";
 
     //for dev
-//    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-//    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEAD";
-//    public static String URL_For_Check_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_head_ws/300/zppc_cycle_count_head_ws/zppc_cycle_count_head_ws";
-//    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEAD_WS:ZPPC_CYCLE_COUNT_HEADRequest";
+    public static String NAMESPACE_For_Check_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_Check_Cycle_Count="ZPPC_CYCLE_COUNT_HEAD";
+    public static String URL_For_Check_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count_head_ws/300/zppc_cycle_count_head_ws/zppc_cycle_count_head_ws";
+    public static String SOAP_ACTION_For_Check_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT_HEAD_WS:ZPPC_CYCLE_COUNT_HEADRequest";
 
 //for QAS
-    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT";
-    public static String URL_For_Get_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_cycle_count/200/zws_ppc_cycle_count/zws_ppc_cycle_count";
-    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CYCLE_COUNT:ZPPC_CYCLE_COUNTRequest";
+//    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+//    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT";
+//    public static String URL_For_Get_Cycle_Count="http://ERP-QAS.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_cycle_count/200/zws_ppc_cycle_count/zws_ppc_cycle_count";
+//    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CYCLE_COUNT:ZPPC_CYCLE_COUNTRequest";
 
 // for  Dev
 //    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
@@ -170,10 +179,10 @@ public class Constant {
 //    public static String URL_For_Get_Cycle_Count="http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_cycle_count/300/zws_ppc_cycle_count_sn/zws_ppc_cycle_count_bn";
 //    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:Zws_PPC_CYCLE_COUNT:ZPPC_CYCLE_COUNTRequest";
 
-//    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
-//    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT2";
-//    public static String URL_For_Get_Cycle_Count="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count2_ws/300/zppc_cycle_count2_ws/zppc_cycle_count2_ws";
-//    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT2_WS:ZPPC_CYCLE_COUNT2Request";
+    public static String NAMESPACE_For_Get_Cycle_Count ="urn:sap-com:document:sap:rfc:functions";
+    public static String METHOD_For_Get_Cycle_Count="ZPPC_CYCLE_COUNT2";
+    public static String URL_For_Get_Cycle_Count="http://PRD-ERP-PRI.hyperone.com:8000/sap/bc/srt/rfc/sap/zppc_cycle_count2_ws/300/zppc_cycle_count2_ws/zppc_cycle_count2_ws";
+    public static String SOAP_ACTION_For_Get_Cycle_Count="urn:sap-com:document:sap:rfc:functions:ZPPC_CYCLE_COUNT2_WS:ZPPC_CYCLE_COUNT2Request";
 
 
     //password for uploading
@@ -223,9 +232,8 @@ public class Constant {
     public static String URL_For_create_returnitem = "http://PRD-ERP-DIA.hyperone.com:8000/sap/bc/srt/rfc/sap/zws_ppc_create_return_po/300/zws_ppc_create_return_po_sn/zws_ppc_create_return_po_bn";
     public static String SOAP_ACTION_For_create_returnitem = "urn:sap-com:document:sap:rfc:functions:ZWS_PPC_CREATE_RETURN_PO:ZBAPI_PPC_CREATE_RETURN_PORequest";
     // for item availability module
-    public static String GetDetialsURL = "http://10.2.1.220:8080/PPCModules/SelectDataForBarcodeForViewItems.php";
-    // for searching in item availability
     public static String GetDetialsforsearchingURL = "http://10.2.1.220:8080/PPCModules/SelectDataForSearchBarcodeInitemAvaliability.php";
+    public static String GetDetialsURL = "http://10.2.1.220:8080/PPCModules/SelectDataForBarcodeForViewItems.php";
     public static String GetExpiredPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Expired.php";
     public static String GetStopedPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Stopped.php";
     public static String GetTodayPromotionURL = "http://10.2.1.220:8080/PPCModules/PromotionModule/SP_PROM_GetPromotions_Active.php";

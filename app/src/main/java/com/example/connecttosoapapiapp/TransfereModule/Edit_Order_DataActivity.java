@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.TransfereModule.Helper.DatabaseHelperForTransfer;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STo_Search;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class Edit_Order_DataActivity extends AppCompatActivity {
 DatabaseHelperForTransfer databaseHelperForTransfer;
@@ -23,6 +23,8 @@ List<STo_Search> sTo_searchList;
     EditText edit_last_deliver;
     String TotalavailbleQty;
     String issCheckedIssLog, issCheckedBarcode,issCheckedRecLog;
+    private boolean makeOrder;
+    private String FromSite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,8 @@ List<STo_Search> sTo_searchList;
         issCheckedIssLog = getdat.getExtras().getString("Iss_Stg_Log");
         Log.e("issCheckedBarcode",""+issCheckedIssLog);
         issCheckedRecLog = getdat.getExtras().getString("Rec_Stg_Log");
+        makeOrder = getdat.getExtras().getBoolean("MakeOrder");
+        FromSite = getdat.getExtras().getString("FromSite");
         Log.e("issCheckedBarcode",""+issCheckedRecLog);
 
         sTo_searchList=new ArrayList<>();
@@ -69,7 +73,10 @@ List<STo_Search> sTo_searchList;
             Intent Go_Back= new Intent(Edit_Order_DataActivity.this , ShowOrderDataActivity.class);
             Go_Back.putExtra("Iss_Stg_Log",sTo_searchList.get(0).getISS_STG_LOG1());
             Go_Back.putExtra("Rec_Stg_Log",sTo_searchList.get(0).getREC_SITE_LOG1());
+            Go_Back.putExtra("MakeOrder",makeOrder);
+            Go_Back.putExtra("FromSite",FromSite);
             startActivity(Go_Back);
+            finish();
         }else {
             edit_last_deliver.setError("هذه الكميه أكبر من المتاح بالمخزن .. المتاح"+TotalavailbleQty);
         }
@@ -81,8 +88,10 @@ List<STo_Search> sTo_searchList;
         Intent Go_Back= new Intent(Edit_Order_DataActivity.this , ShowOrderDataActivity.class);
         Go_Back.putExtra("Iss_Stg_Log",issCheckedIssLog);
         Go_Back.putExtra("Rec_Stg_Log",issCheckedRecLog);
+        Go_Back.putExtra("MakeOrder", makeOrder);
+        Go_Back.putExtra("FromSite", FromSite);
         startActivity(Go_Back);
-        super.onBackPressed();
+        finish();
     }
     @Override
     public boolean onSupportNavigateUp() {

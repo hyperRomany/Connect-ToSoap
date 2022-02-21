@@ -35,4 +35,36 @@
     <string name="user_not_found">المستخدم غير موجود</string>
     <string name="searchtxt">بحث</string>
     <string name="enter_description">ادخل الوصف</string>
+    <string name="moduleRecieve">Module Reciving</string>
+    <string name="Transfer">Module Transfer</string>
+    <string name="cucleCount">Module CycleCount</string>
+    <string name="GI_TO_CC">GI to cc</string>
+    <string name="barcode">Scan Barcode</string>
+    <string name="return_item">Return Item</string>
+    <string name="availability">Item Availability</string>
+    <string name="promotion">Promotion</string>
+    <string name="all_site">All Site Availability</string>
+    <string name="title_activity_add_items_to_order">AddItemsToOrder</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="enter_barcode">أدخل الباركود</string>
+    <string name="search">بحث</string>
+    <string name="items_desc">وصف الصنف</string>
+    <string name="item_barcode">كود الصنف</string>
+    <string name="item_status">حالة الصنف</string>
+    <string name="from_site">من مخزن</string>
+    <string name="available_in_site">المتاح بالمخزن</string>
+    <string name="amount_request">الكميه المطلوبه</string>
+    <string name="save">حفظ</string>
+    <string name="show_order_detail">عرض بيانات الشراء</string>
+    <string name="create_order">انشاء الاوردر</string>
+    <string name="add_order">Create Order On SAP</string>
+    <string name="receive_date">تاريخ استلام الاورر</string>
+    <string name="print">طباعه</string>
 </resources>

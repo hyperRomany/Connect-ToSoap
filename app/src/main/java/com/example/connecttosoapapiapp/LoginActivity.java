@@ -1,9 +1,9 @@
 package com.example.connecttosoapapiapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,10 +36,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.connecttosoapapiapp.CycleCount.Helper.DatabaseHelperForCycleCount;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
 import com.example.connecttosoapapiapp.ReceivingModule.Helper.DatabaseHelper;
-import com.example.connecttosoapapiapp.TransfereModule.Helper.DatabaseHelperForTransfer;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;
@@ -63,45 +61,55 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class LoginActivity extends AppCompatActivity {
-    EditText editusername, editpassword;
-    Button btnlogin;
+
+    private EditText editusername, editpassword;
+    private Button btnlogin;
     private DatabaseHelper databaseHelper;
     public StringRequest request = null;
-    private static final int REQUEST_WRITE_PERMISSION = 786;
-    private DownloadManager downloadManager;
-    int downloadedSize = 0;
-    int totalSize = 0;
-    String destination, destinationroot;
-    TextView txt_version;
-    List<String> VersionDataarray=new ArrayList<>();
-    Boolean UpdateDownloadORNot=false;
+    private TextView txt_version;
+    private List<String> VersionDataarray=new ArrayList<>();
+    private Boolean UpdateDownloadORNot=false;
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     private ProgressDialog mProgressDialog;
-    Date DateFromnServer;
-    Date DateOfDevice;
-    SimpleDateFormat sdf;
-    ProgressBar prog_loading_login;
+    private Date DateFromnServer;
+    private Date DateOfDevice;
+    private SimpleDateFormat sdf;
+    private ProgressBar prog_loading_login;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        prog_loading_login=findViewById(R.id.prog_loading_login);
+        initView();
+        VersionDataarray = GetVersionFromServer();
+    }
 
+
+
+    @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
+    private void initView()
+    {
+
+        txt_version = findViewById(R.id.txt_version);
+        btnlogin = findViewById(R.id.btn_login);
+        editpassword = findViewById(R.id.password);
+        prog_loading_login=findViewById(R.id.prog_loading_login);
         editusername = findViewById(R.id.username);
         editusername.setFocusable(true);
 
-        txt_version = findViewById(R.id.txt_version);
         txt_version.setText(" V " + GetVersionOfApp());
 
-        editpassword = findViewById(R.id.password);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        DatabaseHelperForCycleCount databaseHelperForCycleCount = new DatabaseHelperForCycleCount(this);
-        DatabaseHelperForTransfer databaseHelperForTransfer = new DatabaseHelperForTransfer(this);
+
         databaseHelper = new DatabaseHelper(this);
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
         editpassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -117,10 +125,11 @@ public class LoginActivity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.KEYCODE_NUMPAD_ENTER
                         || keyEvent.getAction() == KeyEvent.KEYCODE_DPAD_CENTER) {
 
-                    //execute our method for searching
                     if (DateFromnServer != null) {
+
                         Login();
-                    }else {
+                    }
+                    else {
                         Toast.makeText(LoginActivity.this, "لم يتم وصول الى التاريخ من السيرفر", Toast.LENGTH_SHORT).show();
                         VersionDataarray = GetVersionFromServer();
                     }
@@ -130,23 +139,26 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-        btnlogin = findViewById(R.id.btn_login);
-        Log.e("onCreate", "Map");
+
+
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Constant.isOnline(LoginActivity.this)) {
                     if (DateFromnServer != null) {
+
                         Login();
-                    }else {
+                    }
+                    else {
                         prog_loading_login.setVisibility(View.INVISIBLE);
                         btnlogin.setVisibility(View.VISIBLE);
                         Toast.makeText(LoginActivity.this, "لم يتم وصول الى التاريخ من السيرفر", Toast.LENGTH_SHORT).show();
                         VersionDataarray = GetVersionFromServer();
 
                     }
-                } else {
+                }
+                else {
                     new AlertDialog.Builder(LoginActivity.this)
                             .setTitle(getString(R.string.textcheckinternet))
                             .setPositiveButton("موافق", new DialogInterface.OnClickListener() {
@@ -158,32 +170,22 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        VersionDataarray = GetVersionFromServer();
-        Log.e("zzzVersionDataarray","oncreate "+VersionDataarray.size());
-
-
-        sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-
-//        new DownloadFileFromURL().execute(Constant.ApksURL_ًWithoutName + "app-debugV1.1.apk", "app-debugV1.1.apk");
-
     }
+
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DIALOG_DOWNLOAD_PROGRESS:
-                mProgressDialog = new ProgressDialog(this);
-                mProgressDialog.setMessage("Downloading file..");
-                mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.show();
-                return mProgressDialog;
-            default:
-                return null;
+        if (id == DIALOG_DOWNLOAD_PROGRESS) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage("Downloading file..");
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+            return mProgressDialog;
         }
+        return null;
     }
+
 
     public List<String> GetVersionFromServer() {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -201,25 +203,19 @@ public class LoginActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             JsonObject object1 = new JsonObject().getAsJsonObject(response);
-                            Log.e("onResponseresoo", "object" + object1);
                             try {
                                 JSONObject object = new JSONObject(response);
-                                Log.e("onResponse", "object" + object);
 
                                 String status = object.getString("status");
-                                Log.d("onResponse", status);
                                 if (status.equalsIgnoreCase("1")) {
                                     VersionDataarray.add(object.getString("version"));
-                                    Log.d("onResponse", VersionDataarray.get(0));
                                     VersionDataarray.add(object.getString("version_name")) ;
-                                    Log.d("onResponse", VersionDataarray.get(1));
 
                                     try {
                                         DateFromnServer = sdf.parse(object.getString("Today_Date"));
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-                                    Log.d("onResponse", ""+DateFromnServer);
 
                                     RequestRunTimePermission();
 
@@ -228,7 +224,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Log.i("log erroree", String.valueOf(e));
                                 Toast.makeText(LoginActivity.this, "" + e, Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -241,7 +236,6 @@ public class LoginActivity extends AppCompatActivity {
                             String errorMsg = "";
                             if (response != null && response.data != null) {
                                 String errorString = new String(response.data);
-                                Log.i("log error", errorString);
                                 Toast.makeText(LoginActivity.this, "" + errorString, Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -251,19 +245,18 @@ public class LoginActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() {
 
                     Map<String, String> params = new HashMap<String, String>();
-                    //  params.put("User_Name", editusername.getText().toString());
                     return params;
                 }
 
             };
-        // Add the realibility on the connection.
+
         request.setRetryPolicy(new DefaultRetryPolicy(30000, 3, 1.0f));
 
-        // Start the request immediately
         queue.add(request);
 
         return VersionDataarray;
     }
+
 
     private String GetVersionOfApp() {
         String Version = "0.0";
@@ -296,8 +289,10 @@ public class LoginActivity extends AppCompatActivity {
                            Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
 
                             if (!VersionDataarray.get(1).equalsIgnoreCase("")) {
+
                                 new DownloadFileFromURL().execute(Constant.ApksURL_ًWithoutName + VersionDataarray.get(1), VersionDataarray.get(1));
-                            } else {
+                            }
+                            else {
                                 Toast.makeText(this, "لم يتم الحصول على الاسم الاصدار من السيرفر", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -311,6 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
     public void InstallApk() {
 
@@ -340,44 +336,53 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Uri apkUri = Uri.fromFile(toInstall);
             intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(apkUri,
-                    "application/vnd.android.package-archive");
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         startActivity(intent);
     }
 
-    // Requesting run time permission method starts from here.
+
     public void RequestRunTimePermission() {
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            ///  Toast.makeText(LoginActivity.this,"أذن كتابه الى الكارت", Toast.LENGTH_LONG).show();
-
-        } else {
 
             ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
 
     public void Login() {
+
         try {
+
             DateOfDevice = sdf.parse(sdf.format(new Date()));
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             e.printStackTrace();
         }
 
 
         if (editusername.getText().toString().isEmpty()) {
+
             editusername.setError("من فضلك أدخل الاسم");
-        }else if (editpassword.getText().toString().isEmpty()) {
+        }
+
+        else if (editpassword.getText().toString().isEmpty()) {
+
             editpassword.setError("من فضلك أدخل كلمه السر");
-        }else if(VersionDataarray.size() !=0){
+        }
+        else if(VersionDataarray.size() !=0){
+
             if (Double.valueOf(GetVersionOfApp())< Double.valueOf(VersionDataarray.get(0))) {
+
                 Toast.makeText(this, "هناك تحديث", Toast.LENGTH_SHORT).show();
-            }else if(!DateOfDevice.equals(DateFromnServer)){
+            }
+            else if(!DateOfDevice.equals(DateFromnServer)){
+
                 Toast.makeText(this, "أضبط تاريخ الجهاز", Toast.LENGTH_SHORT).show();
-            }else {
+            }
+            else {
                 RequestQueue queue = Volley.newRequestQueue(this);
                 request = new StringRequest(Request.Method.POST, Constant.LoginURL,
                         new Response.Listener<String>() {
@@ -466,10 +471,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
 
-                        Map<String, String> params = new HashMap<String, String>();
+                        Map<String, String> params = new HashMap<>();
                         params.put("User_Name", editusername.getText().toString());
                         params.put("Password", editpassword.getText().toString());
-
 
                         return params;
                     }
@@ -483,7 +487,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
 
-        } else {
+        }
+        else {
             Toast.makeText(LoginActivity.this, "خطا فى التسجل", Toast.LENGTH_LONG).show();
         }
     }
@@ -551,9 +556,7 @@ public class LoginActivity extends AppCompatActivity {
                 input.close();
 
             } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
                 UpdateDownloadORNot = false;
-//                Toast.makeText(LoginActivity.this, "لم يتم التتصال بالسيرفر لتحميل اخر تحديث", Toast.LENGTH_SHORT).show();
             }
 
             return null;
@@ -575,10 +578,10 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
             dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
-            Log.e("zzzonPostExecute", "onPostExecute");
-            if (UpdateDownloadORNot == true) {
+
+            if (UpdateDownloadORNot) {
                 InstallApk();
-            } else if (UpdateDownloadORNot == false) {
+            } else {
                 Toast.makeText(LoginActivity.this, "لم يتم الأتصال بالسيرفر لتحميل اخر تحديث", Toast.LENGTH_SHORT).show();
             }
         }

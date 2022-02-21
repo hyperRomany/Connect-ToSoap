@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".makeOrder.CreateOrderOnSAPActivity"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/make_order_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:focusable="true"
+        android:hint="@string/receive_date"
+        android:layout_marginEnd="25sp"
+        android:layout_marginStart="25dp"
+        android:importantForAutofill="no"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:inputType="none"
+        tools:ignore="TextFields" />
+
+    <Button
+        android:id="@+id/create_order_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/make_order_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:text="@string/create_order"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/txt_response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/create_order_btn"
+        />
+
+    <Button
+        android:id="@+id/print_order_number"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:text="@string/print"
+        android:layout_below="@+id/txt_response"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progress_upload"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

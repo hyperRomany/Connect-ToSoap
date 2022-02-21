@@ -1,5 +1,6 @@
 package com.example.connecttosoapapiapp.CycleCount.Helper;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -190,6 +191,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
     }
 
 
+    @SuppressLint("Range")
     public List<Po_Item_of_cycleCount> Search_Barcode_in_localDataBase(String Barcode ){
         List<Po_Item_of_cycleCount> po_item_list = new ArrayList<>();
 
@@ -254,6 +256,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
         return po_item_list;
     }
 
+    @SuppressLint("Range")
     public List<Po_Item_of_cycleCount> Search_Barcode_in_localDataBase_And_Has_QTy(String Barcode){
         List<Po_Item_of_cycleCount> po_item_list = new ArrayList<>();
         Log.d("po_itemlistsize","rch_if_Ba"+Barcode);
@@ -342,6 +345,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
 
 
 
+    @SuppressLint("Range")
     public List<Po_Item_of_cycleCount> Select_Num_of_items_localDataBase( ){
 //        List<Po_Item_of_cycleCount>
         List<Po_Item_of_cycleCount> po_item_list = new ArrayList<>();
@@ -410,6 +414,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
 
 
 
+    @SuppressLint("Range")
     public List<Po_Item_of_cycleCount> Get_Items_That_Has_PDNewQTy( ){
         List<Po_Item_of_cycleCount> po_item_list = new ArrayList<>();
 
@@ -480,6 +485,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
     }
 
 //
+    @SuppressLint("Range")
     public List<String> Get_All_PHYSINVENTORY( ){
         List<String> po_item_list = new ArrayList<>();
 
@@ -536,6 +542,7 @@ public class DatabaseHelperForCycleCount extends SQLiteOpenHelper {
 
     }
 
+    @SuppressLint("Range")
     public List<Po_Item_of_cycleCount> Get_PHYSINVENTORY_That_Not_Has_QTy(String PHYSINVENTORY) {
         List<Po_Item_of_cycleCount> po_item_list = new ArrayList<>();
 

@@ -24,6 +24,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -68,10 +71,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-public class ScanItemAvailabilityActivity extends AppCompatActivity
+public class ItemAvailabilityModuleActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
     public StringRequest request=null;
     Spinner spiner_site;
@@ -154,7 +154,7 @@ Button btn_export , btn_search;
                     InsertToCSVFile();
                     RequestRunTimePermission();
                 } else {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "لا يوجد بيانات للرفع", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ItemAvailabilityModuleActivity.this, "لا يوجد بيانات للرفع", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -183,7 +183,7 @@ Button btn_export , btn_search;
             if (spiner_site.getSelectedItem().toString().contains(SiteForEcomerceTable)) {
                 CheckBarcodeInEcomerceTableinSqlServer();
             }else {
-                getLoaderManager().initLoader(LOADER_ID, null, ScanItemAvailabilityActivity.this);
+                getLoaderManager().initLoader(LOADER_ID, null, ItemAvailabilityModuleActivity.this);
             }
 
 //            txt_available_minus_sales.setText(String.valueOf(Double.valueOf(txt_available_in_site.getText().toString())-
@@ -284,7 +284,7 @@ Button btn_export , btn_search;
 
     @Override
     public void onLoadFinished(Loader<List<String>> loader, List<String> data) {
-        Toast.makeText(ScanItemAvailabilityActivity.this, "finished ", Toast.LENGTH_LONG).show();
+        Toast.makeText(ItemAvailabilityModuleActivity.this, "finished ", Toast.LENGTH_LONG).show();
         getLoaderManager().destroyLoader(LOADER_ID);
         Log.d("soaMESSAGE4", "" + MESSAGE);
         Log.e("This Is First Time", "" + RETURN);
@@ -296,7 +296,7 @@ Button btn_export , btn_search;
             } else if (MESSAGE.contains("Empty")) {
                 List<GIModule> GIModulelist_bg = new ArrayList<>();
                 Log.e("This Is First Time", "" + RETURN);
-                Toast.makeText(ScanItemAvailabilityActivity.this, RETURN, Toast.LENGTH_LONG).show();
+                Toast.makeText(ItemAvailabilityModuleActivity.this, RETURN, Toast.LENGTH_LONG).show();
                 
                 if (ReturnSearchList.get(8).equalsIgnoreCase("1")) {
                     edt_barcode.setError("هذا الصنف غير فعال");
@@ -325,7 +325,7 @@ Button btn_export , btn_search;
                     if (itemAvailabilityModuleList.size() ==0) {
                         WriteInLogOf_sapTableofundefinedinSqlServer();
                     }else {
-                        Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ItemAvailabilityModuleActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                     }
             }
@@ -337,7 +337,7 @@ Button btn_export , btn_search;
                 if (itemAvailabilityModuleList.size() ==0) {
                    WriteInLogOf_sapTableofundefinedinSqlServer();
                 }else {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ItemAvailabilityModuleActivity.this, "تم عمل scan لهذا الباركود من قبل", Toast.LENGTH_SHORT).show();
 //                    Log.d("zzBuild.MODELMac6","الباركود عمل scan له من قبل");
                 }
             }
@@ -457,7 +457,7 @@ Button btn_export , btn_search;
                             Log.d("onResponse", message);
 
                                 if (status.equalsIgnoreCase("1")){
-                                    getLoaderManager().initLoader(LOADER_ID, null, ScanItemAvailabilityActivity.this);
+                                    getLoaderManager().initLoader(LOADER_ID, null, ItemAvailabilityModuleActivity.this);
                                 }else {
                                     MESSAGE="Barcode not found in 01EC Table" ;
                                     databaseHelperForItemAvailability.insert_ItemsAvai(edt_barcode.getText().toString(), MESSAGE,
@@ -541,7 +541,7 @@ Button btn_export , btn_search;
                                     site_list.add(pgrp_description);
                               //  }
                             }
-                            adapterForSites=new ArrayAdapter<String>(ScanItemAvailabilityActivity.this,
+                            adapterForSites=new ArrayAdapter<String>(ItemAvailabilityModuleActivity.this,
                                     android.R.layout.simple_spinner_item,site_list);
                             adapterForSites.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spiner_site.setAdapter(adapterForSites);
@@ -681,7 +681,7 @@ Button btn_export , btn_search;
                                         }
                                             // edit_current_deliver.setText(null);
 //                                            CreateORUpdateRecycleView(postionForsave);
-                                            Toast.makeText(ScanItemAvailabilityActivity.this, "تم", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ItemAvailabilityModuleActivity.this, "تم", Toast.LENGTH_SHORT).show();
                                         itemAvailabilityModuleList.clear();
                                         itemAvailabilityModuleList = databaseHelperForItemAvailability.select_ItemsAvaiModulebyBarcode(edt_barcode.getText().toString());
                                         if (itemAvailabilityModuleList.size() ==0) {
@@ -768,7 +768,7 @@ Button btn_export , btn_search;
                 queue.add(request);
 
                 if (volleyErrorPublic != null) {
-                    Toast.makeText(ScanItemAvailabilityActivity.this, "لم يتم الاتصال بالسيرفر", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ItemAvailabilityModuleActivity.this, "لم يتم الاتصال بالسيرفر", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -922,13 +922,13 @@ Button btn_export , btn_search;
     // Requesting run time permission method starts from here.
     public void RequestRunTimePermission(){
 
-        if (ActivityCompat.shouldShowRequestPermissionRationale(ScanItemAvailabilityActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE))
+        if (ActivityCompat.shouldShowRequestPermissionRationale(ItemAvailabilityModuleActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE))
         {
-            Toast.makeText(ScanItemAvailabilityActivity.this,"أذن قراء من الكارت", Toast.LENGTH_LONG).show();
+            Toast.makeText(ItemAvailabilityModuleActivity.this,"أذن قراء من الكارت", Toast.LENGTH_LONG).show();
             UplaodingToFtp();
         } else {
 
-            ActivityCompat.requestPermissions(ScanItemAvailabilityActivity.this,new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            ActivityCompat.requestPermissions(ItemAvailabilityModuleActivity.this,new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         }
     }
@@ -942,11 +942,11 @@ Button btn_export , btn_search;
 
                 if (Result.length > 0 && Result[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(ScanItemAvailabilityActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ItemAvailabilityModuleActivity.this,"تم أعطاء الأذن", Toast.LENGTH_LONG).show();
                     UplaodingToFtp();
                 } else {
 
-                    Toast.makeText(ScanItemAvailabilityActivity.this,"تم إلغاء الأذن", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ItemAvailabilityModuleActivity.this,"تم إلغاء الأذن", Toast.LENGTH_LONG).show();
                 }
                 break;
         }

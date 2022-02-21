@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,18 +16,20 @@ import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.TransfereModule.Adapter.Itemtransfer_for_searchAdapter;
 import com.example.connecttosoapapiapp.TransfereModule.Helper.DatabaseHelperForTransfer;
 import com.example.connecttosoapapiapp.TransfereModule.modules.STo_Search;
+import com.example.connecttosoapapiapp.makeOrder.CreateOrderSearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowOrderDataActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    Button btn_edit, btn_delete;
-    DatabaseHelperForTransfer databaseHelperForTransfer;
-    List<STo_Search> sTo_searchList;
-    Itemtransfer_for_searchAdapter itemtransfer_for_searchAdapter;
-    int CountChecked;
-String issChecked, BarCodeChecked, RecChecked;
+    private Button btn_edit, btn_delete;
+    private DatabaseHelperForTransfer databaseHelperForTransfer;
+    private List<STo_Search> sTo_searchList;
+    private Itemtransfer_for_searchAdapter itemtransfer_for_searchAdapter;
+    private int CountChecked;
+    private boolean makeOrder = false;
+    private String issChecked, BarCodeChecked, RecChecked, Department, FromSite, ToSite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +48,11 @@ String issChecked, BarCodeChecked, RecChecked;
         Intent getdat=getIntent();
         issChecked = getdat.getExtras().getString("Iss_Stg_Log");
         RecChecked = getdat.getExtras().getString("Rec_Stg_Log");
-        Log.e("databaseHelperForTrans",""+issChecked);
-        Log.e("databaseHelperForTrans",""+ RecChecked);
+        makeOrder = getdat.getExtras().getBoolean("MakeOrder");
+        Department = getdat.getExtras().getString("Department");
+        FromSite = getdat.getExtras().getString("FromSite");
+        ToSite = getdat.getExtras().getString("ToSite");
+
     }
 
     public void Delete_PDNEWQTY(View view) {
@@ -136,12 +140,16 @@ String issChecked, BarCodeChecked, RecChecked;
                         Toast.makeText(ShowOrderDataActivity.this, "لقد قمت باختيار اكثر من أختيار", Toast.LENGTH_LONG).show();
                     }
                     else if (CountChecked == 1 ) {  //&& !BarCodeChecked.isEmpty()
-                                        Intent gotoedit=new Intent(ShowOrderDataActivity.this,Edit_Order_DataActivity.class);
+                        Intent gotoedit = new Intent(ShowOrderDataActivity.this, Edit_Order_DataActivity.class);
 
-                                        gotoedit.putExtra("Iss_Stg_Log",issChecked);
-                                        gotoedit.putExtra("Barcode",BarCodeChecked);
-                                        gotoedit.putExtra("Rec_Stg_Log",RecChecked);
-                                        startActivity(gotoedit);
+                        gotoedit.putExtra("Iss_Stg_Log", issChecked);
+                        gotoedit.putExtra("Barcode", BarCodeChecked);
+                        gotoedit.putExtra("Rec_Stg_Log", RecChecked);
+                        gotoedit.putExtra("MakeOrder", makeOrder);
+                        gotoedit.putExtra("FromSite",FromSite);
+
+                        startActivity(gotoedit);
+                        finish();
                     }
                 }
             }
@@ -152,9 +160,22 @@ String issChecked, BarCodeChecked, RecChecked;
 
     @Override
     public void onBackPressed() {
-        Intent Go_Back= new Intent(ShowOrderDataActivity.this , TransferSearchActivity.class);
+
+        Intent Go_Back;
+        if (makeOrder)
+        {
+            Go_Back = new Intent(ShowOrderDataActivity.this, CreateOrderSearchActivity.class);
+        }
+        else
+        {
+            Go_Back = new Intent(ShowOrderDataActivity.this, TransferSearchActivity.class);
+        }
+        Go_Back.putExtra("MakeOrder", makeOrder);
+        Go_Back.putExtra("Department", Department);
+        Go_Back.putExtra("FromSite", FromSite);
+        Go_Back.putExtra("ToSite", ToSite);
         startActivity(Go_Back);
-        super.onBackPressed();
+        finish();
     }
     @Override
     public boolean onSupportNavigateUp() {

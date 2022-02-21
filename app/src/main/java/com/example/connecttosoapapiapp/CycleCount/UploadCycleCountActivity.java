@@ -126,11 +126,9 @@ public class UploadCycleCountActivity extends AppCompatActivity
 
 
         MachaineName = Build.MODEL;
-        Log.d("Build.MODEL",""+MachaineName);
 
 
         Device_id_Instance_of_MacAdress = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
-        Log.e("onCreateU", "Map"+Device_id_Instance_of_MacAdress);
 
 
         databaseHelperForCycleCount =new DatabaseHelperForCycleCount(this);
@@ -145,14 +143,6 @@ public class UploadCycleCountActivity extends AppCompatActivity
         GetDataFromDB getDataFromDB=new GetDataFromDB();
         getDataFromDB.execute();
 
-//
-//         String Path = String.valueOf((UploadForTransferActivity.this).getDatabasePath(DatabaseHelperForTransfer.DATABASE_NAME));
-//        Toast.makeText(this, ""+Path, Toast.LENGTH_SHORT).show();
-//
-//        Log.d("UploadActivity1","filename.csv"+filename);
-//        Po_Item_For_Serail_In_Upload = new ArrayList<>();
-//
-//        Po_Serial_For_Upload = new ArrayList<>();
 
         // TODO Auto-generated catch block
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -162,7 +152,6 @@ public class UploadCycleCountActivity extends AppCompatActivity
         if (userdataList.size() > 0) {
             UserComp = userdataList.get(0).getCompany1();
             UserComp = UserComp.substring(1, 3);
-            Log.e("zzzz", "" + UserComp);
         }
 
     }
@@ -180,6 +169,7 @@ public class UploadCycleCountActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -287,39 +277,10 @@ public class UploadCycleCountActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
     private void InsertToCSVFile() {
         try {
             FileWriter writer = new FileWriter(filePath);
-//            "PSTNG_DATE","DOC_DATE""PO_NUMBER""PO_ITEM""NO_MORE_GR""SPEC_STOCK""MATERIAL"
-//            "PLANT""STGE_LOC""ENTRY_QNT""ENTRY_UOM""EAN_UPC""SERNP"
-
-
-           /* writer.append("PHYSINVENTORY");
-             writer.append(',');
-            writer.append("FISCALYEAR");
-            writer.append(',');
-            writer.append("ITEM");
-            writer.append(',');
-            writer.append("SERIALNO");
-            writer.append(',');
-            writer.append("PHYSINVENTORY");
-            writer.append(',');
-            writer.append("FISCALYEAR");
-            writer.append(',');
-            writer.append("ITEM");
-            writer.append(',');
-            writer.append("MATERIAL");
-            writer.append(',');
-            writer.append("EAN11");
-            writer.append(',');
-            writer.append("ENTRY_QNT");
-            writer.append(',');
-            writer.append("ENTRY_UOM");
-            writer.append(',');
-            writer.append("ZERO_COUNT");
-            writer.append(',');
-            writer.append("BASE_UOM");
-            writer.append('\n');*/
 
             writer.append("PHYSINVENTORY");
             writer.append(',');
@@ -503,9 +464,8 @@ public class UploadCycleCountActivity extends AppCompatActivity
               multipartUploadRequest.addParameter("UserType", UserComp);
               multipartUploadRequest.addParameter("name", CSVName);
 
-                 // .addParameter("type", String.valueOf(3))
-//              if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
+
+
                   multipartUploadRequest .setNotificationConfig(new UploadNotificationConfig());
 //              }else {
 //                  Toast.makeText(this,"تم الرفع",Toast.LENGTH_SHORT).show();
@@ -856,17 +816,14 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
                         @Override
                         public void onResponse(String response) {
 
-                            Log.d("onResponse", response);
-                            Log.d("onResponse", ""+request);
+
 
                             try {
 
                                 JSONObject object = new JSONObject(response);
                                 String status = object.getString("status");
-                                Log.d("onResponse", status);
 
                                 String message = object.getString("message");
-                                Log.d("onResponse", message);
 
                                 if (status.equalsIgnoreCase("1")){
 
@@ -1101,24 +1058,16 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("onResponse", response);
-                        Log.d("onResponse", "" + request);
+
 
                         try {
 
                             JSONObject object = new JSONObject(response);
                             String status = object.getString("status");
-                            Log.d("onResponse", status);
 
                             String message = object.getString("message");
-                            Log.d("onResponse", message);
 
-                                /*if (status.equalsIgnoreCase("1")){
-                                    Intent gotomain =new Intent(UploadForTransferActivity.this,MainActivity.class);
-                                    startActivity(gotomain);
-                                }else {
-                                    Toast.makeText(UploadForTransferActivity.this, "Your User Or Password Is Wrong", Toast.LENGTH_SHORT).show();
-                                }*/
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1157,13 +1106,11 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
 
                 } else {
                     params.put("Sap_OrderNo", CSVName);
-                    Log.d("Sap_OrderNo", "" + CSVName);
-                    Log.d("Sap_OrderNo", "" + From_Sap_Or_Not);
+
 
                     ///Toast.makeText(UploadForTransferActivity.this, "Not from sap", Toast.LENGTH_SHORT).show();
 
                 }
-//                Log.d("Build.MODELMac6",""+MATERIALDOCUMENT);
 
                 return params;
             }
@@ -1171,10 +1118,8 @@ Log.e("bbbbbb","nm,.,mcgvbnjmkl,");
         };
 
 
-        // Add the realibility on the connection.
         request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
 
-        // Start the request immediately
         queue.add(request);
 
     }

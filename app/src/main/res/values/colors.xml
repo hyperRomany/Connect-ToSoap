@@ -17,5 +17,7 @@
 
     <color name="main_color">#0C630E</color>
     <color name="bg_sales_avsilable">#D89B18</color>
+    <color name="color_for_title">#0993CA</color>
+    <color name="forallcolor">#0024FF</color>
 
 </resources>

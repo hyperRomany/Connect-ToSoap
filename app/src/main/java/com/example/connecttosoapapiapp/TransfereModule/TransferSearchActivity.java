@@ -13,9 +13,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.connecttosoapapiapp.R;
 import com.example.connecttosoapapiapp.ReceivingModule.Classes.Constant;
@@ -32,22 +35,22 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class TransferSearchActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<String>>{
     EditText editbarcodeforsoap,edit_asked_from_site_search;
     String FromSite,ToSite,Department;
     private int LOADER_ID = 1;
     DatabaseHelperForTransfer databaseHelperForTransfer;
+    Boolean makeOrder = false;
 
-    String EnvelopeBodyInConstant,EnvelopeBodyInCurrent , RETURN, MESSAGE ;
+    String EnvelopeBodyInConstant,EnvelopeBodyInCurrent , RETURN, MESSAGE, type ;
     List<String> ReturnSearchList ;
     List<STo_Search> CheckItemssize;
     TextView txt_descripation_search,txt_code_item_search,txt_state_item_search,
             txt_from_site_search,txt_available_to_site_search,txt_to_site_search;
     Spinner spiner_storage_location_from,spiner_storage_location_to;
     List<STO_Header> STo_headerlist;
+    LinearLayout fromSite_Linear;
     //List<STo_Search> STo_searchlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class TransferSearchActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        fromSite_Linear = findViewById(R.id.from_site_linear);
         spiner_storage_location_to=findViewById(R.id.spiner_storage_location_to);
         spiner_storage_location_from=findViewById(R.id.spiner_storage_location_from);
 
@@ -78,13 +82,16 @@ public class TransferSearchActivity extends AppCompatActivity
         STo_headerlist = new ArrayList<>();
         STo_headerlist = databaseHelperForTransfer.selectSto_Header();
 
+        makeOrder = getIntent().getExtras().getBoolean("MakeOrder");
+        type = getIntent().getExtras().getString("type");
         Intent GetData = getIntent();
         if (GetData.getExtras() != null) {
             Department = GetData.getExtras().getString("Department");
             FromSite = GetData.getExtras().getString("FromSite");
             ToSite = GetData.getExtras().getString("ToSite");
-            Log.e("intent is not null","fromsite"+FromSite);
-            Log.e("intent is not null","tosite"+ToSite);
+
+
+
             txt_from_site_search.setText(FromSite);
             txt_to_site_search.setText(ToSite);
 
@@ -94,11 +101,17 @@ public class TransferSearchActivity extends AppCompatActivity
             Department = STo_headerlist.get(0).getP_Grp1();
             FromSite = STo_headerlist.get(0).getIss_Site1();
             ToSite = STo_headerlist.get(0).getRec_Site1();
-            Log.e("intent is null", "fromsite" + FromSite);
-            Log.e("intent is null", "tosite" + ToSite);
             txt_from_site_search.setText(FromSite);
             txt_to_site_search.setText(ToSite);
         }
+
+        if (makeOrder) {
+            fromSite_Linear.setVisibility(View.GONE);
+            getSupportActionBar().setTitle("Create Order");
+            ToSite = GetData.getExtras().getString("FromSite");
+        }
+
+
         if (STo_headerlist.size()>0) {
             //TODO ccccccccccccccccccccccccccccc
             if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")) { //anyType{}
@@ -210,30 +223,7 @@ public class TransferSearchActivity extends AppCompatActivity
 
             }
         });
-       /* List<STO_Header> STo_headerlist = new ArrayList<>();
-        STo_headerlist = databaseHelperForTransfer.selectSto_Header();
-        Log.e("getRec_Site_log1",""+STo_headerlist.get(0).getRec_Site_log1());
-        if (!STo_headerlist.get(0).getRec_Site_log1().contains("anyType{}")){ //anyType{}
-            List<String> Iss_Site_Log_list = new ArrayList<>();
-            Iss_Site_Log_list.add(STo_headerlist.get(0).getIss_Strg_Log1());
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(TransferSearchActivity.this,
-                    android.R.layout.simple_spinner_item, Iss_Site_Log_list);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spiner_storage_location_from.setAdapter(adapter);
 
-            List<String> Rec_Site_Log_list = new ArrayList<>();
-            Rec_Site_Log_list.add(STo_headerlist.get(0).getRec_Site_log1());
-            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(TransferSearchActivity.this,
-                    android.R.layout.simple_spinner_item, Rec_Site_Log_list);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spiner_storage_location_to.setAdapter(adapter2);
-        }
-        else {
-            databaseHelperForTransfer.Update_Sto_header_For_Iss_Site_log(String.valueOf(spiner_storage_location_from.getSelectedItemPosition()));
-            databaseHelperForTransfer.Update_Sto_Header_For_Rec_Site_log(String.valueOf(spiner_storage_location_to.getSelectedItemPosition()));
-            spiner_storage_location_from.setEnabled(false);
-            spiner_storage_location_to.setEnabled(false);
-        }*/
     }
 
     public void SearchBarCodeFromSoap(View view) {
@@ -399,6 +389,9 @@ public class TransferSearchActivity extends AppCompatActivity
             @Override
             public Object loadInBackground() {
                 SoapObject request =new SoapObject(Constant.NAMESPACE_For_Search_Barcode , Constant.METHOD_For_Search_Barcode);
+//                request.addProperty("sap-client", "200");
+//                request.addProperty("sap-user", "test");
+//                request.addProperty("sap-password", "12345789");
                 if (editbarcodeforsoap.getText().toString().startsWith("23")){
                     request.addProperty("GTIN", Calculatcheckdigitforscales(editbarcodeforsoap.getText().toString().substring(0,7)+"00000"));
                     Log.e("zzzbarcode",""+editbarcodeforsoap.getText().toString().substring(0,7)+"00000");
@@ -703,8 +696,6 @@ public class TransferSearchActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        Intent Go_Back= new Intent(TransferSearchActivity.this, FormTransferActivity.class);
-        startActivity(Go_Back);
         super.onBackPressed();
     }
     @Override
@@ -723,10 +714,17 @@ public class TransferSearchActivity extends AppCompatActivity
             Intent gotoshowBuyData=new Intent(TransferSearchActivity.this, ShowOrderDataActivity.class);
             gotoshowBuyData.putExtra("Iss_Stg_Log",STo_headerlist.get(0).getIss_Strg_Log1());
             gotoshowBuyData.putExtra("Rec_Stg_Log",STo_headerlist.get(0).getRec_Site_log1());
+            gotoshowBuyData.putExtra("MakeOrder", makeOrder);
+            gotoshowBuyData.putExtra("Department", Department);
+            gotoshowBuyData.putExtra("FromSite", FromSite);
+            gotoshowBuyData.putExtra("ToSite", ToSite);
             startActivity(gotoshowBuyData);
+            finish();
+
         }
 
     }
+
 
     public void SaveDelivered(View view) {
         if (editbarcodeforsoap.getText().toString().isEmpty()) {
@@ -899,8 +897,9 @@ public class TransferSearchActivity extends AppCompatActivity
             List<STo_Search> sTo_searchList_upload = new ArrayList<>();
             sTo_searchList_upload = databaseHelperForTransfer.selectSto_Search_for_Qty();
             if (sTo_searchList_upload.size() > 0) {
-                Intent gotoupload = new Intent(TransferSearchActivity.this, UploadForTransferActivity.class);
-                startActivity(gotoupload);
+                    Intent gotoupload = new Intent(TransferSearchActivity.this, UploadForTransferActivity.class);
+                    startActivity(gotoupload);
+                    finish();
 
             } else {
                 Toast.makeText(this, "كل القيم 0.0", Toast.LENGTH_SHORT).show();
